@@ -9,6 +9,7 @@ void ETB::ShaderLoader::Add(const std::string& path, bool hotLoad) {
 	}
 
 	ShaderLoader::shaders[path] = Shader(path);
+	ShaderLoader::shaders[path].Compile();
 	
 	if (hotLoad) ShaderLoader::shaders[path].HotReload();
 }

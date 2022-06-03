@@ -12,7 +12,6 @@ ETB::Shader::Shader(const std::string& _path) {
 	path = _path;
 
 	LoadSources();
-	Compile();
 }
 
 ETB::Shader::~Shader() {

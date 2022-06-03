@@ -4,6 +4,9 @@
 #include "Timer.h"
 #include "Graphics.h"
 #include "GUI.h"
+#include "ActorHandler.h"
+#include "Camera.h"
+#include "Debug.h"
 
 #include <string>
 
@@ -21,6 +24,7 @@ void ETB::Application::Run() {
 
 	Time::Start();
 	Start();
+	ActorHandler::Start();
 
 	while (isRunning) {
 		Time::Tick();
@@ -29,17 +33,24 @@ void ETB::Application::Run() {
 		EventSystem::DispatchEvents();
 
 		/// Update
+		EventSystem::DispatchEventType(EventType::Update);
 		Update();
+		ActorHandler::Update();
 		///
 
 		/// Render
 		Graphics::Clear();
+		if (Camera::activeCamera) Camera::activeCamera->Use();
+		EventSystem::DispatchEventType(EventType::Render);
 		Render();
+		ActorHandler::Render();
 		///
 
 		/// GUI
 		window.GuiNewFrame();
+		EventSystem::DispatchEventType(EventType::GUI);
 		GUI();
+		ActorHandler::GUI();
 		ETB::GUI::Draw();
 		///
 

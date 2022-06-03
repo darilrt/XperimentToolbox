@@ -1,8 +1,9 @@
 #pragma once
 
-#include <chrono>
-
 #include "etbdefs.h"
+
+#include <chrono>
+#include <SDL.h>
 
 namespace ETB {
 
@@ -13,6 +14,8 @@ namespace ETB {
 
 		static DECLSPEC void Start();
 		static DECLSPEC void Tick();
+
+		static inline DECLSPEC uint32_t GetTicks() { return SDL_GetTicks(); }
 
 	private:
 		static std::chrono::time_point<std::chrono::high_resolution_clock> start;

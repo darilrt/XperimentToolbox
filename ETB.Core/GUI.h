@@ -19,5 +19,10 @@ namespace ETB {
 		DECLSPEC void ProcesssEvent(SDL_Event* event);
 
 		DECLSPEC void SetTheme();
+
+		inline DECLSPEC bool UseKeyboard() { return ImGui::GetIO().WantCaptureKeyboard; }
+
+		inline DECLSPEC bool UseMouse() { return ImGui::GetIO().WantCaptureMouse; }
+		
 	}
 }

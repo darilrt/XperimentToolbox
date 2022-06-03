@@ -1,12 +1,13 @@
 #include "Camera.h"
 #include "Graphics.h"
 
-#include <glm/ext/matrix_clip_space.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+ETB::Camera* ETB::Camera::activeCamera = nullptr;
 
-ETB::Camera* ETB::Camera::activeCamera;
+void ETB::Camera::SetActive(Camera* camera) {
+	Camera::activeCamera = camera;
+}
 
-ETB::Camera::Camera() : position(0), rotation(glm::vec3(0.0f)) {
+ETB::Camera::Camera() : transform() {
 }
 
 void ETB::Camera::SetPerspective(float fovy, float aspect, float zNear, float zFar) {
@@ -18,7 +19,9 @@ void ETB::Camera::Use() {
 
 	Graphics::Clear();
 
-	viewMatrix = glm::translate(glm::mat4(1.0), position) * glm::mat4_cast(rotation);
+	viewMatrix = glm::mat4_cast(transform.rotation);
+	viewMatrix = glm::translate(viewMatrix, transform.position);
+	viewMatrix = glm::scale(viewMatrix, transform.scale);
 }
 
 glm::mat4 ETB::Camera::GetMatrix() {

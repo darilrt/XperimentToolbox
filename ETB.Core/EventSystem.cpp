@@ -44,21 +44,43 @@ void ETB::EventSystem::DispatchEvents() {
 		case SDL_KEYDOWN:
 			type = EventType::KeyDown;
 			EventSystem::event.keyCode = (KeyCode) sdlEvent.key.keysym.scancode;
+
+			if (GUI::UseKeyboard()) continue;
 			break;
 
 		case SDL_KEYUP:
 			type = EventType::KeyUp;
 			EventSystem::event.keyCode = (KeyCode)sdlEvent.key.keysym.scancode;
+
+			if (GUI::UseKeyboard()) continue;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
 			type = EventType::MouseButtonDown;
-			EventSystem::event.button = sdlEvent.button.button;
+			EventSystem::event.mouse.button = sdlEvent.button.button;
+
+			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
+			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
+
+			if (GUI::UseMouse()) continue;
 			break;
 
 		case SDL_MOUSEBUTTONUP:
 			type = EventType::MouseButtonUp;
-			EventSystem::event.button = sdlEvent.button.button;
+			EventSystem::event.mouse.button = sdlEvent.button.button;
+
+			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
+			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
+
+			if (GUI::UseMouse()) continue;
+			break;
+
+		case SDL_MOUSEMOTION:
+			type = EventType::MouseMotion;
+			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
+			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
+
+			if (GUI::UseMouse()) continue;
 			break;
 
 		default:

@@ -131,9 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorHandler.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="etb.h" />
     <ClInclude Include="etbdefs.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="mathf.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="Primitives.h" />
@@ -151,6 +155,7 @@
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_sdl.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
@@ -163,9 +168,12 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorHandler.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="File.cpp" />
@@ -180,6 +188,7 @@
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_sdl.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
@@ -190,6 +199,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

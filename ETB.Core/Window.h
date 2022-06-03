@@ -10,6 +10,12 @@
 namespace ETB {
 	namespace Core {
 
+		enum class VSyncMode {
+			Adaptative = -1,
+			Off = 0,
+			On = 1,
+		};
+
 		class DECLSPEC Window {
 			friend class Application;
 		public:
@@ -17,10 +23,9 @@ namespace ETB {
 			~Window();
 
 			void Swap();
-
 			void SetResizable(bool resizable);
-
 			void GuiNewFrame();
+			void SetVSync(VSyncMode mode);
 
 		private:
 			SDL_Window* sdlWindow;

@@ -1,18 +1,19 @@
 #pragma once
 
 #include "etbdefs.h"
+#include "Transform.h"
 
 #include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 namespace ETB {
 
 	class Camera {
 	public:
-		static Camera* activeCamera;
+		static DECLSPEC Camera* activeCamera;
 
-		glm::vec3 position;
-		glm::quat rotation;
+		static DECLSPEC void SetActive(Camera* camera);
+
+		Transform transform;
 
 		DECLSPEC Camera();
 		DECLSPEC void SetPerspective(float fovy, float aspect, float zNear, float zFar);

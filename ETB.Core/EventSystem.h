@@ -3,6 +3,7 @@
 #include "etbdefs.h"
 #include "KeyCode.h"
 
+#include <glm/glm.hpp>
 #include <functional>
 #include <vector>
 #include <map>
@@ -16,6 +17,7 @@ namespace ETB{
 		// App Events
 		Start,
 		Tick,
+		Update,
 		Render,
 		GUI,
 
@@ -29,9 +31,10 @@ namespace ETB{
 
 		MouseButtonDown,
 		MouseButtonUp,
+		MouseMotion,
 	};
 
-	class DECLSPEC Event {
+	class Event {
 	public:
 		struct {
 			int32_t width;
@@ -39,7 +42,12 @@ namespace ETB{
 		} window;
 
 		KeyCode keyCode;
-		uint8_t button;
+
+		struct {
+			uint8_t button;
+			glm::vec2 rel;
+			glm::vec2 position;
+		} mouse;
 	};
 
 	class EventSystem {

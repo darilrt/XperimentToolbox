@@ -21,10 +21,10 @@ void ETB::Primitives::GeneratePrimitives() {
 		{ .5f,  .5f, 0},
 	};
 	Primitives::quad.normals = {
-		{0, 0, -1},
-		{0, 0, -1},
-		{0, 0, -1},
-		{0, 0, -1},
+		{0, 0, 1},
+		{0, 0, 1},
+		{0, 0, 1},
+		{0, 0, 1},
 	};
 	Primitives::quad.uv = {
 		{0, 1},

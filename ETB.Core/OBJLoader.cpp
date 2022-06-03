@@ -51,6 +51,7 @@ ETB::Mesh ETB::OBJFile::GetMesh() {
         }
         else if (header == "f") {
             int v, t, n;
+            size_t size = 0;
 
             for (int32_t i = 0; !ssLine.eof() && ssLine.peek() != -1; i++) {
                 ssLine >> v;
@@ -79,10 +80,19 @@ ETB::Mesh ETB::OBJFile::GetMesh() {
                         }
                     }
                 }
+
+                size++;
             }
 
             const size_t i = mesh.vertices.size();
-            mesh.elements.push_back({ i - 3, i - 2, i - 1 });
+
+            if (size > 3) {
+                mesh.elements.push_back({ i - 4, i - 3, i - 2 });
+                mesh.elements.push_back({ i - 4, i - 2, i - 1 });
+            }
+            else {
+                mesh.elements.push_back({ i - 3, i - 2, i - 1 });
+            }
         }
     }
 

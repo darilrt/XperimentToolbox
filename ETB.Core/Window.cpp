@@ -37,3 +37,7 @@ void ETB::Core::Window::SetResizable(bool resizable) {
 void ETB::Core::Window::GuiNewFrame() {
 	GUI::NewFrame(sdlWindow);
 }
+
+void ETB::Core::Window::SetVSync(VSyncMode mode) {
+	SDL_GL_SetSwapInterval((int32_t)mode);
+}

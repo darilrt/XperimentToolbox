@@ -1,5 +1,4 @@
-#version 400
-
+#version 330 core
 uniform mat4 ETBWorldMatrix;
 uniform mat4 ETBModelMatrix;
 
