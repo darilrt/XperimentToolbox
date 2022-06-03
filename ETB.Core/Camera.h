@@ -21,6 +21,8 @@ namespace ETB {
 
 		DECLSPEC glm::mat4 GetMatrix();
 
+		DECLSPEC void SetViewport(int32_t x, int32_t y, int32_t width, int32_t height);
+
 	private:
 		glm::mat4 projectionMatrix;
 		glm::mat4 viewMatrix;

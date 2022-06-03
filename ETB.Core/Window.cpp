@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "GUI.h"
 #include "Window.h"
 
 ETB::Core::Window::Window(const std::string& title, int32_t w, int32_t h) {
@@ -13,9 +14,15 @@ ETB::Core::Window::Window(const std::string& title, int32_t w, int32_t h) {
 	 sdlGLContext = SDL_GL_CreateContext(sdlWindow);
 
 	 Graphics::Init();
+
+	 GUI::Init(sdlWindow, sdlGLContext);
+	 GUI::SetTheme();
 }
 
 ETB::Core::Window::~Window() {
+	GUI::Destroy();
+
+	SDL_GL_DeleteContext(sdlGLContext);
 	SDL_DestroyWindow(sdlWindow);
 }
 
@@ -25,4 +32,8 @@ void ETB::Core::Window::Swap() {
 
 void ETB::Core::Window::SetResizable(bool resizable) {
 	SDL_SetWindowResizable(sdlWindow, resizable ? SDL_TRUE : SDL_FALSE);
+}
+
+void ETB::Core::Window::GuiNewFrame() {
+	GUI::NewFrame(sdlWindow);
 }

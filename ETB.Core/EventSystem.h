@@ -11,6 +11,8 @@
 namespace ETB{
 
 	enum class EventType {
+		Unknow,
+
 		// App Events
 		Start,
 		Tick,
@@ -18,8 +20,8 @@ namespace ETB{
 		GUI,
 
 		// Window Events
-		Quit,
-		Resize,
+		WindowQuit,
+		WindowResize,
 
 		// Input Events
 		KeyDown,
@@ -31,6 +33,11 @@ namespace ETB{
 
 	class DECLSPEC Event {
 	public:
+		struct {
+			int32_t width;
+			int32_t height;
+		} window;
+
 		KeyCode keyCode;
 		uint8_t button;
 	};

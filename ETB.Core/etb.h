@@ -13,6 +13,8 @@
 #include "Timer.h"
 #include "Window.h"
 
+#include "GUI.h"
+
 #include "Bounds.h"
 #include "Random.h"
 #include "File.h"

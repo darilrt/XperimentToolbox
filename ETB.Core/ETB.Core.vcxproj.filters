@@ -46,6 +46,15 @@
     <Filter Include="Resource Files\Vendor">
       <UniqueIdentifier>{b6addad7-8141-4c96-be64-59dc4efd648f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Vendor\Imgui">
+      <UniqueIdentifier>{8d4f0189-68eb-48ec-8d46-0a8d67c6b570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{1d24baf5-8772-4d6c-9ffa-a062e39e3020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{bd8ef28f-cb78-404a-a769-8b5d40aefb71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -99,17 +108,44 @@
     <ClInclude Include="Debug.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OBJLoader.h">
       <Filter>Header Files\Utils\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\stb_image.h">
       <Filter>Resource Files\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_sdl.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,14 +191,38 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OBJLoader.cpp">
       <Filter>Source Files\Utils\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_sdl.cpp">
+      <Filter>Resource Files\Vendor\Imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,8 @@ namespace ETB {
 
 	class DECLSPEC Application {
 	public:
+		Core::Window window;
+
 		Application();
 		Application(const std::string& title, int32_t width, int32_t height);
 		void Run();
@@ -17,9 +19,6 @@ namespace ETB {
 		virtual void Update();
 		virtual void Render();
 		virtual void GUI();
-
-	private:
-		Core::Window window;
 	};
 
 }

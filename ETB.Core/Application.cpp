@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Graphics.h"
+#include "GUI.h"
 
 #include <string>
 
@@ -16,7 +17,7 @@ void ETB::Application::Run() {
 	EventSystem::DispatchEventType(EventType::Start);
 
 	bool isRunning = true;
-	EventSystem::AddEventListener(EventType::Quit, [&](Event& e) { isRunning = false; });
+	EventSystem::AddEventListener(EventType::WindowQuit, [&](Event& e) { isRunning = false; });
 
 	Time::Start();
 	Start();
@@ -37,7 +38,9 @@ void ETB::Application::Run() {
 		///
 
 		/// GUI
+		window.GuiNewFrame();
 		GUI();
+		ETB::GUI::Draw();
 		///
 
 		window.Swap();

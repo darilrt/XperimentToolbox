@@ -1,4 +1,5 @@
 #include "EventSystem.h"
+#include "GUI.h"
 
 SDL_Event ETB::EventSystem::sdlEvent;
 ETB::Event ETB::EventSystem::event;
@@ -19,13 +20,25 @@ void ETB::EventSystem::AddEventListener(EventType type, std::function<void(Event
 }
 
 void ETB::EventSystem::DispatchEvents() {
-	EventType type;
+	EventType type = EventType::Unknow;
 
 	while (SDL_PollEvent(&sdlEvent)) {
-		switch (sdlEvent.type)
-		{
+		ETB::GUI::ProcesssEvent(&sdlEvent);
+
+		switch (sdlEvent.type) {
 		case SDL_QUIT:
-			type = EventType::Quit;
+			type = EventType::WindowQuit;
+			break;
+
+		case SDL_WINDOWEVENT:
+			switch (sdlEvent.window.event) {
+			case SDL_WINDOWEVENT_RESIZED:
+				EventSystem::event.window.width = sdlEvent.window.data1;
+				EventSystem::event.window.height = sdlEvent.window.data2;
+
+				type = EventType::WindowResize;
+				break;
+			}
 			break;
 
 		case SDL_KEYDOWN:

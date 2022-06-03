@@ -21,6 +21,11 @@ void ETB::Camera::Use() {
 	viewMatrix = glm::translate(glm::mat4(1.0), position) * glm::mat4_cast(rotation);
 }
 
-DECLSPEC glm::mat4 ETB::Camera::GetMatrix() {
+glm::mat4 ETB::Camera::GetMatrix() {
 	return projectionMatrix * viewMatrix;
+}
+
+void ETB::Camera::SetViewport(int32_t x, int32_t y, int32_t width, int32_t height)
+{
+	glViewport(x, y, width, height);
 }
