@@ -1,4 +1,5 @@
 #include "Application.h"
+
 #include "EventSystem.h"
 #include "Window.h"
 #include "Timer.h"
@@ -17,16 +18,22 @@ ETB::Application::Application(const std::string& title, int32_t w, int32_t h) : 
 }
 
 void ETB::Application::Run() {
-	EventSystem::DispatchEventType(EventType::Start);
+	Core::Window::SetActive(&window);
 
 	bool isRunning = true;
 	EventSystem::AddEventListener(EventType::WindowQuit, [&](Event& e) { isRunning = false; });
 
+	EventSystem::DispatchEventType(EventType::Start);
 	Time::Start();
 	Start();
 	ActorHandler::Start();
 
+	int32_t elapsedMs;
+	int32_t frameMs = 1000 / 240;
+
 	while (isRunning) {
+		elapsedMs = Time::GetTicks();
+
 		Time::Tick();
 
 		EventSystem::DispatchEventType(EventType::Tick);
@@ -40,7 +47,7 @@ void ETB::Application::Run() {
 
 		/// Render
 		Graphics::Clear();
-		if (Camera::activeCamera) Camera::activeCamera->Use();
+		if (Camera::GetActive()) Camera::GetActive()->Use();
 		EventSystem::DispatchEventType(EventType::Render);
 		Render();
 		ActorHandler::Render();
@@ -53,6 +60,11 @@ void ETB::Application::Run() {
 		ActorHandler::GUI();
 		ETB::GUI::Draw();
 		///
+
+		elapsedMs = Time::GetTicks() - elapsedMs;
+		if (elapsedMs < frameMs) {
+			SDL_Delay(frameMs - elapsedMs);
+		}
 
 		window.Swap();
 	}

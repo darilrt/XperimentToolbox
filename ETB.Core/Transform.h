@@ -12,14 +12,14 @@ namespace ETB {
 		glm::vec3 position;
 		glm::quat rotation;
 		glm::vec3 scale;
-		
+
 		DECLSPEC Transform();
 
 		DECLSPEC glm::mat4 GetTransformMatrix();
 		
-		inline glm::vec3 GetEulerAngles() { return glm::eulerAngles(rotation); }
-		inline void SetEulerAngles(glm::vec3 rot) { rotation = glm::quat(rot); }
-		inline void Rotate(glm::vec3 rot) { rotation *= glm::quat(rot); }
+		glm::vec3 GetEulerAngles() { return glm::eulerAngles(rotation); }
+		void SetEulerAngles(glm::vec3 rot) { rotation = glm::quat(rot); }
+		void Rotate(glm::vec3 rot) { rotation *= glm::quat(rot); }
 	};
 
 }

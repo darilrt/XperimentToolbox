@@ -4,6 +4,7 @@
 #include "GUI.h"
 #include "Window.h"
 
+#include <glm/glm.hpp>
 #include <string>
 #include <SDL.h>
 
@@ -27,9 +28,16 @@ namespace ETB {
 			void GuiNewFrame();
 			void SetVSync(VSyncMode mode);
 
+			glm::ivec2 GetSize();
+
+			static inline void SetActive(Window* window) { Window::activeWindow = window; }
+			static inline Window* GetActive() { return Window::activeWindow; }
+
 		private:
 			SDL_Window* sdlWindow;
 			SDL_GLContext sdlGLContext;
+
+			static Window* activeWindow;
 		};
 	}
 }

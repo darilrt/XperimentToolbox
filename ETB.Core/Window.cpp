@@ -2,6 +2,8 @@
 #include "GUI.h"
 #include "Window.h"
 
+ETB::Core::Window* ETB::Core::Window::activeWindow;
+
 ETB::Core::Window::Window(const std::string& title, int32_t w, int32_t h) {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -40,4 +42,10 @@ void ETB::Core::Window::GuiNewFrame() {
 
 void ETB::Core::Window::SetVSync(VSyncMode mode) {
 	SDL_GL_SetSwapInterval((int32_t)mode);
+}
+
+glm::ivec2 ETB::Core::Window::GetSize() {
+	int32_t w, h;
+	SDL_GetWindowSize(sdlWindow, &w, &h);
+	return { w, h };
 }

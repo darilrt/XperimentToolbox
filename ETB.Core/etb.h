@@ -13,6 +13,7 @@
 #include "Timer.h"
 #include "Window.h"
 #include "Cursor.h"
+#include "Screen.h"
 
 #include "GUI.h"
 

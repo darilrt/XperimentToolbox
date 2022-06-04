@@ -15,7 +15,6 @@ void ETB::Debug::TransformEditor(Transform& transform) {
 	ImGui::InputFloat3("Position", &transform.position[0]);
 	
 	static glm::vec3 euler;
-
 	euler = glm::eulerAngles(transform.rotation) * TO_DEGREES;
 	ImGui::InputFloat3("Rotation X", &euler[0]);
 	transform.rotation = glm::quat(euler * TO_RADIANS);
@@ -28,7 +27,7 @@ void ETB::Debug::TransformEditor(Transform& transform) {
 void ETB::Debug::ShowStatus() {
 	ImGui::Begin("Status");
 
-	int fps = 1.0f / Time::deltaTime;
+	int32_t fps = (int32_t)(1.0f / Time::deltaTime);
 	ImGui::Text(("FPS " + std::to_string(fps)).c_str());
 
 	ImGui::Text(("Delta Time " + std::to_string(Time::deltaTime)).c_str());

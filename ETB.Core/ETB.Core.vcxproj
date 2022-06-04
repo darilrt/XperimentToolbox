@@ -138,6 +138,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="etb.h" />
     <ClInclude Include="etbdefs.h" />
     <ClInclude Include="EventSystem.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -199,7 +201,6 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

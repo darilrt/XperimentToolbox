@@ -20,7 +20,7 @@ void ETB::Camera::Use() {
 	Graphics::Clear();
 
 	viewMatrix = glm::mat4_cast(transform.rotation);
-	viewMatrix = glm::translate(viewMatrix, transform.position);
+	viewMatrix = glm::translate(viewMatrix, -transform.position);
 	viewMatrix = glm::scale(viewMatrix, transform.scale);
 }
 
