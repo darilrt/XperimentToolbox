@@ -138,6 +138,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="RenderTexture.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="etb.h" />
     <ClInclude Include="etbdefs.h" />
@@ -176,6 +178,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="File.cpp" />

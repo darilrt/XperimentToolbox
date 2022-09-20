@@ -11,6 +11,14 @@
 #include "Debug.h"
 #include "File.h"
 
+ETB::Texture::Texture(int32_t width, int32_t height, TextureType t) {
+	type = t;
+
+	GenTextureBuffer();
+	SetFilterMode(TextureFilterMode::Linear);
+	SetSize(width, height);
+}
+
 ETB::Texture::Texture(const std::string& path) {
 	if (!File::Exists(path)) {
 		Debug::Print("Image \"" + path + "\" does not exists");
@@ -20,7 +28,7 @@ ETB::Texture::Texture(const std::string& path) {
 }
 
 ETB::Texture::~Texture() {
-	glDeleteTextures(1, &texture);
+	if (texture) glDeleteTextures(1, &texture);
 }
 
 void ETB::Texture::LoadImage(const std::string& path) {
@@ -41,23 +49,56 @@ void ETB::Texture::LoadImage(const std::string& path) {
 	default: break;
 	}
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	switch (format)  {
+	case GL_RGB: type = TextureType::RGB; break;
+	case GL_RGBA: type = TextureType::RGBA; break;
+	default: break;
+	}
 
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	GenTextureBuffer();
+	BindTexture();
 
 	glTexImage2D(GL_TEXTURE_2D, 0, n, w, h, 0, format, GL_UNSIGNED_BYTE, image);
 	
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLfloat)TextureWrapMode::Repeat);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLfloat)TextureWrapMode::Repeat);
+	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)TextureFilterMode::Linear);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)TextureFilterMode::Linear);
+	
+	UnbindTexture();
 
 	delete image;
 
 	width = w;
 	height = h;
+}
+
+void ETB::Texture::SetSize(int32_t w, int32_t h) {
+	width = w;
+	height = h;
+	
+	BindTexture();
+	glTexImage2D(GL_TEXTURE_2D, 0, (GLint)type, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	UnbindTexture();
+}
+
+void ETB::Texture::SetWrapMode(TextureWrapMode wrapMode) {
+	BindTexture();
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLfloat)wrapMode);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLfloat)wrapMode);
+	UnbindTexture();
+}
+
+void ETB::Texture::SetFilterMode(TextureFilterMode filterMode) {
+	BindTexture();
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)filterMode);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)filterMode);
+	UnbindTexture();
+}
+
+void ETB::Texture::GenTextureBuffer() {
+	if (texture) glDeleteTextures(1, &texture);
+
+	glGenTextures(1, &texture);
 }

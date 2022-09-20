@@ -24,9 +24,12 @@ namespace ETB {
 			~Window();
 
 			void Swap();
+			void Minimize();
+			void Maximize();
 			void SetResizable(bool resizable);
 			void GuiNewFrame();
 			void SetVSync(VSyncMode mode);
+			void Warp(glm::ivec2 pos);
 
 			glm::ivec2 GetSize();
 

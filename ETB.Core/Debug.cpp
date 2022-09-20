@@ -15,9 +15,9 @@ void ETB::Debug::TransformEditor(Transform& transform) {
 	ImGui::InputFloat3("Position", &transform.position[0]);
 	
 	static glm::vec3 euler;
-	euler = glm::eulerAngles(transform.rotation) * TO_DEGREES;
+	euler = glm::degrees(glm::eulerAngles(transform.rotation));
 	ImGui::InputFloat3("Rotation X", &euler[0]);
-	transform.rotation = glm::quat(euler * TO_RADIANS);
+	transform.rotation = glm::quat(glm::radians(euler));
 
 	ImGui::InputFloat3("Scale", &transform.scale[0]);
 

@@ -24,51 +24,28 @@ void ETB::Shader::Use() {
 }
 
 void ETB::Shader::LoadSources() {
-	std::string fragPath = path + ".frag";
-	std::string vertPath = path + ".vert";
-
-	if (!File::Exists(fragPath)) {
-		Debug::Print("Fragment shader \"" + fragPath + "\" does not exists");
+	if (!File::Exists(path)) {
+		Debug::Print("Shader \"" + path + "\" does not exists");
 		return;
 	}
-
-	if (!File::Exists(vertPath)) {
-		Debug::Print("Vertex shader \"" + vertPath + "\" does not exists");
-		return;
-	}
-
-	fragSource = File::ReadAll(fragPath);
-	vertSource = File::ReadAll(vertPath);
+	
+	source = File::ReadAll(path);
 }
 
 bool ETB::Shader::Compile() {
-	shaderId = Graphics::CreateShader(&vertSource, &fragSource);
+	shaderId = Graphics::CreateShader(&source);
 	return shaderId != 0;
 }
 
 void ETB::Shader::HotReload() {
 	EventSystem::AddEventListener(EventType::Tick, [&](Event& e) {
-		std::string fragPath = path + ".frag";
-		std::string vertPath = path + ".vert";
-
-		bool reload = false;
 		struct stat fileInfo;
 
-		stat(fragPath.c_str(), &fileInfo);
+		stat(path.c_str(), &fileInfo);
 
-		if (fragMTime != fileInfo.st_mtime) {
-			reload = true;
-			fragMTime = fileInfo.st_mtime;
-		}
+		if (srcMTime != fileInfo.st_mtime) {
+			srcMTime = fileInfo.st_mtime;
 
-		stat(vertPath.c_str(), &fileInfo);
-
-		if (vertMTime != fileInfo.st_mtime) {
-			reload = true;
-			vertMTime = fileInfo.st_mtime;
-		}
-
-		if (reload) {
 			Debug::Print("--------------------------------------");
 			Debug::Print("Shader hot reload \"" + path + "\"");
 
@@ -89,6 +66,7 @@ void ETB::Shader::SetSampler2D(const char* name, Texture& texture) {
 
 	texture.BindTexture();
 
+	glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
 	glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
 
 	samplerCount++;

@@ -52,11 +52,13 @@ namespace ETB{
 
 	class EventSystem {
 	public:
-		static void DECLSPEC DispatchEventType(EventType type);
-		static void DECLSPEC DispatchEvents();
+		static DECLSPEC void DispatchEventType(EventType type, Event& e);
+		static DECLSPEC void DispatchEventType(EventType type);
+		static DECLSPEC void DispatchEvents();
 
-		static void DECLSPEC AddEventListener(EventType type, std::function<void(Event&)> fn);
+		static DECLSPEC void AddEventListener(EventType type, std::function<void(Event&)> fn);
 
+		static DECLSPEC bool ignoreGui;
 	private:
 		static SDL_Event sdlEvent;
 		static Event event;

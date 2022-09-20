@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "RenderTexture.h"
 
 #include "mathf.h"
 #include "Debug.h"
@@ -28,5 +29,6 @@
 #include "Primitives.h"
 #include "Actor.h"
 #include "ActorHandler.h"
+#include "Scene.h"
 
 #include "OBJLoader.h"

@@ -2,16 +2,20 @@
 
 #include "etbdefs.h"
 
+#include <string>
+
 namespace ETB {
 
 	class Actor {
 	public:
-		virtual DECLSPEC void Start();
-		virtual DECLSPEC void Update();
-		virtual DECLSPEC void Render();
-		virtual DECLSPEC void GUI();
+		std::string name;
 
-		virtual DECLSPEC void OnDestroy();
+		DECLSPEC virtual void Start();
+		DECLSPEC virtual void Update();
+		DECLSPEC virtual void Render();
+		DECLSPEC virtual void GUI();
+
+		DECLSPEC virtual void OnDestroy();
 	};
 
 }

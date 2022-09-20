@@ -26,8 +26,8 @@ void ETB::Graphics::Clear() {
 	//glLoadIdentity();
 
 	glEnable(GL_CULL_FACE);
-
 	glEnable(GL_DEPTH_TEST);
+
 	glEnable(GL_TEXTURE_2D);
 
 	glEnable(GL_ALPHA_TEST);
@@ -60,10 +60,15 @@ void PrintShaderLog(int32_t shader) {
 	}
 }
 
-uint32_t ETB::Graphics::CreateShader(const std::string* vertSource, const std::string* fragSource) {
+uint32_t ETB::Graphics::CreateShader(const std::string* source) {
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const GLchar* vertexShaderSource[] = { vertSource->c_str() };
-	glShaderSource(vertexShader, 1, vertexShaderSource, NULL);
+
+	const GLchar* vertexShaderSource[] = { 
+		"#version 330 core\n#define ETB_VERTEX_SHADER\n", 
+		source->c_str()
+	};
+
+	glShaderSource(vertexShader, 2, vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
 
 	GLint vShaderCompiled = GL_FALSE;
@@ -78,8 +83,13 @@ uint32_t ETB::Graphics::CreateShader(const std::string* vertSource, const std::s
 	}
 
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	const GLchar* fragmentShaderSource[] = { fragSource->c_str() };
-	glShaderSource(fragmentShader, 1, fragmentShaderSource, NULL);
+
+	const GLchar* fragmentShaderSource[] = {
+		"#version 330 core\n#define ETB_FRAGMENT_SHADER\n",
+		source->c_str()
+	};
+
+	glShaderSource(fragmentShader, 2, fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
 
 	GLint fShaderCompiled = GL_FALSE;

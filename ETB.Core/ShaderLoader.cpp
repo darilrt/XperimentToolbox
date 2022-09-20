@@ -5,11 +5,14 @@ std::map<std::string, ETB::Shader> ETB::ShaderLoader::shaders;
 
 void ETB::ShaderLoader::Add(const std::string& path, bool hotLoad) {
 	if (ShaderLoader::shaders.count(path) != 0) {
-		Debug::Print("Shader \"" + path + "\" already exists");
+		return;
 	}
 
 	ShaderLoader::shaders[path] = Shader(path);
-	ShaderLoader::shaders[path].Compile();
+
+	if (!ShaderLoader::shaders[path].Compile()) {
+		Debug::Print("Unable to compile " + path + "\n");
+	}
 	
 	if (hotLoad) ShaderLoader::shaders[path].HotReload();
 }

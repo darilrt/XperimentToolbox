@@ -46,16 +46,11 @@ namespace ETB {
 
 	private:
 		uint32_t samplerCount;
-
 		uint32_t shaderId;
 
-		time_t fragMTime;
-		time_t vertMTime;
-
 		std::string path;
-
-		std::string fragSource;
-		std::string vertSource;
+		time_t srcMTime;
+		std::string source;
 	};
 
 }

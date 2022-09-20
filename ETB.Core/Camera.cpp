@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Graphics.h"
+#include "RenderTexture.h"
 
 ETB::Camera* ETB::Camera::activeCamera = nullptr;
 
@@ -7,7 +8,13 @@ void ETB::Camera::SetActive(Camera* camera) {
 	Camera::activeCamera = camera;
 }
 
-ETB::Camera::Camera() : transform() {
+ETB::Camera::Camera() : transform(), renderTexture(800, 600) {
+}
+
+ETB::Camera::Camera(int32_t width, int32_t height) : transform(), renderTexture(width, height) {
+}
+
+ETB::Camera::~Camera() {
 }
 
 void ETB::Camera::SetPerspective(float fovy, float aspect, float zNear, float zFar) {
@@ -28,7 +35,7 @@ glm::mat4 ETB::Camera::GetMatrix() {
 	return projectionMatrix * viewMatrix;
 }
 
-void ETB::Camera::SetViewport(int32_t x, int32_t y, int32_t width, int32_t height)
-{
+void ETB::Camera::SetViewport(int32_t x, int32_t y, int32_t width, int32_t height) {
 	glViewport(x, y, width, height);
+	renderTexture.SetSize(width, height);
 }

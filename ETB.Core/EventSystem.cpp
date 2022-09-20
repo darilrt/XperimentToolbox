@@ -1,11 +1,19 @@
 #include "EventSystem.h"
 #include "GUI.h"
 
+bool ETB::EventSystem::ignoreGui = false;
 SDL_Event ETB::EventSystem::sdlEvent;
 ETB::Event ETB::EventSystem::event;
 std::map<ETB::EventType, std::vector<std::function<void(ETB::Event&)>>> ETB::EventSystem::events;
 
 void ETB::EventSystem::DispatchEventType(EventType type) {
+	for (auto& fn : events[type]) {
+		fn(event);
+	}
+}
+
+void ETB::EventSystem::DispatchEventType(EventType type, Event& e) {
+	EventSystem::event = e;
 	for (auto& fn : events[type]) {
 		fn(event);
 	}
@@ -45,14 +53,14 @@ void ETB::EventSystem::DispatchEvents() {
 			type = EventType::KeyDown;
 			EventSystem::event.keyCode = (KeyCode) sdlEvent.key.keysym.scancode;
 
-			if (GUI::UseKeyboard()) continue;
+			if (GUI::UseKeyboard() && !ignoreGui) continue;
 			break;
 
 		case SDL_KEYUP:
 			type = EventType::KeyUp;
 			EventSystem::event.keyCode = (KeyCode)sdlEvent.key.keysym.scancode;
 
-			if (GUI::UseKeyboard()) continue;
+			if (GUI::UseKeyboard() && !ignoreGui) continue;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
@@ -62,7 +70,7 @@ void ETB::EventSystem::DispatchEvents() {
 			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
 			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
 
-			if (GUI::UseMouse()) continue;
+			if (GUI::UseMouse() && !ignoreGui) continue;
 			break;
 
 		case SDL_MOUSEBUTTONUP:
@@ -72,7 +80,7 @@ void ETB::EventSystem::DispatchEvents() {
 			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
 			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
 
-			if (GUI::UseMouse()) continue;
+			if (GUI::UseMouse() && !ignoreGui) continue;
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -80,7 +88,7 @@ void ETB::EventSystem::DispatchEvents() {
 			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
 			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
 
-			if (GUI::UseMouse()) continue;
+			if (GUI::UseMouse() && !ignoreGui) continue;
 			break;
 
 		default:

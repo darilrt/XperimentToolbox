@@ -19,7 +19,7 @@ namespace ETB {
 
 		DECLSPEC void Clear();
 		
-		DECLSPEC uint32_t CreateShader(const std::string* vertSource, const std::string* fragSource);
+		DECLSPEC uint32_t CreateShader(const std::string* source);
 		
 	}
 }
