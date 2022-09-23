@@ -15,7 +15,7 @@ namespace ETB {
 
 		DECLSPEC Transform();
 
-		DECLSPEC glm::mat4 GetTransformMatrix();
+		DECLSPEC glm::mat4 GetMatrix();
 		
 		glm::vec3 GetEulerAngles() { return glm::eulerAngles(rotation); }
 		void SetEulerAngles(glm::vec3 rot) { rotation = glm::quat(rot); }

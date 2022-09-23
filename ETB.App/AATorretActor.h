@@ -37,7 +37,7 @@ public:
 		sh.Use();
 
 		sh.SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
-		sh.SetMatrix("ETB_MATRIX_M", transform.GetTransformMatrix());
+		sh.SetMatrix("ETB_MATRIX_M", transform.GetMatrix());
 		sh.SetVector2("_ScreenResolution", (glm::vec2)Screen::GetSize());
 		sh.SetVector3("_worldCameraPos", Camera::GetActive()->transform.position);
 

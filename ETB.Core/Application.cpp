@@ -31,12 +31,12 @@ void ETB::Application::Run() {
 	EventSystem::DispatchEventType(EventType::Start);
 	Time::Start();
 	Start();
-	ActorHandler::Start();
+	// ActorHandler::Start();
 
 	int32_t elapsedMs;
 	int32_t frameMs = 1000 / 240;
 
-	ShaderLoader::Add("Built-In/Shaders/PostProcess.glsl");
+	ShaderLoader::Add("Built-In/Shaders/Present.glsl");
 
 	while (isRunning) {
 		elapsedMs = Time::GetTicks();
@@ -49,42 +49,20 @@ void ETB::Application::Run() {
 		/// Update
 		EventSystem::DispatchEventType(EventType::Update);
 		Update();
-		ActorHandler::Update();
+		// ActorHandler::Update();
 		///
 
 		/// Render
-		
-		/*
-		Camera* cam = Camera::GetActive();
-
-		if (cam) {
-			cam->Use();
-			cam->renderTexture.BindFramebuffer();
-
-			Graphics::Clear();
-			EventSystem::DispatchEventType(EventType::Render);
-			Render();
-			ActorHandler::Render();
-
-			cam->renderTexture.UnbindFramebuffer();
-
-			Shader& sh = ShaderLoader::Get("Built-In/Shaders/PostProcess.glsl");
-			sh.Use();
-			sh.SetSampler2D("_ScreenColor", cam->renderTexture.color);
-			sh.SetSampler2D("_ScreenDepth", cam->renderTexture.depth);
-			sh.SetVector2("_ScreenResolution", (glm::vec2)Screen::GetSize());
-			sh.SetFloat("_Time", Time::playTime);
-			Graphics::DrawMesh(Primitives::quad);
-		}
-		*/
-
+		Graphics::Clear();
+		EventSystem::DispatchEventType(EventType::Render);
+		Render();
 		///
 
 		/// GUI
 		window.GuiNewFrame();
 		EventSystem::DispatchEventType(EventType::GUI);
 		GUI();
-		ActorHandler::GUI();
+		// ActorHandler::GUI();
 		ETB::GUI::Draw();
 		///
 
@@ -98,9 +76,10 @@ void ETB::Application::Run() {
 }
 
 void ETB::Application::Present(Texture& texture) {
-	Shader& sh = ShaderLoader::Get("Built-In/Shaders/PostProcess.glsl");
+	Graphics::Clear();
+	Shader& sh = ShaderLoader::Get("Built-In/Shaders/Present.glsl");
 	sh.Use();
-	sh.SetSampler2D("_ScreenColor", texture);
+	sh.SetSampler2D("texture", texture);
 	Graphics::DrawMesh(Primitives::quad);
 }
 

@@ -19,6 +19,7 @@ namespace ETB {
 
 		class DECLSPEC Window {
 			friend class Application;
+
 		public:
 			Window(const std::string& title, int32_t width, int32_t height);
 			~Window();
