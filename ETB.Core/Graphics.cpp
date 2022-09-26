@@ -15,6 +15,10 @@ void ETB::Graphics::DrawMesh(Mesh& mesh) {
 	glBindVertexArray(0);
 }
 
+void ETB::Graphics::DrawMeshInstanced(Mesh& mesh) {
+
+}
+
 void ETB::Graphics::Clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

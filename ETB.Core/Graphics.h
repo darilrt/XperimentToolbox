@@ -17,6 +17,8 @@ namespace ETB {
 
 		DECLSPEC void DrawMesh(Mesh& mesh);
 
+		DECLSPEC void DrawMeshInstanced(Mesh& mesh);
+
 		DECLSPEC void Clear();
 		
 		DECLSPEC uint32_t CreateShader(const std::string* source);

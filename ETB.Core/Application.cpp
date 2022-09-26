@@ -49,7 +49,6 @@ void ETB::Application::Run() {
 		/// Update
 		EventSystem::DispatchEventType(EventType::Update);
 		Update();
-		// ActorHandler::Update();
 		///
 
 		/// Render
