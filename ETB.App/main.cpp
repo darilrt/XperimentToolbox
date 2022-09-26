@@ -13,8 +13,12 @@ public:
 	}
 
 	void Start() {
+		glm::ivec2 size = Screen::GetSize();
+		cam.SetViewport(0, 0, size.x, size.y);
+
 		cam.SetPerspective(45.0f, 1240.0f / 720.0f, 0.1f, 100.0f);
 		cam.transform.position = glm::vec3(0, 0, 10);
+
 	}
 
 	void Update() {
@@ -24,6 +28,7 @@ public:
 	void Render() {
 		cam.Use();
 		cam.renderTexture.BindFramebuffer();
+		Graphics::Clear();
 		
 		Shader& sh = ShaderLoader::Get("Built-In/Shaders/Test.glsl");
 		sh.Use();
