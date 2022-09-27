@@ -34,7 +34,7 @@ public:
 
 		Shader& sh = ShaderLoader::Get("Built-In/Shaders/Test.glsl");
 		sh.Use();
-		// Graphics::DrawMeshInstanced(Primitives::cube, std::vector<glm::mat4> matrices);
+		// Graphics::DrawMeshInstanced(Primitives::cube);
 
 		sh = ShaderLoader::Get("Built-In/Shaders/Test.glsl");
 		sh.Use();
