@@ -15,7 +15,7 @@ namespace ETB {
 		Application();
 		Application(const std::string& title, int32_t width, int32_t height);
 		
-		void Run();
+		int Run();
 		void Present(Texture& texture);
 
 		virtual void Start();

@@ -15,3 +15,5 @@
 	#define DECLSPEC
 	#define DECLSPEC
 #endif
+
+#define ETB_ENTRY(A) int main(int c, char* v[]) { return (new A())->Run(); }

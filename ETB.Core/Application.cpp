@@ -22,7 +22,7 @@ ETB::Application::Application() : window("ETB.App", 800, 600) {
 ETB::Application::Application(const std::string& title, int32_t w, int32_t h) : window(title, w, h) {
 }
 
-void ETB::Application::Run() {
+int ETB::Application::Run() {
 	Core::Window::SetActive(&window);
 
 	bool isRunning = true;
@@ -72,6 +72,8 @@ void ETB::Application::Run() {
 
 		window.Swap();
 	}
+
+	return 0;
 }
 
 void ETB::Application::Present(Texture& texture) {
