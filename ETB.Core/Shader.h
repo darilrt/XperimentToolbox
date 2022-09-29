@@ -22,7 +22,9 @@ namespace ETB {
 
 		DECLSPEC void HotReload();
 
-		DECLSPEC void Use();
+		DECLSPEC void Bind();
+		
+		inline void Unbind() { glUseProgram(NULL); }
 
 		inline void SetFloat(const char* name, float v0) {
 			glUniform1f(glGetUniformLocation(shaderId, name), v0);

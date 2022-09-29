@@ -77,7 +77,7 @@ void ETB::Application::Run() {
 void ETB::Application::Present(Texture& texture) {
 	Graphics::Clear();
 	Shader& sh = ShaderLoader::Get("Built-In/Shaders/Present.glsl");
-	sh.Use();
+	sh.Bind();
 	sh.SetSampler2D("texture", texture);
 	Graphics::DrawMesh(Primitives::quad);
 }

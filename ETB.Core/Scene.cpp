@@ -26,14 +26,12 @@ void ETB::Scene::Update() {
 }
 
 void ETB::Scene::Render(Camera& camera) {
-	using namespace ETB;
-
 	camera.Use();
 	camera.renderTexture.BindFramebuffer();
 
-	Graphics::Clear();
+	ETB::Graphics::Clear();
 	
-	for (Actor* a : actors) {
+	for (ETB::Actor* a : actors) {
 		a->Render();
 	}
 

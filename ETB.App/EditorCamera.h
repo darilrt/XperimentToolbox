@@ -6,7 +6,7 @@ class EditorCamera : public ETB::Actor {
 public:
 	glm::vec2 screenCenter;
 
-	ETB::Camera cam;
+	ETB::Camera camera;
 	bool isMoving;
 
 	EditorCamera();

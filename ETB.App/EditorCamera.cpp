@@ -24,11 +24,11 @@ void EditorCamera::Start() {
 	glm::ivec2 size = Screen::GetSize();
 	screenCenter = glm::vec2(size) / 2.0f;
 
-	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);
-	cam.transform.position = { 0, 0, 3 };
-	cam.SetViewport(0, 0, size.x, size.y);
+	camera.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);
+	camera.transform.position = { 0, 0, 0 };
+	camera.SetViewport(0, 0, size.x, size.y);
 
-	Camera::SetActive(&cam);
+	Camera::SetActive(&camera);
 
 	oldMousePos = Input::GetMousePosition();
 }
@@ -42,8 +42,8 @@ void EditorCamera::Update() {
 
 		Cursor::Warp(screenCenter);
 
-		cam.transform.rotation = glm::rotate(cam.transform.rotation, r.x, glm::vec3{ 1, 0, 0 } *cam.transform.rotation);
-		cam.transform.rotation = glm::rotate(cam.transform.rotation, r.y, glm::vec3{ 0, 1, 0 });
+		camera.transform.rotation = glm::rotate(camera.transform.rotation, r.x, glm::vec3{ 1, 0, 0 } *camera.transform.rotation);
+		camera.transform.rotation = glm::rotate(camera.transform.rotation, r.y, glm::vec3{ 0, 1, 0 });
 
 		glm::vec3 dir = glm::vec3(
 			Input::KeyPressed(KeyCode::D) - Input::KeyPressed(KeyCode::A),
@@ -52,8 +52,8 @@ void EditorCamera::Update() {
 		);
 
 		if (glm::length(dir) > 0) {
-			dir = dir * cam.transform.rotation;
-			cam.transform.position += dir * Time::deltaTime * 5.0f;
+			dir = dir * camera.transform.rotation;
+			camera.transform.position += dir * Time::deltaTime * 5.0f;
 		}
 	}
 
@@ -61,6 +61,6 @@ void EditorCamera::Update() {
 }
 
 void EditorCamera::SetSize(int32_t width, int32_t height) {
-	cam.SetViewport(0, 0, width, height);
-	cam.SetPerspective(45.0f, ((float)width) / height, 0.1f, 100.0f);
+	camera.SetViewport(0, 0, width, height);
+	camera.SetPerspective(45.0f, ((float)width) / height, 0.1f, 100.0f);
 }

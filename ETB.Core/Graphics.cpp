@@ -12,22 +12,37 @@ void ETB::Graphics::Init() {
 void ETB::Graphics::DrawMesh(Mesh& mesh) {
 	mesh.Bind();
 	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.elements.size() * 3, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	glBindVertexArray(NULL);
 }
 
 void ETB::Graphics::DrawMeshInstanced(Mesh& mesh) {
+	/*
+	mesh.Bind();
 
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_containing_matrices);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, particle_count * sizeof(GLfloat) * 4, g_particle_data);
+
+	glEnableVertexAttribArray(pos1);
+	glEnableVertexAttribArray(pos2);
+	glEnableVertexAttribArray(pos3);
+	glEnableVertexAttribArray(pos4);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_containing_matrices);
+	glVertexAttribPointer(pos1, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4 * 4, (void*)(0));
+	glVertexAttribPointer(pos2, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4 * 4, (void*)(sizeof(float) * 4));
+	glVertexAttribPointer(pos3, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4 * 4, (void*)(sizeof(float) * 8));
+	glVertexAttribPointer(pos4, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4 * 4, (void*)(sizeof(float) * 12));
+	glVertexAttribDivisor(pos1, 1);
+	glVertexAttribDivisor(pos2, 1);
+	glVertexAttribDivisor(pos3, 1);
+	glVertexAttribDivisor(pos4, 1);
+
+	glDrawElementsInstanced(GL_TRIANGLES, (GLsizei)mesh.elements.size() * 3, GL_UNSIGNED_INT, 0, 10);
+	glBindVertexArray(NULL);
+	*/
 }
 
 void ETB::Graphics::Clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//gluPerspective(45, 1, 0.1, 100);
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
 
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
@@ -40,7 +55,7 @@ void ETB::Graphics::Clear() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void PrintShaderLog(int32_t shader) {
+void PrintShaderLog_impl(int32_t shader) {
 	if (glIsShader(shader)) {
 		int32_t infoLogLength = 0;
 		int32_t maxLength = infoLogLength;
@@ -80,7 +95,7 @@ uint32_t ETB::Graphics::CreateShader(const std::string* source) {
 
 	if (vShaderCompiled != GL_TRUE) {
 		Debug::Print("Unable to compile vertex shader ");
-		PrintShaderLog(vertexShader);
+		PrintShaderLog_impl(vertexShader);
 
 		glDeleteShader(vertexShader);
 		return 0;
@@ -101,7 +116,7 @@ uint32_t ETB::Graphics::CreateShader(const std::string* source) {
 
 	if (fShaderCompiled != GL_TRUE) {
 		Debug::Print("Unable to compile fragment shader ");
-		PrintShaderLog(fragmentShader);
+		PrintShaderLog_impl(fragmentShader);
 
 		glDeleteShader(fragmentShader);
 		return 0;

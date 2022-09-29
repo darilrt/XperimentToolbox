@@ -31,9 +31,9 @@ void ETB::RenderTexture::SetSize(int32_t width, int32_t height) {
 	color.SetSize(width, height);
 //	depth.SetSize(width, height);
 
-	depth.BindTexture();
+	depth.Bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-	depth.UnbindTexture();
+	depth.Unbind();
 
 	UnbindFramebuffer();
 }

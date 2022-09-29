@@ -45,8 +45,8 @@ namespace ETB {
 		void SetWrapMode(TextureWrapMode wrapMode);
 		void SetFilterMode(TextureFilterMode filterMode);
 		
-		inline void BindTexture() { glBindTexture(GL_TEXTURE_2D, texture); }
-		inline void UnbindTexture() { glBindTexture(GL_TEXTURE_2D, NULL); }
+		inline void Bind() { glBindTexture(GL_TEXTURE_2D, texture); }
+		inline void Unbind() { glBindTexture(GL_TEXTURE_2D, NULL); }
 
 		inline int32_t GetWidth() { return width; }
 		inline int32_t GetHeight() { return height; }

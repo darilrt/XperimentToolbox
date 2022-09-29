@@ -16,6 +16,12 @@ void ETB::Mesh::SetupMesh() {
 
 	glBindVertexArray(vao);
 
+	// location -> buffer
+	// 0 -> Vertex
+	// 1 -> UV
+	// 2 -> Normal
+	// 3 -> Instance Position
+
 	// Vertex Array
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);

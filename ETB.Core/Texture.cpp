@@ -56,7 +56,7 @@ void ETB::Texture::LoadImage(const std::string& path) {
 	}
 
 	GenTextureBuffer();
-	BindTexture();
+	Bind();
 
 	glTexImage2D(GL_TEXTURE_2D, 0, n, w, h, 0, format, GL_UNSIGNED_BYTE, image);
 	
@@ -66,7 +66,7 @@ void ETB::Texture::LoadImage(const std::string& path) {
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)TextureFilterMode::Linear);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)TextureFilterMode::Linear);
 	
-	UnbindTexture();
+	Unbind();
 
 	delete image;
 
@@ -78,23 +78,23 @@ void ETB::Texture::SetSize(int32_t w, int32_t h) {
 	width = w;
 	height = h;
 	
-	BindTexture();
+	Bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, (GLint)type, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	UnbindTexture();
+	Unbind();
 }
 
 void ETB::Texture::SetWrapMode(TextureWrapMode wrapMode) {
-	BindTexture();
+	Bind();
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLfloat)wrapMode);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLfloat)wrapMode);
-	UnbindTexture();
+	Unbind();
 }
 
 void ETB::Texture::SetFilterMode(TextureFilterMode filterMode) {
-	BindTexture();
+	Bind();
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)filterMode);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)filterMode);
-	UnbindTexture();
+	Unbind();
 }
 
 void ETB::Texture::GenTextureBuffer() {

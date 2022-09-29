@@ -18,7 +18,7 @@ ETB::Shader::~Shader() {
 	glDeleteProgram(shaderId);
 }
 
-void ETB::Shader::Use() {
+void ETB::Shader::Bind() {
 	glUseProgram(shaderId);
 	samplerCount = 0;
 }
@@ -64,7 +64,7 @@ void ETB::Shader::HotReload() {
 void ETB::Shader::SetSampler2D(const char* name, Texture& texture) {
 	glActiveTexture(GL_TEXTURE0 + samplerCount);
 
-	texture.BindTexture();
+	texture.Bind();
 
 	glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
 	glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
