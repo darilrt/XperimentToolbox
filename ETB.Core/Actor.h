@@ -1,13 +1,15 @@
 #pragma once
 
-#include "etbdefs.h"
-
 #include <string>
+
+#include "etbdefs.h"
+#include "Transform.h"
 
 namespace ETB {
 
 	class Actor {
 	public:
+		Transform transform;
 		std::string name;
 
 		DECLSPEC virtual void Start();

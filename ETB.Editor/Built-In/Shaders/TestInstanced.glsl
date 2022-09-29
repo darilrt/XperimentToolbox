@@ -28,7 +28,7 @@ vec3 lightPos = vec3(-3, 2.5f, 2);
 vec3 lightColor = vec3(1, 1, 1);
 
 void main() {
-	vec3 objectColor = vec3(1, 1, 1);
+	vec3 objectColor = texture(albedo, uvMainTex).rgb;
 	
 	// ambient
     float ambientstrength = 0.1;

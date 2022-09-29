@@ -17,7 +17,7 @@ namespace ETB {
 		DECLSPEC Mesh();
 		DECLSPEC ~Mesh();
 
-		DECLSPEC void SetupMesh();
+		DECLSPEC void Setup();
 
 		DECLSPEC void Bind();
 

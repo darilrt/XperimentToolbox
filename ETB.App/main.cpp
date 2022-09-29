@@ -43,4 +43,4 @@ public:
 	}
 };
 
-ETB_ENTRY(App);
+ETB_ENTRY(App)

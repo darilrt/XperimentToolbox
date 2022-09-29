@@ -7,7 +7,7 @@ ETB::Mesh::Mesh() {
 ETB::Mesh::~Mesh() {
 }
 
-void ETB::Mesh::SetupMesh() {
+void ETB::Mesh::Setup() {
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);

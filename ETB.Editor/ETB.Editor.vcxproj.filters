@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Editors">
       <UniqueIdentifier>{b23fdeb3-59a1-4871-b485-b8f821a6000a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Vendor">
+      <UniqueIdentifier>{6dc33769-8f76-48a0-815c-f89c40addf6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Vendor">
+      <UniqueIdentifier>{96c72934-dfe2-41dd-af58-2b4dd2cb595b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,6 +48,9 @@
     <ClCompile Include="HierarchyEditor.cpp">
       <Filter>Source Files\Editors</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\ImGuizmo.cpp">
+      <Filter>Source Files\Vendor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -64,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="HierarchyEditor.h">
       <Filter>Header Files\Editors</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuizmo.h">
+      <Filter>Header Files\Vendor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

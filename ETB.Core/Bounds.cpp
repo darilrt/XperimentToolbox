@@ -3,7 +3,9 @@
 ETB::Bounds::Bounds() {
 }
 
-ETB::Bounds::Bounds(glm::vec3 c, glm::vec3 s) : center(c), size(s) {
+ETB::Bounds::Bounds(glm::vec3 c, glm::vec3 s) {
+	SetCenter(c);
+	SetSize(s);
 }
 
 bool ETB::Bounds::Intersect(Bounds& b) {

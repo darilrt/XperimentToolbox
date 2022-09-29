@@ -1,6 +1,7 @@
 #include "EditorApp.h"
 
 #include "imgui_internal.h"
+#include "vendor/ImGuizmo.h"
 
 using namespace ETB;
 
@@ -8,6 +9,7 @@ Scene* EditorApp::currentScene;
 std::vector<Editor::EditorWindow*> EditorApp::editors;
 
 EditorApp::EditorApp() : Application("Editor", 1240, 720) {
+	window.SetVSync(Core::VSyncMode::On);
 	window.SetResizable(true);
 	window.Maximize();
 }
@@ -29,6 +31,8 @@ void EditorApp::Render() {
 }
 
 void EditorApp::GUI() {
+	ImGuizmo::BeginFrame();
+
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             ImGui::EndMenu();

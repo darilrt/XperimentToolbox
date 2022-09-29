@@ -38,13 +38,13 @@ void ETB::Primitives::GeneratePrimitives() {
 		{1, 2, 3}
 	};
 
-	Primitives::quad.SetupMesh();
+	Primitives::quad.Setup();
 
 	// Cube
 	Primitives::cube = OBJLoader::FromFile("Built-In/Models/Cube.obj");
-	Primitives::cube.SetupMesh();
+	Primitives::cube.Setup();
 
 	// Sphere
 	Primitives::sphere = OBJLoader::FromFile("Built-In/Models/Sphere.obj");
-	Primitives::sphere.SetupMesh();
+	Primitives::sphere.Setup();
 }

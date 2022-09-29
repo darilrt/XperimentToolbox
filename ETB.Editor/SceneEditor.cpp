@@ -1,9 +1,12 @@
 #include <etb.h>
 #include <imgui_internal.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "SceneEditor.h"
 #include "EditorApp.h"
 #include "CubeActor.h"
+
+#include "vendor/ImGuizmo.h"
 
 using namespace ETB;
 
@@ -24,6 +27,10 @@ void SceneEditor::Start() {
 
 	editorCamera = new EditorCamera();
 
+	cubeActor = scene.Instance<CubeActor>();
+	cubeActor->name = "My Cube";
+	cubeActor->Start();
+
 	editorCamera->Start();
 	scene.Start();
 }
@@ -32,9 +39,10 @@ void SceneEditor::GUI() {
 	editorCamera->Update();
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-
 	ImGui::Begin(title.c_str(), &isOpen);
-	
+
+	ImGuizmo::SetDrawlist();
+
 	EventSystem::ignoreGui = ImGui::IsWindowHovered();
 
 	ImVec2 offset = ImGui::GetWindowContentRegionMin();
@@ -46,7 +54,41 @@ void SceneEditor::GUI() {
 	scene.Render(editorCamera->cam);
 
 	ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
+
+	// Selection Gizmos
+
+	ImVec2 windowPos = ImGui::GetWindowPos();
+	ImGuizmo::SetRect(windowPos.x, windowPos.y + offset.y, size.x, size.y);
 	
+	Actor& actor = *cubeActor;
+
+	float* view = (float*)glm::value_ptr(editorCamera->cam.GetViewMatrix());
+	float* projection = (float*)glm::value_ptr(editorCamera->cam.GetProjectionMatrix());
+	float* matrix = (float*)glm::value_ptr(actor.transform.GetMatrix());
+
+	static ImGuizmo::MODE gizmoMode(ImGuizmo::LOCAL);
+	static ImGuizmo::OPERATION gizmoOperation(ImGuizmo::TRANSLATE);
+
+	if (Input::KeyDown(KeyCode::Num1)) gizmoOperation = ImGuizmo::TRANSLATE;
+	if (Input::KeyDown(KeyCode::Num2)) gizmoOperation = ImGuizmo::ROTATE;
+	if (Input::KeyDown(KeyCode::Num3)) gizmoOperation = ImGuizmo::SCALE;
+	
+	if (Input::KeyDown(KeyCode::C)) gizmoMode = gizmoMode == ImGuizmo::WORLD ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
+	
+	ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
+
+	glm::vec3 matrixRotation;
+	ImGuizmo::DecomposeMatrixToComponents(
+		matrix,
+		glm::value_ptr(actor.transform.position),
+		glm::value_ptr(matrixRotation),
+		glm::value_ptr(actor.transform.scale)
+	);
+
+	actor.transform.rotation = glm::quat(glm::radians(matrixRotation));
+
+	// =====
+
 	ImGui::End();
 	ImGui::PopStyleVar();
 }

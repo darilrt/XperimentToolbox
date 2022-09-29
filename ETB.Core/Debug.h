@@ -1,9 +1,9 @@
 #pragma once
 
+#include <string>
+
 #include "etbdefs.h"
 #include "Transform.h"
-
-#include <string>
 
 namespace ETB {
 	namespace Debug {

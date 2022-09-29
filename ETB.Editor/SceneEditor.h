@@ -2,6 +2,7 @@
 
 #include "EditorWindow.h"
 #include "EditorCamera.h"
+#include "CubeActor.h"
 
 #include <etb.h>
 
@@ -15,6 +16,7 @@ public:
 
 private:
 	EditorCamera* editorCamera;
+	CubeActor* cubeActor;
 	ETB::Scene scene;
 
 	static SceneEditor sceneEditor;

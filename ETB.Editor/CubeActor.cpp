@@ -11,15 +11,15 @@ void CubeActor::Start() {
 void CubeActor::Render() {
 	Shader& sh = ShaderLoader::Get("Built-In/Shaders/Test.glsl");
 
-	sh.Use();
+	sh.Bind();
 	sh.SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
-	sh.SetMatrix("ETB_MATRIX_M", transform.GetTransformMatrix());
-
-	glColor3f(1, 1, 1);
-	glBegin(GL_LINES);
-	glVertex3f(0, 0, 0);
-	glVertex3f(1, 0, 0);
-	glEnd();
+	sh.SetMatrix("ETB_MATRIX_M", transform.GetMatrix());
 
 	Graphics::DrawMesh(Primitives::cube);
+
+	sh.Unbind();
+}
+
+void CubeActor::GUI() {
+
 }

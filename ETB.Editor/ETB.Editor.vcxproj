@@ -144,6 +144,7 @@
     <ClCompile Include="HierarchyEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
+    <ClCompile Include="vendor\ImGuizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -155,6 +156,7 @@
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="HierarchyEditor.h" />
     <ClInclude Include="SceneEditor.h" />
+    <ClInclude Include="vendor\ImGuizmo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
