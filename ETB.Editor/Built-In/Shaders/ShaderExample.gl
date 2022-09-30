@@ -1,0 +1,8 @@
+vec3 Albedo;         // base (diffuse or specular) color
+vec3 Normal;         // tangent space normal, if written
+vec3 Emission;
+float Metallic;      // 0=non-metal, 1=metal
+float Smoothness;    // 0=rough, 1=smooth
+float Occlusion;     // occlusion (default 1)
+float Alpha;         // alpha for transparencies
+

@@ -55,6 +55,11 @@ void SceneEditor::GUI() {
 
 	ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
 
+	// Toolbar
+
+	ImGui::Button("abcd");
+
+
 	// Selection Gizmos
 
 	ImVec2 windowPos = ImGui::GetWindowPos();

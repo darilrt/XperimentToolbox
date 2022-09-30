@@ -24,6 +24,8 @@ void main() {
 #endif
 #ifdef ETB_FRAGMENT_SHADER
 
+layout (location = 0) out vec4 _fragColor;
+
 vec3 lightPos = vec3(-3, 2.5f, 2);
 vec3 lightColor = vec3(1, 1, 1);
 
@@ -43,7 +45,7 @@ void main() {
 	
     vec3 result = (ambient + diffuse) * objectColor;
 	
-	gl_FragColor = vec4(result, 1.0);
+	_fragColor = vec4(result, 1.0);
 }
 
 #endif
