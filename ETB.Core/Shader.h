@@ -3,10 +3,12 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <cstdint>
+#include <vector>
 
 #include "etbdefs.h"
 #include "Graphics.h"
 #include "Texture.h"
+#include "Uniform.h"
 
 namespace ETB {
 
@@ -23,6 +25,8 @@ namespace ETB {
 		DECLSPEC void HotReload();
 
 		DECLSPEC void Bind();
+
+		DECLSPEC std::vector<ETB::Uniform> GetUniforms();
 		
 		inline void Unbind() { glUseProgram(NULL); }
 

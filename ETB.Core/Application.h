@@ -10,6 +10,7 @@ namespace ETB {
 
 	class DECLSPEC Application {
 	public:
+		static bool isRunning;
 		Core::Window window;
 
 		Application();
@@ -22,6 +23,8 @@ namespace ETB {
 		virtual void Update();
 		virtual void Render();
 		virtual void GUI();
+
+		static void Quit();
 	};
 
 }

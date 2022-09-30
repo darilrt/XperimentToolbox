@@ -16,6 +16,8 @@
 
 #include <string>
 
+bool ETB::Application::isRunning = false;
+
 ETB::Application::Application() : window("ETB.App", 800, 600) {
 }
 
@@ -25,8 +27,8 @@ ETB::Application::Application(const std::string& title, int32_t w, int32_t h) : 
 int ETB::Application::Run() {
 	Core::Window::SetActive(&window);
 
-	bool isRunning = true;
-	EventSystem::AddEventListener(EventType::WindowQuit, [&](Event& e) { isRunning = false; });
+	Application::isRunning = true;
+	EventSystem::AddEventListener(EventType::WindowQuit, [&](Event& e) { Application::isRunning = false; });
 
 	EventSystem::DispatchEventType(EventType::Start);
 	Time::Start();
@@ -94,4 +96,8 @@ void ETB::Application::Render() {
 }
 
 void ETB::Application::GUI() {
+}
+
+void ETB::Application::Quit() {
+	Application::isRunning = false;
 }

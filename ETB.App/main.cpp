@@ -8,11 +8,16 @@ class App : public Application {
 public:
 	Scene scene;
 	EditorCamera* editorCamera;
+	std::vector<Uniform> uniforms;
 
-	App() : Application("Hello, World", 1240, 720) {
+	App() : Application("Hello, World", 1140, 620) {
 		window.SetVSync(Core::VSyncMode::On);
 		
 		editorCamera = scene.Instance<EditorCamera>();
+
+		ShaderLoader::Add("Built-In/Shaders/Test.gl");
+		
+		uniforms = ShaderLoader::Get("Built-In/Shaders/Test.gl").GetUniforms();
 	}
 
 	void Start() {
@@ -26,20 +31,29 @@ public:
 	void Render() {
 		scene.Render(editorCamera->camera);
 
-		//Shader& sh = ShaderLoader::Get("Built-In/Shaders/Test.glsl");
-		//sh.Bind();
-		//sh.SetMatrix("ETB_MATRIX_VP", cam.GetMatrix());
-		//sh.SetMatrix("ETB_MATRIX_M", transform.GetMatrix());
-		//sh.SetSampler2D("albedo", t);
-		//Graphics::DrawMesh(Primitives::cube);
-
-		//sh.SetMatrix("ETB_MATRIX_M", transform2.GetMatrix());
-		//Graphics::DrawMesh(Primitives::cube);
-
 		Present(editorCamera->camera.renderTexture.color);
 	}
 
 	void GUI() {
+		Shader& shader = ShaderLoader::Get("Built-In/Shaders/Test.gl");
+
+		if (ImGui::Begin("Shader viewer")) {
+
+			static glm::vec3 val;
+
+			for (Uniform u : uniforms) {
+				ImGui::InputFloat3(u.name.c_str(), &val[0]);
+			}
+
+			if (ImGui::Button("Reload")) {
+				shader.LoadSources();
+				shader.Compile();
+
+				uniforms = shader.GetUniforms();
+			}
+
+			ImGui::End();
+		}
 	}
 };
 
