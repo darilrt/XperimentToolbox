@@ -51,6 +51,12 @@
     <ClCompile Include="vendor\ImGuizmo.cpp">
       <Filter>Source Files\Vendor</Filter>
     </ClCompile>
+    <ClCompile Include="FilesExplorer.cpp">
+      <Filter>Source Files\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetsEditor.cpp">
+      <Filter>Source Files\Editors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -76,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="vendor\ImGuizmo.h">
       <Filter>Header Files\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="FilesExplorer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetsEditor.h">
+      <Filter>Header Files\Editors</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

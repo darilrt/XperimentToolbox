@@ -35,11 +35,12 @@ void SceneEditor::Start() {
 	scene.Start();
 }
 
+void SceneEditor::Style() {
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+}
+
 void SceneEditor::GUI() {
 	editorCamera->Update();
-
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	ImGui::Begin(title.c_str(), &isOpen);
 
 	ImGuizmo::SetDrawlist();
 
@@ -57,8 +58,7 @@ void SceneEditor::GUI() {
 
 	// Toolbar
 
-	ImGui::Button("abcd");
-
+	// ImGui::Button("abcd");
 
 	// Selection Gizmos
 
@@ -91,9 +91,4 @@ void SceneEditor::GUI() {
 	);
 
 	actor.transform.rotation = glm::quat(glm::radians(matrixRotation));
-
-	// =====
-
-	ImGui::End();
-	ImGui::PopStyleVar();
 }

@@ -15,12 +15,7 @@ void HierarchyEditor::Start() {
 }
 
 void HierarchyEditor::GUI() {
-	ImGui::Begin(title.c_str(), &isOpen);
-
-	if (EditorApp::GetScene() == nullptr) {
-		ImGui::End();
-		return;
-	}
+	if (EditorApp::GetScene() == NULL) return;
 
 	ETB::Scene* scene = EditorApp::GetScene();
 
@@ -50,6 +45,4 @@ void HierarchyEditor::GUI() {
 	//if (ImGui::TreeNodeEx("Entity 2", ImGuiTreeNodeFlags_Leaf)) {
 	//	ImGui::TreePop();
 	//}
-
-	ImGui::End();
 }

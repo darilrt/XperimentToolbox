@@ -13,6 +13,7 @@ namespace Editor {
 
 		virtual void Start();
 		virtual void GUI();
+		virtual void Style();
 	};
 
 }

@@ -12,6 +12,7 @@ public:
 	~SceneEditor();
 
 	void Start();
+	void Style();
 	void GUI();
 
 private:

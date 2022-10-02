@@ -8,7 +8,7 @@ using namespace ETB;
 Scene* EditorApp::currentScene;
 std::vector<Editor::EditorWindow*> EditorApp::editors;
 
-EditorApp::EditorApp() : Application("Editor", 1240, 720) {
+EditorApp::EditorApp() : Application("ExperimentToolbox", 1240, 720) {
 	window.SetVSync(Core::VSyncMode::On);
 	window.SetResizable(true);
 	window.Maximize();
@@ -35,6 +35,8 @@ void EditorApp::GUI() {
 
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
+			ImGui::Separator();
+			if (ImGui::MenuItem("Exit")) { Application::Quit(); }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit")) {
@@ -46,6 +48,18 @@ void EditorApp::GUI() {
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
             ImGui::EndMenu();
         }
+
+		if (ImGui::BeginMenu("Windows")) {
+
+			for (Editor::EditorWindow* editor : EditorApp::editors) {
+				if (ImGui::MenuItem(editor->title.c_str())) {
+					editor->isOpen = true;
+				}
+			}
+
+			ImGui::EndMenu();
+		}
+
         ImGui::EndMainMenuBar();
     }
 
@@ -75,6 +89,7 @@ void EditorApp::GUI() {
 
 		ImGuiID dock_right = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
 		ImGuiID dock_right_down = ImGui::DockBuilderSplitNode(dock_right, ImGuiDir_Down, 0.7f, nullptr, &dock_right);
+		ImGuiID dock_down = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.7f, nullptr, &dock_main_id);
 		
 		ImGui::DockBuilderDockWindow("Scene", dock_main_id);
 		ImGui::DockBuilderDockWindow("Hierarchy", dock_right);
@@ -84,8 +99,15 @@ void EditorApp::GUI() {
 	}
 	ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-	for (auto editor : EditorApp::editors) {
-		editor->GUI();
+	for (Editor::EditorWindow* editor : EditorApp::editors) {
+		//editor->Style();
+
+		if (editor->isOpen) {
+			ImGui::Begin(editor->title.c_str(), &editor->isOpen);
+			
+			editor->GUI();
+			ImGui::End();
+		}
 	}
 
 	ImGui::Begin("Inspector"); ImGui::End();

@@ -108,6 +108,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,10 +138,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetsEditor.cpp" />
     <ClCompile Include="CubeActor.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
+    <ClCompile Include="FilesExplorer.cpp" />
     <ClCompile Include="HierarchyEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
@@ -150,10 +153,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetsEditor.h" />
     <ClInclude Include="CubeActor.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorApp.h" />
     <ClInclude Include="EditorCamera.h" />
+    <ClInclude Include="FilesExplorer.h" />
     <ClInclude Include="HierarchyEditor.h" />
     <ClInclude Include="SceneEditor.h" />
     <ClInclude Include="vendor\ImGuizmo.h" />
