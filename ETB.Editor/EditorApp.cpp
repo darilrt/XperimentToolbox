@@ -6,7 +6,6 @@
 using namespace ETB;
 
 Scene* EditorApp::currentScene;
-std::vector<Editor::EditorWindow*> EditorApp::editors;
 
 EditorApp::EditorApp() : Application("ExperimentToolbox", 1240, 720) {
 	window.SetVSync(Core::VSyncMode::On);
@@ -18,7 +17,7 @@ EditorApp::~EditorApp() {
 }
 
 void EditorApp::Start() {
-	for (auto editor : EditorApp::editors) {
+	for (auto editor : Editor::GetEditors()) {
 		editor->isOpen = true;
 		editor->Start();
 	}
@@ -31,6 +30,8 @@ void EditorApp::Render() {
 }
 
 void EditorApp::GUI() {
+	ImGui::ShowDemoWindow();
+
 	ImGuizmo::BeginFrame();
 
     if (ImGui::BeginMainMenuBar()) {
@@ -51,7 +52,7 @@ void EditorApp::GUI() {
 
 		if (ImGui::BeginMenu("Windows")) {
 
-			for (Editor::EditorWindow* editor : EditorApp::editors) {
+			for (Editor::EditorWindow* editor : Editor::GetEditors()) {
 				if (ImGui::MenuItem(editor->title.c_str())) {
 					editor->isOpen = true;
 				}
@@ -99,11 +100,13 @@ void EditorApp::GUI() {
 	}
 	ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-	for (Editor::EditorWindow* editor : EditorApp::editors) {
+	const ImGuiWindowFlags editorsFlags = ImGuiWindowFlags_NoCollapse;
+
+	for (Editor::EditorWindow* editor : Editor::GetEditors()) {
 		//editor->Style();
 
 		if (editor->isOpen) {
-			ImGui::Begin(editor->title.c_str(), &editor->isOpen);
+			ImGui::Begin(editor->title.c_str(), &editor->isOpen, editorsFlags);
 			
 			editor->GUI();
 			ImGui::End();
@@ -113,8 +116,4 @@ void EditorApp::GUI() {
 	ImGui::Begin("Inspector"); ImGui::End();
 
     ImGui::End();
-}
-
-void EditorApp::Add(Editor::EditorWindow* editor) {
-	EditorApp::editors.push_back(editor);
 }

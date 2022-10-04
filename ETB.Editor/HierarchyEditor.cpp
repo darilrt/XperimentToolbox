@@ -5,10 +5,7 @@
 
 HierarchyEditor HierarchyEditor::hierarchyEditor;
 
-HierarchyEditor::HierarchyEditor() {
-	EditorApp::Add(this);
-
-	title = "Hierarchy";
+HierarchyEditor::HierarchyEditor() : Editor::EditorWindow("Hierarchy") {
 }
 
 void HierarchyEditor::Start() {

@@ -6,10 +6,7 @@
 
 FilesExplorer FilesExplorer::filesExplorer;
 
-FilesExplorer::FilesExplorer() {
-	EditorApp::Add(this);
-
-	title = "Files Explorer";
+FilesExplorer::FilesExplorer() : Editor::EditorWindow("Files Explorer") {
 }
 
 void listFiles_impl(const std::string& path) {

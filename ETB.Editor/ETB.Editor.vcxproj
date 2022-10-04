@@ -161,6 +161,7 @@
     <ClInclude Include="FilesExplorer.h" />
     <ClInclude Include="HierarchyEditor.h" />
     <ClInclude Include="SceneEditor.h" />
+    <ClInclude Include="TestEditor.h" />
     <ClInclude Include="vendor\ImGuizmo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

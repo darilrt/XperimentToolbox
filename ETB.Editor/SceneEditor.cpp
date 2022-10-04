@@ -10,12 +10,9 @@
 
 using namespace ETB;
 
-SceneEditor sceneEditor;
+SceneEditor SceneEditor::sceneEditor;
 
-SceneEditor::SceneEditor() {
-	EditorApp::Add(this);
-
-	title = "Scene";
+SceneEditor::SceneEditor() : Editor::EditorWindow("Scene") {
 }
 
 SceneEditor::~SceneEditor() {
