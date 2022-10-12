@@ -1,9 +1,9 @@
 #pragma once
 
+#include <etb.h>
+
 #include "EditorCamera.h"
 #include "EditorWindow.h"
-
-#include <etb.h>
 
 class EditorApp : public ETB::Application {
 public:

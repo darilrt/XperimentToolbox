@@ -1,12 +1,18 @@
 #pragma once
 
 #include <etb.h>
+#include <vector>
+#include <iostream>
 
 #define REGISTER_EDITOR(e) \
 	Editor::EditorCreator<e> _s_##e##_EditorCreator; \
 	e* Editor::Editor<e>::ptr;
 
 namespace Editor {
+	
+	class EditorWindow;
+
+	std::vector<Editor::EditorWindow*>& GetEditors();
 
 	template<class T>
 	class Editor {
@@ -20,6 +26,8 @@ namespace Editor {
 		std::string title;
 
 		EditorWindow();
+
+		EditorWindow(const std::string& title);
 
 		virtual void Start();
 		virtual void GUI();

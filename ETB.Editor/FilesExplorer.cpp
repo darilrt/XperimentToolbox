@@ -9,6 +9,8 @@ REGISTER_EDITOR(FilesExplorer);
 
 FilesExplorer::FilesExplorer() {
 	title = "Files Explorer";
+
+	title = "Files Explorer";
 }
 
 void listFiles_impl(const std::string& path) {
@@ -45,9 +47,9 @@ void FilesExplorer::GUI() {
 
 void FilesExplorer::OpenFile(const std::filesystem::directory_entry& entry) {
 	std::filesystem::path path = entry.path();
-	
-	if (path.has_extension()) {
 		AssetsEditor* assetsEditor = Editor::EditorWindow::GetEditor<AssetsEditor>();
+		assetsEditor->isOpen = true;
+		assetsEditor->OpenByPath(path);
 		assetsEditor->isOpen = true;
 		assetsEditor->OpenByPath(path);
 	}

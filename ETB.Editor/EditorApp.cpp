@@ -6,7 +6,6 @@
 using namespace ETB;
 
 Scene* EditorApp::currentScene;
-std::vector<Editor::EditorWindow*> EditorApp::editors;
 
 EditorApp::EditorApp() : Application("ExperimentToolbox", 1240, 720) {
 	window.SetVSync(Core::VSyncMode::On);
@@ -31,6 +30,8 @@ void EditorApp::Render() {
 }
 
 void EditorApp::GUI() {
+	ImGui::ShowDemoWindow();
+
 	ImGuizmo::BeginFrame();
 
     if (ImGui::BeginMainMenuBar()) {
@@ -104,7 +105,7 @@ void EditorApp::GUI() {
 		//editor->Style();
 
 		if (editor->isOpen) {
-			ImGui::Begin(editor->title.c_str(), &editor->isOpen);
+			ImGui::Begin(editor->title.c_str(), &editor->isOpen, editorsFlags);
 			
 			editor->GUI();
 			ImGui::End();
@@ -114,8 +115,4 @@ void EditorApp::GUI() {
 	ImGui::Begin("Inspector"); ImGui::End();
 
     ImGui::End();
-}
-
-void EditorApp::Add(Editor::EditorWindow* editor) {
-	EditorApp::editors.push_back(editor);
 }

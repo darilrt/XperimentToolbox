@@ -107,5 +107,8 @@
     <ClInclude Include="FilesExplorer.h">
       <Filter>Header Files\Editors</Filter>
     </ClInclude>
+    <ClInclude Include="TestEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

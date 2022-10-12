@@ -1,3 +1,5 @@
+#include <etb.h>
+
 #include "EditorApp.h"
 #include "AssetsEditor.h"
 
