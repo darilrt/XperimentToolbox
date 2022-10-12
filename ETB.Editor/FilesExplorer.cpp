@@ -47,9 +47,9 @@ void FilesExplorer::GUI() {
 
 void FilesExplorer::OpenFile(const std::filesystem::directory_entry& entry) {
 	std::filesystem::path path = entry.path();
+
+	if (path.has_extension()) {
 		AssetsEditor* assetsEditor = Editor::EditorWindow::GetEditor<AssetsEditor>();
-		assetsEditor->isOpen = true;
-		assetsEditor->OpenByPath(path);
 		assetsEditor->isOpen = true;
 		assetsEditor->OpenByPath(path);
 	}

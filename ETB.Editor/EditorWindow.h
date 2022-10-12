@@ -12,8 +12,6 @@ namespace Editor {
 	
 	class EditorWindow;
 
-	std::vector<Editor::EditorWindow*>& GetEditors();
-
 	template<class T>
 	class Editor {
 	public:
@@ -26,8 +24,6 @@ namespace Editor {
 		std::string title;
 
 		EditorWindow();
-
-		EditorWindow(const std::string& title);
 
 		virtual void Start();
 		virtual void GUI();

@@ -30,8 +30,6 @@ void EditorApp::Render() {
 }
 
 void EditorApp::GUI() {
-	ImGui::ShowDemoWindow();
-
 	ImGuizmo::BeginFrame();
 
     if (ImGui::BeginMainMenuBar()) {
@@ -105,7 +103,7 @@ void EditorApp::GUI() {
 		//editor->Style();
 
 		if (editor->isOpen) {
-			ImGui::Begin(editor->title.c_str(), &editor->isOpen, editorsFlags);
+			ImGui::Begin(editor->title.c_str(), &editor->isOpen);
 			
 			editor->GUI();
 			ImGui::End();
