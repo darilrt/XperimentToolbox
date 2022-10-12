@@ -8,13 +8,11 @@
 
 #include "vendor/ImGuizmo.h"
 
+REGISTER_EDITOR(SceneEditor);
+
 using namespace ETB;
 
-SceneEditor sceneEditor;
-
 SceneEditor::SceneEditor() {
-	EditorApp::Add(this);
-
 	title = "Scene";
 }
 

@@ -1,6 +1,7 @@
 #include "Graphics.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Material.h"
 #include "Camera.h"
 #include "Texture.h"
 #include "RenderTexture.h"

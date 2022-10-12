@@ -19,7 +19,4 @@ private:
 	EditorCamera* editorCamera;
 	CubeActor* cubeActor;
 	ETB::Scene scene;
-
-	static SceneEditor sceneEditor;
 };
-

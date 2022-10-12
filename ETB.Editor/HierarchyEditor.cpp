@@ -3,11 +3,9 @@
 
 #include "CubeActor.h"
 
-HierarchyEditor HierarchyEditor::hierarchyEditor;
+REGISTER_EDITOR(HierarchyEditor);
 
 HierarchyEditor::HierarchyEditor() {
-	EditorApp::Add(this);
-
 	title = "Hierarchy";
 }
 

@@ -11,8 +11,4 @@ public:
 
 	void Start();
 	void GUI();
-
-private:
-	static HierarchyEditor hierarchyEditor;
 };
-

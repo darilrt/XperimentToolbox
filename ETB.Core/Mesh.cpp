@@ -53,3 +53,7 @@ void ETB::Mesh::Setup() {
 void ETB::Mesh::Bind() {
 	glBindVertexArray(vao);
 }
+
+void ETB::Mesh::Unbind() {
+	glBindVertexArray(NULL);
+}

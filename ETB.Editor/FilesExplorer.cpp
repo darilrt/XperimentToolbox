@@ -3,12 +3,11 @@
 
 #include "FilesExplorer.h"
 #include "EditorApp.h"
+#include "AssetsEditor.h"
 
-FilesExplorer FilesExplorer::filesExplorer;
+REGISTER_EDITOR(FilesExplorer);
 
 FilesExplorer::FilesExplorer() {
-	EditorApp::Add(this);
-
 	title = "Files Explorer";
 }
 
@@ -48,8 +47,8 @@ void FilesExplorer::OpenFile(const std::filesystem::directory_entry& entry) {
 	std::filesystem::path path = entry.path();
 	
 	if (path.has_extension()) {
-		std::string ext = path.extension().string();
-
-		
+		AssetsEditor* assetsEditor = Editor::EditorWindow::GetEditor<AssetsEditor>();
+		assetsEditor->isOpen = true;
+		assetsEditor->OpenByPath(path);
 	}
 }

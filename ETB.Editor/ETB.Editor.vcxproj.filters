@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Vendor">
       <UniqueIdentifier>{96c72934-dfe2-41dd-af58-2b4dd2cb595b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Editors\AssetsInspectors">
+      <UniqueIdentifier>{755c125c-28b5-4a91-b6c7-ad02ebbb76dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editors\AssetsInspectors">
+      <UniqueIdentifier>{b815e3fb-46f6-4d74-b158-32087113602b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +63,12 @@
     <ClCompile Include="AssetsEditor.cpp">
       <Filter>Source Files\Editors</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialAssetInspector.cpp">
+      <Filter>Source Files\Editors\AssetsInspectors</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetInspector.cpp">
+      <Filter>Source Files\Editors\AssetsInspectors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -83,10 +95,16 @@
     <ClInclude Include="vendor\ImGuizmo.h">
       <Filter>Header Files\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="FilesExplorer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AssetsEditor.h">
+      <Filter>Header Files\Editors</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialAssetInspector.h">
+      <Filter>Header Files\Editors\AssetsInspectors</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetInspector.h">
+      <Filter>Header Files\Editors\AssetsInspectors</Filter>
+    </ClInclude>
+    <ClInclude Include="FilesExplorer.h">
       <Filter>Header Files\Editors</Filter>
     </ClInclude>
   </ItemGroup>

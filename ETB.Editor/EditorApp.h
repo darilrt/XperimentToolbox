@@ -17,12 +17,14 @@ public:
 
 	static void Add(Editor::EditorWindow* editor);
 
+	static inline void Focus(Editor::EditorWindow* window) { setFocus = window; }
 	static inline ETB::Scene* GetScene() { return EditorApp::currentScene; }
 	static inline void SetScene(ETB::Scene* scene) { EditorApp::currentScene = scene; }
 
 private:
 	static ETB::Scene* currentScene;
 	static std::vector<Editor::EditorWindow*> editors;
+	static Editor::EditorWindow* setFocus;
 
 	ETB::Transform transform;
 };

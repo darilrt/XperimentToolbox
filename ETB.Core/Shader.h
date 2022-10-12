@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "etbdefs.h"
-#include "Graphics.h"
 #include "Texture.h"
 #include "Uniform.h"
 
@@ -51,6 +50,8 @@ namespace ETB {
 		DECLSPEC void SetSampler2D(const char* name, Texture& texture);
 
 	private:
+		uint32_t CreateShader(const std::string* source);
+
 		uint32_t samplerCount;
 		uint32_t shaderId;
 

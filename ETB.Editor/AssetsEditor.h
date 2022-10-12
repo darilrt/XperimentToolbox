@@ -1,10 +1,21 @@
 #pragma once
 
+#include <filesystem>
+#include <iostream>
+
+#include "AssetInspector.h"
 #include "EditorWindow.h"
+#include "MaterialAssetInspector.h"
 
 class AssetsEditor : public Editor::EditorWindow {
 public:
-	static AssetsEditor assetsEditor;
-
 	AssetsEditor();
+
+	void GUI();
+
+	void OpenByPath(std::filesystem::path path);
+	
+private:
+	std::map<std::string, AssetInspector*> inspectors;
+	AssetInspector* currentInspector;
 };

@@ -1,6 +1,7 @@
 #include "EditorWindow.h"
 
 Editor::EditorWindow::EditorWindow() {
+
 }
 
 void Editor::EditorWindow::Start() {

@@ -6,8 +6,6 @@
 
 class FilesExplorer : public Editor::EditorWindow {
 public:
-	static FilesExplorer filesExplorer;
-
 	FilesExplorer();
 
 	void GUI() override;

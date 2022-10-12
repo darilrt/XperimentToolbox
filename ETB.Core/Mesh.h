@@ -20,6 +20,7 @@ namespace ETB {
 		DECLSPEC void Setup();
 
 		DECLSPEC void Bind();
+		DECLSPEC void Unbind();
 
 	private:
 		uint32_t vao; // Vertex Array

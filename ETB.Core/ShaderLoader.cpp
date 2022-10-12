@@ -16,3 +16,11 @@ void ETB::ShaderLoader::Add(const std::string& path, bool hotLoad) {
 	
 	if (hotLoad) ShaderLoader::shaders[path].HotReload();
 }
+
+ETB::Shader& ETB::ShaderLoader::Get(const std::string& path) {
+	if (ShaderLoader::shaders.count(path) == 0) {
+		Add(path);
+	}
+
+	return ShaderLoader::shaders[path];
+}

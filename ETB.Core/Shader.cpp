@@ -5,7 +5,6 @@
 #include "File.h"
 #include "Shader.h"
 #include "Uniform.h"
-#include "Graphics.h"
 #include "Camera.h"
 #include "EventSystem.h"
 
@@ -80,7 +79,7 @@ void ETB::Shader::LoadSources() {
 }
 
 bool ETB::Shader::Compile() {
-	shaderId = Graphics::CreateShader(&source);
+	shaderId = CreateShader(&source);
 	source.clear();
 	return shaderId != 0;
 }
@@ -117,4 +116,84 @@ void ETB::Shader::SetSampler2D(const char* name, Texture& texture) {
 	glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
 
 	samplerCount++;
+}
+
+void PrintShaderLog_impl(int32_t shader) {
+	if (glIsShader(shader)) {
+		int32_t infoLogLength = 0;
+		int32_t maxLength = infoLogLength;
+
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+		char* infoLog = new char[maxLength];
+
+		glGetShaderInfoLog(shader, maxLength, &infoLogLength, infoLog);
+
+		if (infoLogLength > 0) {
+			ETB::Debug::Print(infoLog);
+		}
+
+		delete[] infoLog;
+	}
+	else {
+		std::string _log = "Name ";
+		_log += std::to_string(shader);
+		_log += " is not a shader";
+		ETB::Debug::Print(_log);
+	}
+}
+
+uint32_t ETB::Shader::CreateShader(const std::string* source) {
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	const GLchar* vertexShaderSource[] = {
+		"#version 330 core\n#define ETB_VERTEX_SHADER\n",
+		source->c_str()
+	};
+
+	glShaderSource(vertexShader, 2, vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
+
+	GLint vShaderCompiled = GL_FALSE;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
+
+	if (vShaderCompiled != GL_TRUE) {
+		Debug::Print("Unable to compile vertex shader ");
+		PrintShaderLog_impl(vertexShader);
+
+		glDeleteShader(vertexShader);
+		return 0;
+	}
+
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	const GLchar* fragmentShaderSource[] = {
+		"#version 330 core\n#define ETB_FRAGMENT_SHADER\n",
+		source->c_str()
+	};
+
+	glShaderSource(fragmentShader, 2, fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	GLint fShaderCompiled = GL_FALSE;
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
+
+	if (fShaderCompiled != GL_TRUE) {
+		Debug::Print("Unable to compile fragment shader ");
+		PrintShaderLog_impl(fragmentShader);
+
+		glDeleteShader(fragmentShader);
+		return 0;
+	}
+
+	uint32_t program = glCreateProgram();
+
+	glAttachShader(program, vertexShader);
+	glAttachShader(program, fragmentShader);
+
+	glLinkProgram(program);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	return program;
 }

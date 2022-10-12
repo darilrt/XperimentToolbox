@@ -12,9 +12,7 @@ namespace ETB {
 	public:
 		static DECLSPEC void Add(const std::string& path, bool hotLoad = false);
 
-		inline static Shader& Get(const std::string& path) { return ShaderLoader::shaders[path]; }
-
-		inline static void Bind(const std::string& path) { ShaderLoader::shaders[path].Bind(); }
+		static DECLSPEC Shader& Get(const std::string& path);
 		
 	private:
 		static DECLSPEC std::map<std::string, Shader> shaders;

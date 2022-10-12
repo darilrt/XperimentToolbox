@@ -1,7 +1,7 @@
 uniform mat4 ETB_MATRIX_VP; // View * Projection Matrix
 uniform mat4 ETB_MATRIX_M;  // Model View Matrix
 
-uniform sampler2D albedo;
+uniform float albedo;
 
 varying vec2 uvMainTex;
 varying vec4 vertexPosition;
@@ -31,6 +31,8 @@ vec3 lightColor = vec3(1, 1, 1);
 
 void main() {
 	vec3 objectColor = vec3(1, 1, 1);
+	
+	float a = albedo;
 	
 	// ambient
     float ambientstrength = 0.1;

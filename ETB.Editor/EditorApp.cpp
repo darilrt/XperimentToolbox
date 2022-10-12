@@ -18,7 +18,7 @@ EditorApp::~EditorApp() {
 }
 
 void EditorApp::Start() {
-	for (auto editor : EditorApp::editors) {
+	for (auto editor : Editor::EditorWindow::GetEditors()) {
 		editor->isOpen = true;
 		editor->Start();
 	}
@@ -51,9 +51,10 @@ void EditorApp::GUI() {
 
 		if (ImGui::BeginMenu("Windows")) {
 
-			for (Editor::EditorWindow* editor : EditorApp::editors) {
+			for (Editor::EditorWindow* editor : Editor::EditorWindow::GetEditors()) {
 				if (ImGui::MenuItem(editor->title.c_str())) {
 					editor->isOpen = true;
+					ImGui::SetWindowFocus(editor->title.c_str());
 				}
 			}
 
@@ -99,7 +100,7 @@ void EditorApp::GUI() {
 	}
 	ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-	for (Editor::EditorWindow* editor : EditorApp::editors) {
+	for (Editor::EditorWindow* editor : Editor::EditorWindow::GetEditors()) {
 		//editor->Style();
 
 		if (editor->isOpen) {
