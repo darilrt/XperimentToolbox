@@ -135,6 +135,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorHandler.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cursor.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorHandler.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cursor.cpp" />

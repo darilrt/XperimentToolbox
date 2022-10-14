@@ -1,4 +1,6 @@
 #include <etb.h>
+#include <filesystem>
+#include <stdlib.h>
 
 #include "EditorCamera.h"
 
@@ -12,7 +14,11 @@ public:
 		window.SetVSync(Core::VSyncMode::On);
 	}
 
+	~App() {
+	}
+
 	void Start() {
+		Application::Quit();
 	}
 	
 	void Update() {
