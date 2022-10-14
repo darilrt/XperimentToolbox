@@ -162,9 +162,6 @@
     <ClInclude Include="Actor.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ActorHandler.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="RenderTexture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -178,10 +175,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetsManager.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +266,6 @@
     <ClCompile Include="Actor.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="ActorHandler.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="RenderTexture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -288,10 +279,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetsManager.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

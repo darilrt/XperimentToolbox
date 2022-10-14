@@ -1,6 +1,7 @@
 #include "Graphics.h"
 #include "Debug.h"
 #include "Camera.h"
+#include "ShaderLoader.h"
 
 void ETB::Graphics::Init() {
 	if (glewInit() != GLEW_OK) {
@@ -11,15 +12,22 @@ void ETB::Graphics::Init() {
 }
 
 void ETB::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
-	if (material.shader == NULL) return;
-
-	material.shader->Bind();
+	Shader* shader;
 	
-	material.shader->SetMatrix("ETB_MATRIX_M", matrix);
-	material.shader->SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
+	if (material.shader == NULL) {
+		shader = &ShaderLoader::Get("Built-In/Shaders/ErrorShader.gl");
+	}
+	else {
+		shader = material.shader;
+	}
+
+	shader->Bind();
+	
+	shader->SetMatrix("ETB_MATRIX_M", matrix);
+	shader->SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
 
 	DrawMesh(mesh);
-	material.shader->Unbind();
+	shader->Unbind();
 }
 
 void ETB::Graphics::DrawMesh(Mesh& mesh) {

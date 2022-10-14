@@ -5,7 +5,6 @@
 #include "Timer.h"
 #include "Graphics.h"
 #include "GUI.h"
-#include "ActorHandler.h"
 #include "Camera.h"
 #include "Debug.h"
 #include "Primitives.h"

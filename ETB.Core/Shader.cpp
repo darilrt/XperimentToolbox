@@ -84,6 +84,27 @@ bool ETB::Shader::Compile() {
 	return shaderId != 0;
 }
 
+void ETB::Shader::Reload() {
+	struct stat fileInfo;
+	stat(path.c_str(), &fileInfo);
+
+	if (srcMTime != fileInfo.st_mtime) {
+		srcMTime = fileInfo.st_mtime;
+
+		Debug::Print("--------------------------------------");
+		Debug::Print("Shader hot reload \"" + path + "\"");
+
+		Debug::Print("Loading sources");
+		LoadSources();
+
+		Debug::Print("Compiling");
+
+		if (Compile()) {
+			Debug::Print("Shader successful reloaded");
+		}
+	}
+}
+
 void ETB::Shader::HotReload() {
 	EventSystem::AddEventListener(EventType::Tick, [&](Event& e) {
 		struct stat fileInfo;
@@ -104,7 +125,7 @@ void ETB::Shader::HotReload() {
 				Debug::Print("Shader successful reloaded");
 			}
 		}
-		});
+	});
 }
 
 void ETB::Shader::SetSampler2D(const char* name, Texture& texture) {

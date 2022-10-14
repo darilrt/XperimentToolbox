@@ -29,7 +29,6 @@
 #include "ShaderLoader.h"
 #include "Primitives.h"
 #include "Actor.h"
-#include "ActorHandler.h"
 #include "Scene.h"
 
 #include "OBJLoader.h"

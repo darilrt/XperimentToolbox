@@ -1,8 +1,6 @@
 uniform mat4 ETB_MATRIX_VP; // View * Projection Matrix
 uniform mat4 ETB_MATRIX_M;  // Model View Matrix
 
-uniform float albedo;
-
 varying vec2 uvMainTex;
 varying vec4 vertexPosition;
 varying vec3 worldNormal;
@@ -26,28 +24,8 @@ void main() {
 
 layout (location = 0) out vec4 _fragColor;
 
-vec3 lightPos = vec3(-3, 2.5f, 2);
-vec3 lightColor = vec3(1, 1, 1);
-
 void main() {
-	vec3 objectColor = vec3(1, 1, 1);
-	
-	float a = albedo;
-	
-	// ambient
-    float ambientstrength = 0.1;
-    vec3 ambient = ambientstrength * lightColor;
-	
-	// diffuse
-	vec3 norm = normalize(worldNormal);
-	vec3 lightdir = normalize(lightPos);
-	
-	float diff = max(dot(norm, lightdir), 0.0);
-	vec3 diffuse = diff * lightColor;
-	
-    vec3 result = (ambient + diffuse) * objectColor;
-	
-	_fragColor = vec4(result, 1.0);
+	_fragColor = vec4(1.0, 0.0, 1.0, 1.0);
 }
 
 #endif

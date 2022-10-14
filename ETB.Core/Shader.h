@@ -21,6 +21,7 @@ namespace ETB {
 		DECLSPEC void LoadSources();
 		DECLSPEC bool Compile();
 
+		DECLSPEC void Reload();
 		DECLSPEC void HotReload();
 
 		DECLSPEC void Bind();
@@ -46,6 +47,9 @@ namespace ETB {
 				1, GL_FALSE, &v0[0][0]
 			);
 		}
+
+		inline uint32_t GetId() { return shaderId; }
+		inline std::string GetPath() { return path; }
 
 		DECLSPEC void SetSampler2D(const char* name, Texture& texture);
 
