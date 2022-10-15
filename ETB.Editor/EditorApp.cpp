@@ -77,8 +77,13 @@ void EditorApp::GUI() {
 	ImGui::SetNextWindowSize(viewport->Size);
 	ImGui::SetNextWindowViewport(viewport->ID);
 
-	//ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, {0, 0});
+	const ImVec4& color1 = ImVec4(0.08f, 0.08f, 0.08f, 1.00f);
+	const ImVec4& color2 = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+	const ImVec4& color3 = ImVec4(0.19f, 0.19f, 0.19f, 1.00f);
+
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, color1);
 	ImGui::Begin("Editor", 0, windowFlags);
+	ImGui::PopStyleColor();
 
 	ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_NoWindowMenuButton;
 	ImGuiID dockspaceID = ImGui::GetID("Editor");
@@ -115,5 +120,4 @@ void EditorApp::GUI() {
 	ImGui::Begin("Inspector"); ImGui::End();
 
     ImGui::End();
-    //ImGui::PopStyleColor();
 }

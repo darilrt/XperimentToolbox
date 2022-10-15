@@ -79,6 +79,8 @@ void ETB::Shader::LoadSources() {
 }
 
 bool ETB::Shader::Compile() {
+	if (source.size() == 0) return true;
+
 	shaderId = CreateShader(&source);
 	source.clear();
 	return shaderId != 0;

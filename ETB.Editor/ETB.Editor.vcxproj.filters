@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Editors\AssetsInspectors">
       <UniqueIdentifier>{b815e3fb-46f6-4d74-b158-32087113602b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Vendor">
+      <UniqueIdentifier>{b762b251-637d-424d-bacd-56d0ff93e005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,5 +113,13 @@
     <ClInclude Include="TestEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ETB.Editor.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ void ETB::Graphics::Init() {
 void ETB::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 	Shader* shader;
 	
-	if (material.shader == NULL) {
+	if (material.shader == NULL || material.shader->GetId() == 0) {
 		shader = &ShaderLoader::Get("Built-In/Shaders/ErrorShader.gl");
 	}
 	else {

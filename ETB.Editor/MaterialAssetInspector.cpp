@@ -20,13 +20,11 @@ MaterialAssetInspector::MaterialAssetInspector() {
 }
 
 void MaterialAssetInspector::Start() {
-
-
-    cam = new EditorCamera();
+    if (cam == NULL) cam = new EditorCamera();
     cam->cam.transform.position = glm::vec3(0, 0, 5.0f);
     cam->Start();
-
-    a = scene.Instance<PreviewObject>();
+    
+    if (a == NULL) a = scene.Instance<PreviewObject>();
     a->name = "Qbito";
     a->material.LoadFromFile(resourcePath.string());
 
@@ -52,6 +50,9 @@ void MaterialAssetInspector::GUI() {
         ImGui::Image((ImTextureID) cam->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
         
         ImGui::TableNextColumn();
+        ImGui::Text(resourcePath.filename().string().c_str());
+        ImGui::Separator();
+
         ETB::Shader& sh = *a->material.shader;
         
         if (ImGui::Button("Edit Shader")) {

@@ -56,8 +56,6 @@ void SceneEditor::GUI() {
 
 	// Toolbar
 
-	// ImGui::Button("abcd");
-
 	// Selection Gizmos
 
 	ImVec2 windowPos = ImGui::GetWindowPos();
@@ -78,6 +76,8 @@ void SceneEditor::GUI() {
 	
 	if (Input::KeyDown(KeyCode::C)) gizmoMode = gizmoMode == ImGuizmo::WORLD ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
 	
+	static auto ident = glm::mat4(1.0f);
+	// ImGuizmo::DrawGrid(view, projection, (float*)glm::value_ptr(ident), 100.0f);
 	ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
 
 	glm::vec3 matrixRotation;
@@ -87,6 +87,15 @@ void SceneEditor::GUI() {
 		glm::value_ptr(matrixRotation),
 		glm::value_ptr(actor.transform.scale)
 	);
+
+	// Tools
+
+	offset.x += 8;
+	offset.y += 8;
+	ImGui::SetCursorPos(offset);
+	ImGui::Button("\xEF\x80\x9C", ImVec2(30, 30));
+	ImGui::SameLine();
+	ImGui::Button(" ", ImVec2(30, 30));
 
 	actor.transform.rotation = glm::quat(glm::radians(matrixRotation));
 }
