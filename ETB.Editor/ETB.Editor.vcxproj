@@ -141,13 +141,16 @@
     <ClCompile Include="AssetInspector.cpp" />
     <ClCompile Include="AssetsEditor.cpp" />
     <ClCompile Include="CubeActor.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorApp.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="FilesExplorer.cpp" />
     <ClCompile Include="HierarchyEditor.cpp" />
+    <ClCompile Include="InspectorEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaterialAssetInspector.cpp" />
+    <ClCompile Include="MeshAssetInspector.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
     <ClCompile Include="vendor\ImGuizmo.cpp" />
   </ItemGroup>
@@ -158,13 +161,15 @@
     <ClInclude Include="AssetInspector.h" />
     <ClInclude Include="AssetsEditor.h" />
     <ClInclude Include="CubeActor.h" />
+    <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorApp.h" />
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="FilesExplorer.h" />
     <ClInclude Include="HierarchyEditor.h" />
+    <ClInclude Include="InspectorEditor.h" />
     <ClInclude Include="MaterialAssetInspector.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="MeshAssetInspector.h" />
     <ClInclude Include="SceneEditor.h" />
     <ClInclude Include="TestEditor.h" />
     <ClInclude Include="vendor\ImGuizmo.h" />

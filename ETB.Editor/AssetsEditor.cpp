@@ -3,12 +3,16 @@
 #include "EditorApp.h"
 #include "AssetsEditor.h"
 
+#include "MaterialAssetInspector.h"
+#include "MeshAssetInspector.h"
+
 REGISTER_EDITOR(AssetsEditor);
 
 AssetsEditor::AssetsEditor() {
 	title = "Assets Editor";
 
 	inspectors[".mat"] = new MaterialAssetInspector();
+	inspectors[".obj"] = new MeshAssetInspector();
 }
 
 void AssetsEditor::GUI() {

@@ -5,7 +5,6 @@
 
 #include "AssetInspector.h"
 #include "EditorWindow.h"
-#include "MaterialAssetInspector.h"
 
 class AssetsEditor : public Editor::EditorWindow {
 public:

@@ -5,6 +5,8 @@
 
 REGISTER_EDITOR(HierarchyEditor);
 
+ETB::Actor* HierarchyEditor::selectedActor = NULL;
+
 HierarchyEditor::HierarchyEditor() {
 	title = "Hierarchy";
 }
@@ -27,20 +29,21 @@ void HierarchyEditor::GUI() {
 
 		ImGui::EndPopup();
 	}
+	
+	ImGui::ShowDemoWindow();
 
-	int i = 0;
+	static ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow |
+		ImGuiTreeNodeFlags_OpenOnDoubleClick |
+		ImGuiTreeNodeFlags_SpanFullWidth;
+
+	static int selected = -1;
+
 	for (ETB::Actor* actor : scene->GetActors()) {
-		if (ImGui::TreeNodeEx(actor->name.c_str(), ImGuiTreeNodeFlags_Leaf)) {
-			ImGui::TreePop();
+		
+		ImGui::TreeNodeEx(actor->name.c_str(), nodeFlags | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
+		
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsItemHovered()) {
+			HierarchyEditor::selectedActor = actor;
 		}
-		i++;
 	}
-
-	//if (ImGui::TreeNodeEx("Entity 1", ImGuiTreeNodeFlags_Selected)) {
-	//	ImGui::TreePop();
-	//}
-
-	//if (ImGui::TreeNodeEx("Entity 2", ImGuiTreeNodeFlags_Leaf)) {
-	//	ImGui::TreePop();
-	//}
 }

@@ -22,12 +22,10 @@ void listFiles_impl(const std::string& path) {
 		std::string filename = entry.path().filename().string();
 		
 		if (entry.is_directory()) {
-			bool open = ImGui::TreeNodeEx(filename.c_str(), dirFlags);
+			if (!ImGui::TreeNodeEx(filename.c_str(), dirFlags)) continue;
 
-			if (open) {
-				listFiles_impl(path + filename + "/");
-				ImGui::TreePop();
-			}
+			listFiles_impl(path + filename + "/");
+			ImGui::TreePop();
 		}
 		else {
 			ImGui::TreeNodeEx(filename.c_str(), dirFlags | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);

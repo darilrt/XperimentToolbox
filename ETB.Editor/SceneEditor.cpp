@@ -7,6 +7,7 @@
 #include "CubeActor.h"
 
 #include "vendor/ImGuizmo.h"
+#include "HierarchyEditor.h"
 
 REGISTER_EDITOR(SceneEditor);
 
@@ -38,64 +39,73 @@ void SceneEditor::Style() {
 }
 
 void SceneEditor::GUI() {
-	editorCamera->Update();
-
 	ImGuizmo::SetDrawlist();
-
-	EventSystem::ignoreGui = ImGui::IsWindowHovered();
-
+	
 	ImVec2 offset = ImGui::GetWindowContentRegionMin();
 	ImVec2 size = ImGui::GetContentRegionAvail();
-
-	editorCamera->SetSize((int32_t)size.x, (int32_t)size.y);
-	editorCamera->screenCenter = glm::vec2(offset.x, offset.y) + glm::vec2(size.x, size.y) / 2.0f;
-
-	scene.Render(editorCamera->cam);
-
-	ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
-
-	// Toolbar
-
-	// Selection Gizmos
-
-	ImVec2 windowPos = ImGui::GetWindowPos();
-	ImGuizmo::SetRect(windowPos.x, windowPos.y + offset.y, size.x, size.y);
 	
-	Actor& actor = *cubeActor;
+	// Scene preview
+	{
+		editorCamera->Update();
 
-	float* view = (float*)glm::value_ptr(editorCamera->cam.GetViewMatrix());
-	float* projection = (float*)glm::value_ptr(editorCamera->cam.GetProjectionMatrix());
-	float* matrix = (float*)glm::value_ptr(actor.transform.GetMatrix());
+		EventSystem::ignoreGui = ImGui::IsWindowHovered();
+
+		editorCamera->SetSize((int32_t)size.x, (int32_t)size.y);
+		editorCamera->screenCenter = glm::vec2(offset.x, offset.y) + glm::vec2(size.x, size.y) / 2.0f;
+
+		scene.Render(editorCamera->cam);
+
+		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
+	}
 
 	static ImGuizmo::MODE gizmoMode(ImGuizmo::LOCAL);
 	static ImGuizmo::OPERATION gizmoOperation(ImGuizmo::TRANSLATE);
-
-	if (Input::KeyDown(KeyCode::Num1)) gizmoOperation = ImGuizmo::TRANSLATE;
-	if (Input::KeyDown(KeyCode::Num2)) gizmoOperation = ImGuizmo::ROTATE;
-	if (Input::KeyDown(KeyCode::Num3)) gizmoOperation = ImGuizmo::SCALE;
+	static bool showGrid = true;
+	float* view = (float*)glm::value_ptr(editorCamera->cam.GetViewMatrix());
+	float* projection = (float*)glm::value_ptr(editorCamera->cam.GetProjectionMatrix());
 	
-	if (Input::KeyDown(KeyCode::C)) gizmoMode = gizmoMode == ImGuizmo::WORLD ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
-	
-	static auto ident = glm::mat4(1.0f);
-	// ImGuizmo::DrawGrid(view, projection, (float*)glm::value_ptr(ident), 100.0f);
-	ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
+	ImVec2 windowPos = ImGui::GetWindowPos();
+	ImGuizmo::SetRect(windowPos.x, windowPos.y + offset.y, size.x, size.y);
 
-	glm::vec3 matrixRotation;
-	ImGuizmo::DecomposeMatrixToComponents(
-		matrix,
-		glm::value_ptr(actor.transform.position),
-		glm::value_ptr(matrixRotation),
-		glm::value_ptr(actor.transform.scale)
-	);
+	// Selection Gizmos
+	if (HierarchyEditor::selectedActor != NULL) {
+		Actor& actor = *HierarchyEditor::selectedActor;
+
+		float* matrix = (float*)glm::value_ptr(actor.transform.GetMatrix());
+
+		ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
+
+		glm::vec3 matrixRotation;
+		ImGuizmo::DecomposeMatrixToComponents(
+			matrix,
+			glm::value_ptr(actor.transform.position),
+			glm::value_ptr(matrixRotation),
+			glm::value_ptr(actor.transform.scale)
+		);
+
+		actor.transform.rotation = glm::quat(glm::radians(matrixRotation));
+	}
 
 	// Tools
+	{
+		static auto ident = glm::mat4(1.0f);
+		if (showGrid) ImGuizmo::DrawGrid(view, projection, (float*)glm::value_ptr(ident), 100.0f);
+		
+		offset.x += 8;
+		offset.y += 8;
+		ImGui::SetCursorPos(offset);
 
-	offset.x += 8;
-	offset.y += 8;
-	ImGui::SetCursorPos(offset);
-	ImGui::Button("\xEF\x80\x9C", ImVec2(30, 30));
-	ImGui::SameLine();
-	ImGui::Button(" ", ImVec2(30, 30));
+		if (Input::KeyDown(KeyCode::C)) gizmoMode = gizmoMode == ImGuizmo::WORLD ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
 
-	actor.transform.rotation = glm::quat(glm::radians(matrixRotation));
+		if (ImGui::Button("T", ImVec2(30, 30)) || Input::KeyDown(KeyCode::Q)) gizmoOperation = ImGuizmo::TRANSLATE;
+
+		ImGui::SameLine();
+		if (ImGui::Button("R", ImVec2(30, 30)) || Input::KeyDown(KeyCode::W)) gizmoOperation = ImGuizmo::ROTATE;
+
+		ImGui::SameLine();
+		if (ImGui::Button("S", ImVec2(30, 30)) || Input::KeyDown(KeyCode::E)) gizmoOperation = ImGuizmo::SCALE;
+
+		ImGui::SameLine();
+		if (ImGui::Button("G", ImVec2(30, 30))) showGrid = !showGrid;
+	}
 }

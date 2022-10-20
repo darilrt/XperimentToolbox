@@ -34,6 +34,12 @@
     <Filter Include="Resource Files\Vendor">
       <UniqueIdentifier>{b762b251-637d-424d-bacd-56d0ff93e005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\EditorGUI">
+      <UniqueIdentifier>{3d9a30be-9761-44bd-978d-9c640641536a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EditorGUI">
+      <UniqueIdentifier>{dc4d83ce-5533-4d0f-a0b9-5ef4f51b65d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +77,15 @@
     </ClCompile>
     <ClCompile Include="AssetInspector.cpp">
       <Filter>Source Files\Editors\AssetsInspectors</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshAssetInspector.cpp">
+      <Filter>Source Files\Editors\AssetsInspectors</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorGUI.cpp">
+      <Filter>Source Files\EditorGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorEditor.cpp">
+      <Filter>Source Files\Editors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,8 +128,14 @@
     <ClInclude Include="TestEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MeshAssetInspector.h">
+      <Filter>Header Files\Editors\AssetsInspectors</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorGUI.h">
+      <Filter>Header Files\EditorGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorEditor.h">
+      <Filter>Header Files\Editors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

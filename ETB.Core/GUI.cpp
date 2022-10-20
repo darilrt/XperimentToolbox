@@ -59,14 +59,7 @@ void ETB::GUI::ProcesssEvent(SDL_Event* event) {
 
 void ETB::GUI::SetTheme() {
 	auto& io = ImGui::GetIO();
-	// io.Fonts->AddFontFromFileTTF("Built-In/Fonts/font.ttf", 18.0f);
 	io.Fonts->AddFontFromFileTTF("Built-In/Fonts/Roboto-Medium.ttf", 18.0f);
-
-	// merge in icons from Font Awesome
-	// static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_16_FA, 0 };
-	ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
-	// io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FAS, 16.0f, &icons_config, icons_ranges);
-	// use FONT_ICON_FILE_NAME_FAR if you want regular instead of solid
 
 	ImGuiStyle* style = &ImGui::GetStyle();
 	style->WindowRounding = 4.0f;
@@ -100,7 +93,7 @@ void ETB::GUI::SetTheme() {
 	colors[ImGuiCol_Border] = color2;
 	colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
 
-	colors[ImGuiCol_FrameBg] = color1;
+	colors[ImGuiCol_FrameBg] = ImVec4(0.06f, 0.06f, 0.06f, 1.00f);
 	colors[ImGuiCol_FrameBgHovered] = color1;
 	colors[ImGuiCol_FrameBgActive] = color1;
 
@@ -127,9 +120,10 @@ void ETB::GUI::SetTheme() {
 	colors[ImGuiCol_ButtonHovered] = ImVec4(0.20f, 0.55f, 0.55f, 0.60f);
 	colors[ImGuiCol_ButtonActive] = color4;
 
+
 	colors[ImGuiCol_Header] = ImVec4(0.13f, 0.75f, 0.55f, 0.40f);
-	colors[ImGuiCol_HeaderHovered] = ImVec4(0.13f, 0.75f, 0.75f, 0.60f);
-	colors[ImGuiCol_HeaderActive] = ImVec4(0.13f, 0.75f, 1.00f, 0.80f);
+	colors[ImGuiCol_HeaderHovered] = ImVec4(0.59f, 0.59f, 0.59f, 1.00f);
+	colors[ImGuiCol_HeaderActive] = ImVec4(0.36f, 0.36f, 0.36f, 0.80f);
 
 	colors[ImGuiCol_ResizeGrip] = ImVec4(0.13f, 0.75f, 0.55f, 0.40f);
 	colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.13f, 0.75f, 0.75f, 0.60f);

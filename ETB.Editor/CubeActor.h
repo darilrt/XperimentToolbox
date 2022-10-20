@@ -9,7 +9,5 @@ public:
 	void Start();
 
 	void Render();
-
-	void GUI();
 };
 

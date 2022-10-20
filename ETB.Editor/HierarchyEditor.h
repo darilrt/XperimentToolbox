@@ -11,4 +11,6 @@ public:
 
 	void Start();
 	void GUI();
+
+	static ETB::Actor* selectedActor;
 };

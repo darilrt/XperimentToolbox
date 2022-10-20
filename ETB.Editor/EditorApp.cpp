@@ -7,8 +7,7 @@ using namespace ETB;
 
 Scene* EditorApp::currentScene;
 
-EditorApp::EditorApp() : Application("ExperimentToolbox", 1240, 720) {
-	window.SetVSync(Core::VSyncMode::On);
+EditorApp::EditorApp() : Application("Xperiment Toolbox", 1240, 720) {
 	window.SetResizable(true);
 	window.Maximize();
 }
@@ -74,7 +73,8 @@ void EditorApp::GUI() {
 
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
 	ImGui::SetNextWindowPos(viewport->Pos);
-	ImGui::SetNextWindowSize(viewport->Size);
+	ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y - ImGui::GetFrameHeight()));
+	
 	ImGui::SetNextWindowViewport(viewport->ID);
 
 	const ImVec4& color1 = ImVec4(0.08f, 0.08f, 0.08f, 1.00f);
@@ -117,7 +117,16 @@ void EditorApp::GUI() {
 		}
 	}
 
-	ImGui::Begin("Inspector"); ImGui::End();
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_MenuBar;
+	float height = ImGui::GetFrameHeight();
+	
+	if (ImGui::BeginViewportSideBar("##StatusBar", NULL, ImGuiDir_Down, height, window_flags)) {
+		if (ImGui::BeginMenuBar()) {
+			ImGui::Text("Status bar");
+			ImGui::EndMenuBar();
+		}
+	}
+	ImGui::End();
 
     ImGui::End();
 }
