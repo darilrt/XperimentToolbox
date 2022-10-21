@@ -11,7 +11,7 @@
 ### 2: Clone the repository.
 
 ```
-git clone --recurse-submodules https://github.com/files-community/Files
+git clone --recurse-submodules https://github.com/darilrt/ExperimentToolbox.git
 ```
 
 ### 3: Run setup script
