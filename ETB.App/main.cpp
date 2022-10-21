@@ -19,6 +19,16 @@ public:
 		PyObject* pName = PyUnicode_FromString((char*)"Assets.Scripts");
 		PyObject* assetsModule = PyImport_Import(pName);
 
+		if (assetsModule == NULL) {
+			PyObject* extype, * value, * traceback;
+
+			// PyErr_Fetch(&extype, &value, &traceback);
+
+			Debug::Print(PyUnicode_AsUTF8(PyObject_Str(PyErr_Occurred())));
+
+			return;
+		}
+
 		PyObject* testScript = PyObject_GetAttrString(assetsModule, (char*)"TestScript");
 		PyObject* obj = PyObject_CallObject(testScript, NULL);
 

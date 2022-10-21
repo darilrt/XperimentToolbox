@@ -7,8 +7,8 @@ import os
 files = glob.glob("../cpython/PCbuild/amd64/*.dll")
 
 if not files:
-    os.system('"./cpython/PCbuild/get_externals.bat"')
-    os.system('"./cpython/PCbuild/build.bat"')
+    os.system('"../cpython/PCbuild/get_externals.bat"')
+    os.system('"../cpython/PCbuild/build.bat"')
 
 # copy dlls
 files = glob.glob("../cpython/PCbuild/amd64/*.dll")

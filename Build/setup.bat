@@ -1,0 +1,1 @@
+call "../cpython/PCbuild/get_externals.bat"
