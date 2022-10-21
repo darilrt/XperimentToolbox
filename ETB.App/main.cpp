@@ -7,43 +7,75 @@
 
 using namespace ETB;
 
-namespace py {
-	inline void Initialize() { Py_Initialize(); }
-	inline void Finalize() { Py_Finalize(); }
+namespace xge {
+	namespace python {
 
-	class Object {
-	public:
-		PyObject* ptr;
+		std::string CaputreError() {
+			PyObject* err = PyErr_Occurred();
+			if (err == NULL) return "";
+			Py_DECREF(err);
 
-		inline Object() : ptr(NULL) { }
-		inline Object(PyObject* obj) : ptr(obj) { }
+			// capture error
+			PyObject *pType, *pValue, *pTraceback;
+			PyErr_Fetch(&pType, &pValue, &pTraceback);
+			
+			// import traceback
+			PyObject* tracebackStr = PyUnicode_FromString("traceback");
+			PyObject* tracebackModule = PyImport_Import(tracebackStr);
+			Py_DECREF(tracebackStr);
+			
+			// format_exception
+			PyObject* formatExceptionFunc = PyObject_GetAttrString(tracebackModule, "format_exception");
 
-		inline void DecRef() { Py_DECREF(ptr); }
+			std::string backtrace;
 
-		inline Object GetAttr(const std::string& attrName) { return Object(PyObject_GetAttrString(this->ptr, attrName.c_str())); }
-		inline Object Str() { return Object(PyObject_Str(this->ptr)); }
-		inline const char* UnicodeAsString() { return PyUnicode_AsUTF8(ptr); }
-		
-		inline int IsCallable() { return PyCallable_Check(ptr); }
+			if (formatExceptionFunc != NULL) {
+				PyObject* exceptionList = PyObject_CallFunctionObjArgs(formatExceptionFunc, pType, pValue, pTraceback, NULL);
 
-		inline bool IsNull() { return ptr == NULL; }
-		inline bool IsNotNull() { return ptr != NULL; }
+				// exceptionStr = "".join(exceptionList)
+				PyObject* str = PyUnicode_FromString("");
+				PyObject* joinMethod = PyUnicode_FromString("join");
+				PyObject* exceptionStr = PyObject_CallMethodObjArgs(str, joinMethod, exceptionList, NULL);
+				Py_DECREF(joinMethod);
+				Py_DECREF(str);
+				Py_DECREF(exceptionList);
 
-		template<typename... T>
-		inline Object CallMethod(const std::string& methodName, const char* format, T ...t) { return Object(PyObject_CallMethod(this->ptr, methodName.c_str(), format, t...)); }
+				backtrace = std::string(PyUnicode_AsUTF8(exceptionStr));
+				
+				Py_DECREF(exceptionStr);
+				Py_DECREF(formatExceptionFunc);
+			}
 
-		template<class... T>
-		inline Object CallMathodObjArgs(Object name, T... t) { return Object(PyObject_CallMethodObjArgs(ptr, name.ptr, t..., NULL)); }
+			Py_DECREF(tracebackModule);
+			Py_DECREF(pType); Py_DECREF(pValue); Py_DECREF(pTraceback);
 
-		template<class... T>
-		inline Object CallFunctionObjArgs(T... t) { return Object(PyObject_CallFunctionObjArgs(ptr, t..., NULL)); }
-	
-		inline void operator =(PyObject* pObj) { ptr = pObj; }
-	};
-	
-	inline Object Unicode(const std::string& str) { return PyUnicode_FromString(str.c_str()); }
+			return backtrace;
+		}
 
-	inline Object Import(Object name) { return Object(PyImport_Import(name.ptr)); }
+		PyObject* LoadComponentFromFile(const std::string& pathString) {
+			PyObject* moduleName = PyUnicode_FromString("Assets.Scripts");
+
+			std::filesystem::path path(pathString);
+			
+			if (path.extension() != ".py") return NULL;
+			if (path.nam)
+
+		}
+
+		void ScriptDebugGUI() {
+			ImGui::Begin("Script Debug");
+
+			static std::string filePath("Assets/Scripts/TestScript.py");
+			ImGui::InputText("Script Path", (char*) filePath.c_str(), filePath.size());
+
+			if (ImGui::Button("Load")) {
+
+			}
+
+			ImGui::End();
+		}
+
+	}
 }
 
 class App : public Application {
@@ -53,59 +85,14 @@ public:
 	App() : Application("Hello, World", 1140, 620) {
 		window.SetVSync(Core::VSyncMode::On);
 
-		py::Initialize();
-
-		PyObject* pName = PyUnicode_FromString((char*)"Assets.Scripts");
-		PyObject* assetsModule = PyImport_Import(pName);
-		
-		if (assetsModule == NULL) {
-			PyObject* err = PyErr_Occurred();
-
-			py::Object extype, value, traceback;
-
-			PyErr_Fetch(&extype.ptr, &value.ptr, &traceback.ptr);
-
-			auto tb = py::Import(py::Unicode("traceback"));
-			auto func = tb.GetAttr("format_exception");
-			
-			if (func.IsNotNull() && func.IsCallable()) {
-				auto val = func.CallFunctionObjArgs(extype, value, traceback);
-
-				auto s = py::Unicode("");
-				auto val2 = s.CallMathodObjArgs(py::Unicode("join"), val);
-				val.DecRef();
-				
-				auto pystr = val2.Str();
-				std::string full_backtrace(pystr.UnicodeAsString());
-				pystr.DecRef();
-
-				Debug::Print(full_backtrace);
-			}
-			// PyErr_Print();
-			
-			// Debug::Print(TO_STR(value));
-
-			return;
-		}
-
-		PyObject* testScript = PyObject_GetAttrString(assetsModule, (char*)"TestScript");
-		PyObject* obj = PyObject_CallObject(testScript, NULL);
-
-		PyObject_CallMethod(obj, "start", NULL);
-		
-		Py_DECREF(pName);
-		Py_DECREF(assetsModule);
-		Py_DECREF(testScript);
-		Py_DECREF(obj);
-
-		py::Finalize();
+		Py_Initialize();
 	}
 
 	~App() {
+		Py_Finalize();
 	}
 
 	void Start() {
-		Application::Quit();
 	}
 	
 	void Update() {
@@ -115,6 +102,9 @@ public:
 	}
 
 	void GUI() {
+
+		xge::python::ScriptDebugGUI();
+
 	}
 };
 

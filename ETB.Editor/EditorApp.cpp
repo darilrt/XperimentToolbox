@@ -7,7 +7,7 @@ using namespace ETB;
 
 Scene* EditorApp::currentScene;
 
-EditorApp::EditorApp() : Application("Xperiment Toolbox", 1240, 720) {
+EditorApp::EditorApp() : Application("XGE v0.0.1", 1240, 720) {
 	window.SetResizable(true);
 	window.Maximize();
 }

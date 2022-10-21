@@ -15,8 +15,6 @@ public:
 	void Render();
 	void GUI();
 
-	static void Add(Editor::EditorWindow* editor);
-
 	static inline void Focus(Editor::EditorWindow* window) { setFocus = window; }
 	static inline ETB::Scene* GetScene() { return EditorApp::currentScene; }
 	static inline void SetScene(ETB::Scene* scene) { EditorApp::currentScene = scene; }
