@@ -11,5 +11,11 @@
 ### 2: Clone the repository.
 
 ```
-git clone https://github.com/files-community/Files
+git clone --recurse-submodules https://github.com/files-community/Files
+```
+
+### 3: Run setup script
+
+```
+Build/setup.bat
 ```
