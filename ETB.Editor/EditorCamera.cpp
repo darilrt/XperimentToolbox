@@ -23,9 +23,10 @@ void EditorCamera::Start() {
 
 	glm::ivec2 size = Screen::GetSize();
 
-	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);	
+	cam.transform.position = { 0, 0, 0 };
 	cam.transform.SetEulerAngles(glm::radians(glm::vec3(38, -45, 0)));
 	cam.SetViewport(0, 0, size.x, size.y);
+	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);	
 	
 	Camera::SetActive(&cam);
 
