@@ -23,11 +23,8 @@ void EditorCamera::Start() {
 
 	glm::ivec2 size = Screen::GetSize();
 
-	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);
-	cam.transform.position = glm::normalize(glm::vec3(1, 1, 1)) * 6.0f;
-	
+	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);	
 	cam.transform.SetEulerAngles(glm::radians(glm::vec3(38, -45, 0)));
-	
 	cam.SetViewport(0, 0, size.x, size.y);
 	
 	Camera::SetActive(&cam);
@@ -38,28 +35,29 @@ void EditorCamera::Start() {
 void EditorCamera::Update() {
 	using namespace ETB;
 
-	if (isMoving) {
-		glm::vec2 rel = Input::GetMousePosition() - oldMousePos;
-		const glm::vec3 r = glm::vec3{ rel.y, rel.x, 0 } * Time::deltaTime * glm::radians(25.0f);
-
-		Cursor::Warp(screenCenter);
-
-		cam.transform.rotation = glm::rotate(cam.transform.rotation, r.x, glm::vec3{ 1, 0, 0 } *cam.transform.rotation);
-		cam.transform.rotation = glm::rotate(cam.transform.rotation, r.y, glm::vec3{ 0, 1, 0 });
-
-		glm::vec3 dir = glm::vec3(
-			Input::KeyPressed(KeyCode::D) - Input::KeyPressed(KeyCode::A),
-			Input::KeyPressed(KeyCode::E) - Input::KeyPressed(KeyCode::Q),
-			Input::KeyPressed(KeyCode::S) - Input::KeyPressed(KeyCode::W)
-		); 
-
-		if (glm::length(dir) > 0) {
-			dir = dir * cam.transform.rotation;
-			cam.transform.position += dir * Time::deltaTime * 5.0f;
-		}
-	}
-
+	glm::vec2 rel = Input::GetMousePosition() - oldMousePos; // This should be Input::GetMouseRel()
 	oldMousePos = Input::GetMousePosition();
+
+	if (!isMoving) return;
+	if (Input::KeyDown(KeyCode::Escape)) isMoving = false;
+	
+	const glm::vec3 r = glm::vec3{ rel.y, rel.x, 0 } * Time::deltaTime * glm::radians(25.0f);
+
+	cam.transform.rotation = glm::rotate(cam.transform.rotation, r.x, glm::vec3{ 1, 0, 0 } *cam.transform.rotation);
+	cam.transform.rotation = glm::rotate(cam.transform.rotation, r.y, glm::vec3{ 0, 1, 0 });
+
+	Cursor::Warp(screenCenter);
+
+	glm::vec3 dir = glm::vec3(
+		Input::KeyPressed(KeyCode::D) - Input::KeyPressed(KeyCode::A),
+		Input::KeyPressed(KeyCode::E) - Input::KeyPressed(KeyCode::Q),
+		Input::KeyPressed(KeyCode::S) - Input::KeyPressed(KeyCode::W)
+	); 
+
+	if (glm::length(dir) > 0) {
+		dir = dir * cam.transform.rotation;
+		cam.transform.position += dir * Time::deltaTime * 5.0f;
+	}
 }
 
 void EditorCamera::SetSize(int32_t width, int32_t height) {

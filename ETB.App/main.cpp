@@ -53,13 +53,26 @@ namespace xge {
 		}
 
 		PyObject* LoadComponentFromFile(const std::string& pathString) {
-			PyObject* moduleName = PyUnicode_FromString("Assets.Scripts");
-
 			std::filesystem::path path(pathString);
 			
-			if (path.extension() != ".py") return NULL;
-			if (path.nam)
+			if (path.extension().string() != ".py") return NULL;
+			
+			std::string className = path.stem().string();
+			std::string modulesPath = path.parent_path().string();
+			
+			std::replace(modulesPath.begin(), modulesPath.end(), '/', '.');
 
+			PyObject* moduleName = PyUnicode_FromString(modulesPath.c_str());
+			PyObject* module = PyImport_Import(moduleName);
+			Py_DECREF(moduleName);
+			
+			if (module == NULL) return NULL;
+
+			PyObject* pClass = PyObject_GetAttrString(module, className.c_str());
+
+			Py_DECREF(module);
+
+			return pClass;
 		}
 
 		void ScriptDebugGUI() {
@@ -68,9 +81,20 @@ namespace xge {
 			static std::string filePath("Assets/Scripts/TestScript.py");
 			ImGui::InputText("Script Path", (char*) filePath.c_str(), filePath.size());
 
-			if (ImGui::Button("Load")) {
+			static std::string error;
 
+			if (ImGui::Button("Load")) {
+				PyObject* classRef = xge::python::LoadComponentFromFile(filePath);
+				
+				if (classRef != NULL) {
+					Py_DECREF(classRef);
+				}
+				else {
+					error = xge::python::CaputreError();
+				}
 			}
+
+			ImGui::Text(error.c_str());
 
 			ImGui::End();
 		}

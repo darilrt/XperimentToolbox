@@ -171,7 +171,6 @@
     <ClInclude Include="MaterialAssetInspector.h" />
     <ClInclude Include="MeshAssetInspector.h" />
     <ClInclude Include="SceneEditor.h" />
-    <ClInclude Include="TestEditor.h" />
     <ClInclude Include="vendor\ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>

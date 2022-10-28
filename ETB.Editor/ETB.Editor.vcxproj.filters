@@ -40,19 +40,19 @@
     <Filter Include="Source Files\EditorGUI">
       <UniqueIdentifier>{dc4d83ce-5533-4d0f-a0b9-5ef4f51b65d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Actors">
+      <UniqueIdentifier>{277ac031-b654-41fa-b251-c89a9d8179be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actors">
+      <UniqueIdentifier>{c3841465-7e98-4847-9dd2-b4635ab1a3b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CubeActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EditorApp.cpp">
       <Filter>Source Files\Editors</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorCamera.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneEditor.cpp">
       <Filter>Source Files\Editors</Filter>
@@ -87,17 +87,17 @@
     <ClCompile Include="InspectorEditor.cpp">
       <Filter>Source Files\Editors</Filter>
     </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeActor.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EditorCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EditorApp.h">
       <Filter>Header Files\Editors</Filter>
     </ClInclude>
@@ -125,9 +125,6 @@
     <ClInclude Include="FilesExplorer.h">
       <Filter>Header Files\Editors</Filter>
     </ClInclude>
-    <ClInclude Include="TestEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MeshAssetInspector.h">
       <Filter>Header Files\Editors\AssetsInspectors</Filter>
     </ClInclude>
@@ -136,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="InspectorEditor.h">
       <Filter>Header Files\Editors</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeActor.h">
+      <Filter>Header Files\Actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
