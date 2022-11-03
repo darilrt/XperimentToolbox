@@ -23,7 +23,7 @@ namespace ETB {
 		void Rotate(glm::vec3 rot) { rotation *= glm::quat(rot); }
 
 		DECLSPEC void SetForward(glm::vec3 direction);
-		inline glm::vec3 GetForward() { return rotation * glm::vec3(0, 0, 1); }
+		inline glm::vec3 GetForward() { return glm::vec3(0, 0, -1) * rotation; }
 	};
 
 }

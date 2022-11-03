@@ -24,13 +24,11 @@ SceneEditor::~SceneEditor() {
 void SceneEditor::Start() {
 	EditorApp::SetScene(&scene);
 
-	editorCamera = new EditorCamera();
+	editorCamera = scene.Instance<EditorCamera>();
+	editorCamera->cam.transform.position = glm::vec3(5.0f, 5.0f, 5.0f);
+	editorCamera->cam.transform.SetEulerAngles(glm::radians(glm::vec3(38, -45, 0)));
 
-	cubeActor = scene.Instance<CubeActor>();
-	cubeActor->name = "My Cube";
-	cubeActor->Start();
-
-	editorCamera->Start();
+	// editorCamera->Start();
 	scene.Start();
 }
 

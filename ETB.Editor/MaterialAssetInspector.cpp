@@ -21,8 +21,8 @@ MaterialAssetInspector::MaterialAssetInspector() {
 
 void MaterialAssetInspector::Start() {
     if (cam == NULL) cam = new EditorCamera();
-    cam->cam.transform.position = glm::vec3(0, 0, 5.0f);
     cam->Start();
+    cam->cam.transform.position = glm::vec3(0, 0, 5.0f);
     
     if (a == NULL) a = scene.Instance<PreviewObject>();
     a->name = "Qbito";
