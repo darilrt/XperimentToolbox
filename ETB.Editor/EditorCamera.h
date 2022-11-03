@@ -12,6 +12,7 @@ public:
 
 	glm::vec2 screenCenter;
 
+	ETB::Transform target;
 	ETB::Camera cam;
 	bool isMoving;
 	bool startMoving;
@@ -29,6 +30,5 @@ public:
 
 private:
 	float targetDistance;
-	ETB::Transform target;
 	glm::vec2 oldMousePos;
 };

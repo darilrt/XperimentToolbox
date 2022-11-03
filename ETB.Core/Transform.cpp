@@ -27,3 +27,7 @@ void ETB::Transform::SetEulerAngles(glm::vec3 r) {
 void ETB::Transform::SetForward(glm::vec3 target) {
 	rotation = glm::conjugate(glm::toQuat(glm::lookAt(position, target, glm::vec3(0, 0, 0))));
 }
+
+void ETB::Transform::LookAt(glm::vec3& targetPosition, glm::vec3 upVector) {
+	rotation = glm::lookAt(position, targetPosition, upVector);
+}

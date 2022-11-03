@@ -45,7 +45,10 @@ void EditorCamera::Start() {
 	Camera::SetActive(&cam);
 
 	oldMousePos = Input::GetMousePosition();
+	
 	targetDistance = glm::distance(target.position, cam.transform.position);
+
+	target.rotation = glm::lookAt(target.position, cam.transform.position, glm::vec3(0, 1, 0));
 
 	target.scale = { 0.13f, 0.13f, 0.13f };
 }
@@ -69,7 +72,7 @@ void EditorCamera::Update() {
 
 	glm::vec2 rel = Input::GetMousePosition() - oldMousePos; // This should be Input::GetMouseRel()
 
-	if (isMoving && mouseMode | Fly) {
+	if (isMoving && mouseMode & Fly) {
 		if (Input::KeyDown(KeyCode::Escape)) {
 			isMoving = false;
 			Cursor::Grab(false);
@@ -93,11 +96,28 @@ void EditorCamera::Update() {
 		}
 		
 		target.position = cam.transform.position + cam.transform.GetForward() * targetDistance;
-		
+		target.LookAt(cam.transform.position);
+
 		Cursor::Warp(screenCenter);
 	}
-	else if (isMoving && mouseMode | Orbit) {
+	else if (isMoving && mouseMode & Orbit) {
+		if (Input::KeyDown(KeyCode::Escape)) {
+			isMoving = false;
+			Cursor::Grab(false);
+			return;
+		}
 
+		const glm::vec3 r = glm::vec3{ rel.y, rel.x, 0 } *Time::deltaTime * glm::radians(25.0f);
+
+		target.rotation = glm::rotate(target.rotation, -r.x, glm::vec3{ 1, 0, 0 } * target.rotation);
+		target.rotation = glm::rotate(target.rotation, r.y, glm::vec3{ 0, 1, 0 });
+
+		targetDistance = glm::distance(target.position, cam.transform.position);
+
+		cam.transform.position = target.position + target.GetForward() * targetDistance;
+		cam.transform.LookAt(target.position);
+
+		Cursor::Warp(screenCenter);
 	}
 
 	oldMousePos = Input::GetMousePosition();
@@ -118,9 +138,9 @@ void EditorCamera::CenterCamera(glm::vec3 position) {
 	target.position = position;
 
 	targetDistance = glm::distance(target.position, cam.transform.position);
-	SetDistance(targetDistance);
 
-	// Look At Target
+	cam.transform.LookAt(target.position);
+	target.LookAt(cam.transform.position);
 }
 
 void EditorCamera::SetDistance(float newDistance) {

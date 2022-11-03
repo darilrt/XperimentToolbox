@@ -24,6 +24,8 @@ namespace ETB {
 
 		DECLSPEC void SetForward(glm::vec3 direction);
 		inline glm::vec3 GetForward() { return glm::vec3(0, 0, -1) * rotation; }
+
+		DECLSPEC void LookAt(glm::vec3& targetPosition, glm::vec3 upVector = { 0, 1, 0 });
 	};
 
 }

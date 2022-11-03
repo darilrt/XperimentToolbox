@@ -26,7 +26,7 @@ void SceneEditor::Start() {
 
 	editorCamera = scene.Instance<EditorCamera>();
 	editorCamera->cam.transform.position = glm::vec3(5.0f, 5.0f, 5.0f);
-	editorCamera->cam.transform.SetEulerAngles(glm::radians(glm::vec3(38, -45, 0)));
+	editorCamera->cam.transform.LookAt(editorCamera->target.position);
 
 	// editorCamera->Start();
 	scene.Start();
@@ -49,7 +49,11 @@ void SceneEditor::GUI() {
 		EventSystem::ignoreGui = ImGui::IsWindowHovered();
 
 		editorCamera->SetSize((int32_t)size.x, (int32_t)size.y);
-		editorCamera->screenCenter = glm::vec2(offset.x, offset.y) + glm::vec2(size.x, size.y) / 2.0f;
+
+		const ImVec2 p = ImGui::GetCursorScreenPos();
+		editorCamera->screenCenter = glm::vec2(p.x, p.y) + glm::vec2(size.x, size.y) / 2.0f;
+
+		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 
 		scene.Render(editorCamera->cam);
 
