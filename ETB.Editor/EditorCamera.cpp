@@ -40,6 +40,7 @@ void EditorCamera::Start() {
 
 	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);
 	cam.SetViewport(0, 0, size.x, size.y);
+	cam.SetPerspective(45.0f, ((float)size.x) / size.y, 0.1f, 100.0f);	
 	
 	Camera::SetActive(&cam);
 
