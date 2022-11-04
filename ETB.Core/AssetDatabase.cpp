@@ -1,6 +1,8 @@
 #include <filesystem>
 #include <iostream>
 #include <vector>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 #include "etb.h"
 #include "AssetDatabase.h"
@@ -28,22 +30,37 @@ void xtb::AssetDatabase::LoadAssets() {
 	ListRecursiveAssets(assetPath, assetList);
 
 	for (directory_entry& entry : assetList) {
-		const std::string& path = entry.path().string();
-		AssetDatabase::LoadAsset(path);
+		// AssetDatabase::LoadAsset(entry);
+		xtb::Debug::Print(entry.path().string());
 	}
 }
 
-void xtb::AssetDatabase::LoadAsset(const std::string& path) {
-	const std::string metaPath = path + ".meta";
+void xtb::AssetDatabase::LoadAsset(const directory_entry& entry) {
+	const std::string metaPath = entry.path().string() + ".meta";
 
 	if (File::Exists(metaPath)) {
-		LoadMeta(metaPath);
+		LoadMeta(entry);
 	}
 	else {
 		
 	}
 }
 
-void xtb::AssetDatabase::LoadMeta(const std::string& path) {
-	
+void xtb::AssetDatabase::LoadMeta(const directory_entry& entry) {
+	using json = nlohmann::json;
+	const std::string metaPath = entry.path().string() + ".meta";
+
+	std::ifstream f(metaPath);
+	json data = json::parse(f);
+
+	Asset asset;
+
+	if (data.contains("uuid")) {
+		asset.uuid = data["uuid"].get<std::string>();
+
+		xtb::Debug::Print(data["uuid"].get<std::string>());
+	}
+	else {
+		data["uuid"] = xtb::GetUUID();
+	}
 }

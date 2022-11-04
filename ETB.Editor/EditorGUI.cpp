@@ -24,6 +24,7 @@ public:
 void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 	using namespace xtb;
 
+	static uint8_t model = 0;
 	// Create Scene
 	static Scene* scene = NULL;
 	static EditorCamera* edCam = NULL;
@@ -38,6 +39,18 @@ void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 		modelViewActor->name = "Test";
 
 		scene->Start();
+	}
+
+	if (pMesh != NULL) {
+		modelViewActor->mesh = pMesh;
+	}
+	else {
+		switch (model) {
+		case 0: modelViewActor->mesh = &Primitives::sphere; break;
+		case 1: modelViewActor->mesh = &Primitives::cube; break;
+		case 2: modelViewActor->mesh = &Primitives::quad; break;
+		default: break;
+		}
 	}
 
 	modelViewActor->material = &material;
@@ -63,7 +76,6 @@ void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 		ignoreGui = area.Contains(ImGui::GetMousePos());
 	}
 	
-	static uint8_t model = 0;
 	// Tools
 	if (pMesh == NULL) {
 		cursorPos += glm::vec2(8.0f, 8.0f);
@@ -74,18 +86,8 @@ void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 			model += 1;
 
 			if (model >= 3) model = 0;
-
-			switch (model) {
-			case 0: modelViewActor->mesh = &Primitives::sphere; break;
-			case 1: modelViewActor->mesh = &Primitives::cube; break;
-			case 2: modelViewActor->mesh = &Primitives::quad; break;
-			default: break;
-			}
 		}
 		ignoreGui = ignoreGui && !ImGui::IsItemHovered();
-	}
-	else {
-		modelViewActor->mesh = pMesh;
 	}
 
 	EventSystem::IgnoreGui(ignoreGui);

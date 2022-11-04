@@ -1,3 +1,5 @@
+#include <etb.h>
+
 #include "EditorApp.h"
 
 #include "imgui_internal.h"
@@ -7,7 +9,7 @@ using namespace xtb;
 
 Scene* EditorApp::currentScene;
 
-EditorApp::EditorApp() : Application("XGE v0.0.1", 1240, 720) {
+EditorApp::EditorApp() : Application("XTB v0.0.1", 1240, 720) {
 	window.SetResizable(true);
 	window.Maximize();
 }
@@ -16,6 +18,8 @@ EditorApp::~EditorApp() {
 }
 
 void EditorApp::Start() {
+	xtb::AssetDatabase::LoadAssets();
+	
 	for (auto editor : Editor::EditorWindow::GetEditors()) {
 		editor->isOpen = true;
 		editor->Start();
