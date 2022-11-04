@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <cstdint>
 
-namespace ETB {
+namespace xtb {
 
 	class Screen {
 	public:

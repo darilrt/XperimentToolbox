@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace ETB {
+namespace xtb {
 
 	class OBJFile {
 	public:

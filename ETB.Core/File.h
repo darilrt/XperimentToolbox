@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace ETB {
+namespace xtb {
 
 	class File {
 	public:

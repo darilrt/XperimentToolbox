@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 
-namespace ETB {
+namespace xtb {
 
 	class Transform {
 	public:

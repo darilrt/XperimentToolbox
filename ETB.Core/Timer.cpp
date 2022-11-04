@@ -2,15 +2,15 @@
 
 #include "Timer.h"
 
-std::chrono::time_point<std::chrono::high_resolution_clock> ETB::Time::start;
-float ETB::Time::deltaTime;
-float ETB::Time::playTime;
+std::chrono::time_point<std::chrono::high_resolution_clock> xtb::Time::start;
+float xtb::Time::deltaTime;
+float xtb::Time::playTime;
 
-void ETB::Time::Start() {
+void xtb::Time::Start() {
     Time::start = std::chrono::high_resolution_clock::now();
 }
 
-void ETB::Time::Tick() {
+void xtb::Time::Tick() {
     std::chrono::time_point<std::chrono::high_resolution_clock> now;
     now = std::chrono::high_resolution_clock::now();
 

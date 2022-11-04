@@ -2,7 +2,7 @@
 
 #include <etb.h>
 
-using namespace ETB;
+using namespace xtb;
 
 void CubeActor::Start() {
 	material.LoadFromFile("Built-In/Materials/test.mat");

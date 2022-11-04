@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 
-void ETB::GUI::Init(SDL_Window* sdlWindow, SDL_GLContext sdlGLContext) {
+void xtb::GUI::Init(SDL_Window* sdlWindow, SDL_GLContext sdlGLContext) {
 	// Decide GL+GLSL versions
 #ifdef __APPLE__
 	// GL 3.2 Core + GLSL 150
@@ -35,29 +35,29 @@ void ETB::GUI::Init(SDL_Window* sdlWindow, SDL_GLContext sdlGLContext) {
 	// ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 }
 
-void ETB::GUI::Destroy() {
+void xtb::GUI::Destroy() {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 
 	ImGui::DestroyContext();
 }
 
-void ETB::GUI::NewFrame(SDL_Window* sdlWindow) {
+void xtb::GUI::NewFrame(SDL_Window* sdlWindow) {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(sdlWindow);
 	ImGui::NewFrame();
 }
 
-void ETB::GUI::Draw() {
+void xtb::GUI::Draw() {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void ETB::GUI::ProcesssEvent(SDL_Event* event) {
+void xtb::GUI::ProcesssEvent(SDL_Event* event) {
 	ImGui_ImplSDL2_ProcessEvent(event);
 }
 
-void ETB::GUI::SetTheme() {
+void xtb::GUI::SetTheme() {
 	auto& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("Built-In/Fonts/Roboto-Medium.ttf", 18.0f);
 

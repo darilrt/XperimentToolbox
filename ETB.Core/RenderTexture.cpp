@@ -2,7 +2,7 @@
 #include "Screen.h"
 #include "Debug.h"
 
-ETB::RenderTexture::RenderTexture(int32_t width, int32_t height) : 
+xtb::RenderTexture::RenderTexture(int32_t width, int32_t height) : 
 	color(width, height, TextureType::RGB), 
 	depth(width, height, TextureType::Depth24) {
 
@@ -20,11 +20,11 @@ ETB::RenderTexture::RenderTexture(int32_t width, int32_t height) :
 	UnbindFramebuffer();
 }
 
-ETB::RenderTexture::~RenderTexture() {
+xtb::RenderTexture::~RenderTexture() {
 	glDeleteFramebuffers(1, &fbo);
 }
 
-void ETB::RenderTexture::SetSize(int32_t width, int32_t height) {
+void xtb::RenderTexture::SetSize(int32_t width, int32_t height) {
 	SetRBOSize(width, height);
 
 	BindFramebuffer();
@@ -38,18 +38,18 @@ void ETB::RenderTexture::SetSize(int32_t width, int32_t height) {
 	UnbindFramebuffer();
 }
 
-void ETB::RenderTexture::BindFramebuffer() {
+void xtb::RenderTexture::BindFramebuffer() {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	GLenum DrawBuffers[2] = { GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT };
 	glDrawBuffers(1, DrawBuffers);
 }
 
-void ETB::RenderTexture::UnbindFramebuffer() {
+void xtb::RenderTexture::UnbindFramebuffer() {
 	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
 }
 
-void ETB::RenderTexture::SetRBOSize(int32_t width, int32_t height) {
+void xtb::RenderTexture::SetRBOSize(int32_t width, int32_t height) {
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);

@@ -1,7 +1,7 @@
 #include "EditorCamera.h"
 
 EditorCamera::EditorCamera() : isMoving(false), startMoving(false), mouseMode(None) {
-	using namespace ETB;
+	using namespace xtb;
 	name = "Editor Camera";
 
 	EventSystem::AddEventListener(EventType::MouseButtonDown, [&](Event& e) {
@@ -39,7 +39,7 @@ EditorCamera::EditorCamera() : isMoving(false), startMoving(false), mouseMode(No
 }
 
 void EditorCamera::Start() {
-	using namespace ETB;
+	using namespace xtb;
 
 	glm::ivec2 size = Screen::GetSize();
 
@@ -59,7 +59,7 @@ void EditorCamera::Start() {
 }
 
 void EditorCamera::Update() {
-	using namespace ETB;
+	using namespace xtb;
 	
 	glm::vec2 rel = Input::GetMousePosition() - oldMousePos; // This should be Input::GetMouseRel()
 

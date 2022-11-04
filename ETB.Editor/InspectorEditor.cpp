@@ -13,4 +13,7 @@ void InspectorEditor::Start() {
 
 void InspectorEditor::GUI() {
 	EditorGUI::InputResource("Label", NULL);
+
+	static auto id = xtb::GetUUID();
+	ImGui::Text(id.c_str());
 }

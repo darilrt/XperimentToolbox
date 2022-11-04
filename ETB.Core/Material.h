@@ -8,7 +8,7 @@
 #include "Uniform.h"
 #include "Shader.h"
 
-namespace ETB {
+namespace xtb {
 
 	class Material {
 	public:

@@ -6,7 +6,7 @@
 
 #include <glm/glm.hpp>
 
-namespace ETB {
+namespace xtb {
 
 	class Camera {
 	public:

@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Texture.h"
 
-namespace ETB {
+namespace xtb {
 
 	class DECLSPEC Application {
 	public:

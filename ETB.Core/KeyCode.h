@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ETB {
+namespace xtb {
 	enum class KeyCode {
 		Unknow = 0,
 		A = 4,

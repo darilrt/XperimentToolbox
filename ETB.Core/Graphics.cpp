@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "ShaderLoader.h"
 
-void ETB::Graphics::Init() {
+void xtb::Graphics::Init() {
 	if (glewInit() != GLEW_OK) {
 		Debug::Print("Glew Init Error");
 	}
@@ -11,7 +11,7 @@ void ETB::Graphics::Init() {
 	glEnable(GL_MULTISAMPLE);
 }
 
-void ETB::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
+void xtb::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 	Shader* shader;
 	
 	if (material.shader == NULL || material.shader->GetId() == 0) {
@@ -30,13 +30,13 @@ void ETB::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 	shader->Unbind();
 }
 
-void ETB::Graphics::DrawMesh(Mesh& mesh) {
+void xtb::Graphics::DrawMesh(Mesh& mesh) {
 	mesh.Bind();
 	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.elements.size() * 3, GL_UNSIGNED_INT, 0);
 	mesh.Unbind();
 }
 
-void ETB::Graphics::DrawMeshInstanced(Mesh& mesh) {
+void xtb::Graphics::DrawMeshInstanced(Mesh& mesh) {
 	/*
 	mesh.Bind();
 
@@ -62,7 +62,7 @@ void ETB::Graphics::DrawMeshInstanced(Mesh& mesh) {
 	*/
 }
 
-void ETB::Graphics::Clear() {
+void xtb::Graphics::Clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_CULL_FACE);

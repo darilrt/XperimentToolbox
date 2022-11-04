@@ -8,11 +8,11 @@
 #include "Camera.h"
 #include "EventSystem.h"
 
-ETB::Shader::Shader() {
+xtb::Shader::Shader() {
 	shaderId = NULL;
 }
 
-ETB::Shader::Shader(const std::string& _path) {
+xtb::Shader::Shader(const std::string& _path) {
 	shaderId = NULL;
 
 	path = _path;
@@ -20,16 +20,16 @@ ETB::Shader::Shader(const std::string& _path) {
 	LoadSources();
 }
 
-ETB::Shader::~Shader() {
+xtb::Shader::~Shader() {
 	glDeleteProgram(shaderId);
 }
 
-void ETB::Shader::Bind() {
+void xtb::Shader::Bind() {
 	glUseProgram(shaderId);
 	samplerCount = 0;
 }
 
-std::vector<ETB::Uniform> ETB::Shader::GetUniforms() {
+std::vector<xtb::Uniform> xtb::Shader::GetUniforms() {
 	std::vector<Uniform> uniforms;
 	
 	if (shaderId == NULL) {
@@ -69,7 +69,7 @@ std::vector<ETB::Uniform> ETB::Shader::GetUniforms() {
 	return uniforms;
 }
 
-void ETB::Shader::LoadSources() {
+void xtb::Shader::LoadSources() {
 	if (!File::Exists(path)) {
 		Debug::Print("Shader \"" + path + "\" does not exists");
 		return;
@@ -78,7 +78,7 @@ void ETB::Shader::LoadSources() {
 	source = File::ReadAll(path);
 }
 
-bool ETB::Shader::Compile() {
+bool xtb::Shader::Compile() {
 	if (source.size() == 0) return true;
 
 	shaderId = CreateShader(&source);
@@ -86,7 +86,7 @@ bool ETB::Shader::Compile() {
 	return shaderId != 0;
 }
 
-void ETB::Shader::Reload() {
+void xtb::Shader::Reload() {
 	struct stat fileInfo;
 	stat(path.c_str(), &fileInfo);
 
@@ -107,7 +107,7 @@ void ETB::Shader::Reload() {
 	}
 }
 
-void ETB::Shader::HotReload() {
+void xtb::Shader::HotReload() {
 	EventSystem::AddEventListener(EventType::Tick, [&](Event& e) {
 		struct stat fileInfo;
 		stat(path.c_str(), &fileInfo);
@@ -130,7 +130,7 @@ void ETB::Shader::HotReload() {
 	});
 }
 
-void ETB::Shader::SetSampler2D(const char* name, Texture& texture) {
+void xtb::Shader::SetSampler2D(const char* name, Texture& texture) {
 	glActiveTexture(GL_TEXTURE0 + samplerCount);
 
 	texture.Bind();
@@ -152,7 +152,7 @@ void PrintShaderLog_impl(int32_t shader) {
 		glGetShaderInfoLog(shader, maxLength, &infoLogLength, infoLog);
 
 		if (infoLogLength > 0) {
-			ETB::Debug::Print(infoLog);
+			xtb::Debug::Print(infoLog);
 		}
 
 		delete[] infoLog;
@@ -161,11 +161,11 @@ void PrintShaderLog_impl(int32_t shader) {
 		std::string _log = "Name ";
 		_log += std::to_string(shader);
 		_log += " is not a shader";
-		ETB::Debug::Print(_log);
+		xtb::Debug::Print(_log);
 	}
 }
 
-uint32_t ETB::Shader::CreateShader(const std::string* source) {
+uint32_t xtb::Shader::CreateShader(const std::string* source) {
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 	const GLchar* vertexShaderSource[] = {

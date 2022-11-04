@@ -1,16 +1,16 @@
 #include "Actor.h"
 
-void ETB::Actor::Start() {
+void xtb::Actor::Start() {
 }
 
-void ETB::Actor::Update() {
+void xtb::Actor::Update() {
 }
 
-void ETB::Actor::Render() {
+void xtb::Actor::Render() {
 }
 
-void ETB::Actor::GUI() {
+void xtb::Actor::GUI() {
 }
 
-void ETB::Actor::OnDestroy() {
+void xtb::Actor::OnDestroy() {
 }

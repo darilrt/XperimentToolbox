@@ -5,7 +5,7 @@
 #include <chrono>
 #include <SDL.h>
 
-namespace ETB {
+namespace xtb {
 
 	class  Time {
 	public:

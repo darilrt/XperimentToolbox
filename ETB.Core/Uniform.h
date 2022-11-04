@@ -7,7 +7,7 @@
 
 #include "etbdefs.h"
 
-namespace ETB {
+namespace xtb {
 
 	class Uniform {
 	public:

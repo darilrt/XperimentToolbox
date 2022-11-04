@@ -4,10 +4,10 @@
 #include "Material.h"
 #include "ShaderLoader.h"
 
-ETB::Material::Material() {
+xtb::Material::Material() {
 }
 
-void ETB::Material::LoadFromFile(const std::string& path) {
+void xtb::Material::LoadFromFile(const std::string& path) {
 	std::ifstream f(path);
 	nlohmann::json data = nlohmann::json::parse(f);
 

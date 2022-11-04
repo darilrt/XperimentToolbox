@@ -5,23 +5,22 @@
 #include "MaterialAssetInspector.h"
 #include "EditorCamera.h"
 #include "CubeActor.h"
+#include "EditorGUI.h"
 
-class PreviewObject : public ETB::Actor {
+class PreviewObject : public xtb::Actor {
 public:
-    ETB::Material material;
+    xtb::Material material;
 
     void Render() {
-        ETB::Graphics::DrawMesh(ETB::Primitives::sphere, transform.GetMatrix(), material);
+        xtb::Graphics::DrawMesh(xtb::Primitives::sphere, transform.GetMatrix(), material);
     }
 } *a;
-
 
 MaterialAssetInspector::MaterialAssetInspector() {
 }
 
 void MaterialAssetInspector::Start() {
-    if (cam == NULL) cam = new EditorCamera();
-    cam->Start();
+    if (cam == NULL) cam = scene.Instance<EditorCamera>();
     cam->cam.transform.position = glm::vec3(0, 0, 5.0f);
     
     if (a == NULL) a = scene.Instance<PreviewObject>();
@@ -39,21 +38,13 @@ void MaterialAssetInspector::GUI() {
     {
         ImGui::TableNextColumn();
 
-        ImVec2 size = ImGui::GetContentRegionAvail();
-        size.y -= 4;
-        
-        scene.Update();
-        cam->Update();
-        cam->SetSize(size.x, size.y);
-        scene.Render(cam->cam);
+        EditorGUI::InteractivePreview(NULL, a->material);
 
-        ImGui::Image((ImTextureID) cam->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
-        
         ImGui::TableNextColumn();
         ImGui::Text(resourcePath.filename().string().c_str());
         ImGui::Separator();
 
-        ETB::Shader& sh = *a->material.shader;
+        xtb::Shader& sh = *a->material.shader;
         
         if (ImGui::Button("Edit Shader")) {
             system(("start \"C:/Program Files/Notepad++/notepad++.exe\" " + sh.GetPath()).c_str());
@@ -62,11 +53,11 @@ void MaterialAssetInspector::GUI() {
         sh.Reload();
         
         if (sh.GetId() != 0) {
-            for (ETB::Uniform& m : sh.GetUniforms()) {
+            for (xtb::Uniform& m : sh.GetUniforms()) {
                 static float n = 0;
                 switch (m.type)
                 {
-                case ETB::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
+                case xtb::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
                 default: break;
                 }
             }

@@ -11,7 +11,7 @@
 #include "Debug.h"
 #include "File.h"
 
-ETB::Texture::Texture(int32_t width, int32_t height, TextureType t) {
+xtb::Texture::Texture(int32_t width, int32_t height, TextureType t) {
 	type = t;
 
 	GenTextureBuffer();
@@ -19,7 +19,7 @@ ETB::Texture::Texture(int32_t width, int32_t height, TextureType t) {
 	SetSize(width, height);
 }
 
-ETB::Texture::Texture(const std::string& path) {
+xtb::Texture::Texture(const std::string& path) {
 	if (!File::Exists(path)) {
 		Debug::Print("Image \"" + path + "\" does not exists");
 	}
@@ -27,11 +27,11 @@ ETB::Texture::Texture(const std::string& path) {
 	LoadImage(path);
 }
 
-ETB::Texture::~Texture() {
+xtb::Texture::~Texture() {
 	if (texture) glDeleteTextures(1, &texture);
 }
 
-void ETB::Texture::LoadImage(const std::string& path) {
+void xtb::Texture::LoadImage(const std::string& path) {
 	uint32_t format = 0;
 
 	int32_t w, h, n;
@@ -74,7 +74,7 @@ void ETB::Texture::LoadImage(const std::string& path) {
 	height = h;
 }
 
-void ETB::Texture::SetSize(int32_t w, int32_t h) {
+void xtb::Texture::SetSize(int32_t w, int32_t h) {
 	width = w;
 	height = h;
 	
@@ -83,21 +83,21 @@ void ETB::Texture::SetSize(int32_t w, int32_t h) {
 	Unbind();
 }
 
-void ETB::Texture::SetWrapMode(TextureWrapMode wrapMode) {
+void xtb::Texture::SetWrapMode(TextureWrapMode wrapMode) {
 	Bind();
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLfloat)wrapMode);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLfloat)wrapMode);
 	Unbind();
 }
 
-void ETB::Texture::SetFilterMode(TextureFilterMode filterMode) {
+void xtb::Texture::SetFilterMode(TextureFilterMode filterMode) {
 	Bind();
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)filterMode);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)filterMode);
 	Unbind();
 }
 
-void ETB::Texture::GenTextureBuffer() {
+void xtb::Texture::GenTextureBuffer() {
 	if (texture) glDeleteTextures(1, &texture);
 
 	glGenTextures(1, &texture);

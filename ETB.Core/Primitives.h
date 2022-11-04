@@ -3,7 +3,7 @@
 #include "etbdefs.h"
 #include "Mesh.h"
 
-namespace ETB {
+namespace xtb {
 
 	class Primitives {
 	public:

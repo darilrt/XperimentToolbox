@@ -6,7 +6,7 @@
 #include <GL/GL.h>
 #include <string>
 
-namespace ETB {
+namespace xtb {
 
 	enum class TextureWrapMode {
 		Repeat = GL_REPEAT,
@@ -50,8 +50,8 @@ namespace ETB {
 
 		inline int32_t GetWidth() { return width; }
 		inline int32_t GetHeight() { return height; }
-
-		inline uint32_t GetTextureId() { return texture; }
+		
+		inline uint32_t GetId() { return texture; }
 
 	private:
 		void GenTextureBuffer();

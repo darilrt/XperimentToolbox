@@ -9,7 +9,7 @@
 #include <map>
 #include <SDL.h>
 
-namespace ETB{
+namespace xtb{
 
 	enum class EventType {
 		Unknow,
@@ -60,6 +60,8 @@ namespace ETB{
 		static DECLSPEC void DispatchEvents();
 
 		static DECLSPEC void AddEventListener(EventType type, std::function<void(Event&)> fn);
+
+		static inline void IgnoreGui(bool value) { ignoreGui = ignoreGui || value; }
 
 		static DECLSPEC bool ignoreGui;
 	private:

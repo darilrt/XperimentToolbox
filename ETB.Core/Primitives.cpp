@@ -2,19 +2,19 @@
 #include "EventSystem.h"
 #include "OBJLoader.h"
 
-ETB::Mesh ETB::Primitives::quad;
-ETB::Mesh ETB::Primitives::cube;
-ETB::Mesh ETB::Primitives::sphere;
+xtb::Mesh xtb::Primitives::quad;
+xtb::Mesh xtb::Primitives::cube;
+xtb::Mesh xtb::Primitives::sphere;
 
-ETB::Primitives ETB::Primitives::instance;
+xtb::Primitives xtb::Primitives::instance;
 
-ETB::Primitives::Primitives() {
+xtb::Primitives::Primitives() {
 	EventSystem::AddEventListener(EventType::Start, [&](Event& e) {
 		Primitives::GeneratePrimitives();
 	});
 }
 
-void ETB::Primitives::GeneratePrimitives() {
+void xtb::Primitives::GeneratePrimitives() {
 	Primitives::quad.vertices = {
 		{-.5f, -.5f, 0},
 		{-.5f,  .5f, 0},

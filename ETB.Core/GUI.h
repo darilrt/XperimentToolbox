@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 
-namespace ETB {
+namespace xtb {
 	namespace GUI {
 
 		DECLSPEC void Init(SDL_Window* sdlWindow, SDL_GLContext sdlGLContext);

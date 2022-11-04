@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 
-namespace ETB {
+namespace xtb {
 	
 	class ShaderLoader {
 	public:

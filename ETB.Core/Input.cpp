@@ -3,15 +3,15 @@
 
 #include <SDL.h>
 
-ETB::Input ETB::Input::instance;
+xtb::Input xtb::Input::instance;
 
-glm::vec2 ETB::Input::GetMousePosition() {
+glm::vec2 xtb::Input::GetMousePosition() {
     int x, y;
     SDL_GetMouseState(&x, &y);
     return glm::vec2(x, y);
 }
 
-ETB::Input::Input() {
+xtb::Input::Input() {
 	keyDownState = new bool[322];
 	keyUpState = new bool[322];
 	keyPressState = new bool[322];

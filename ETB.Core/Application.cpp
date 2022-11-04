@@ -15,15 +15,15 @@
 
 #include <string>
 
-bool ETB::Application::isRunning = false;
+bool xtb::Application::isRunning = false;
 
-ETB::Application::Application() : window("ETB.App", 800, 600) {
+xtb::Application::Application() : window("xtb.App", 800, 600) {
 }
 
-ETB::Application::Application(const std::string& title, int32_t w, int32_t h) : window(title, w, h) {
+xtb::Application::Application(const std::string& title, int32_t w, int32_t h) : window(title, w, h) {
 }
 
-int ETB::Application::Run() {
+int xtb::Application::Run() {
 	Core::Window::SetActive(&window);
 
 	Application::isRunning = true;
@@ -63,7 +63,7 @@ int ETB::Application::Run() {
 		EventSystem::DispatchEventType(EventType::GUI);
 		GUI();
 		// ActorHandler::GUI();
-		ETB::GUI::Draw();
+		xtb::GUI::Draw();
 		///
 
 		elapsedMs = Time::GetTicks() - elapsedMs;
@@ -77,7 +77,7 @@ int ETB::Application::Run() {
 	return 0;
 }
 
-void ETB::Application::Present(Texture& texture) {
+void xtb::Application::Present(Texture& texture) {
 	Graphics::Clear();
 	Shader& sh = ShaderLoader::Get("Built-In/Shaders/Present.glsl");
 	sh.Bind();
@@ -85,18 +85,18 @@ void ETB::Application::Present(Texture& texture) {
 	Graphics::DrawMesh(Primitives::quad);
 }
 
-void ETB::Application::Start() {
+void xtb::Application::Start() {
 }
 
-void ETB::Application::Update() {
+void xtb::Application::Update() {
 }
 
-void ETB::Application::Render() {
+void xtb::Application::Render() {
 }
 
-void ETB::Application::GUI() {
+void xtb::Application::GUI() {
 }
 
-void ETB::Application::Quit() {
+void xtb::Application::Quit() {
 	Application::isRunning = false;
 }

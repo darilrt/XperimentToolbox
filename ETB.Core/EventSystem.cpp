@@ -1,25 +1,25 @@
 #include "EventSystem.h"
 #include "GUI.h"
 
-bool ETB::EventSystem::ignoreGui = false;
-SDL_Event ETB::EventSystem::sdlEvent;
-ETB::Event ETB::EventSystem::event;
-std::map<ETB::EventType, std::vector<std::function<void(ETB::Event&)>>> ETB::EventSystem::events;
+bool xtb::EventSystem::ignoreGui = false;
+SDL_Event xtb::EventSystem::sdlEvent;
+xtb::Event xtb::EventSystem::event;
+std::map<xtb::EventType, std::vector<std::function<void(xtb::Event&)>>> xtb::EventSystem::events;
 
-void ETB::EventSystem::DispatchEventType(EventType type) {
+void xtb::EventSystem::DispatchEventType(EventType type) {
 	for (auto& fn : events[type]) {
 		fn(event);
 	}
 }
 
-void ETB::EventSystem::DispatchEventType(EventType type, Event& e) {
+void xtb::EventSystem::DispatchEventType(EventType type, Event& e) {
 	EventSystem::event = e;
 	for (auto& fn : events[type]) {
 		fn(event);
 	}
 }
 
-void ETB::EventSystem::AddEventListener(EventType type, std::function<void(Event&)> fn) {
+void xtb::EventSystem::AddEventListener(EventType type, std::function<void(Event&)> fn) {
 	if (!events.count(type)) {
 		events[type] = {};
 	}
@@ -27,11 +27,11 @@ void ETB::EventSystem::AddEventListener(EventType type, std::function<void(Event
 	events[type].push_back(fn);
 }
 
-void ETB::EventSystem::DispatchEvents() {
+void xtb::EventSystem::DispatchEvents() {
 	EventType type = EventType::Unknow;
-
+	
 	while (SDL_PollEvent(&sdlEvent)) {
-		ETB::GUI::ProcesssEvent(&sdlEvent);
+		xtb::GUI::ProcesssEvent(&sdlEvent);
 
 		switch (sdlEvent.type) {
 		case SDL_QUIT:
@@ -104,4 +104,6 @@ void ETB::EventSystem::DispatchEvents() {
 
 		EventSystem::DispatchEventType(type);
 	}
+
+	ignoreGui = false;
 }

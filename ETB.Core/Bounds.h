@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-namespace ETB {
+namespace xtb {
 
 	class Bounds {
 	public:
@@ -25,6 +25,8 @@ namespace ETB {
 
 		void DECLSPEC SetExtends(glm::vec3 extends);
 		inline glm::vec3 DECLSPEC GetExtends() { return extends; }
+
+		DECLSPEC void Expand(glm::vec3 point);
 
 	private:
 		glm::vec3 center;

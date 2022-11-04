@@ -8,7 +8,7 @@
 #include <string>
 #include <sstream>
 
-ETB::OBJFile::OBJFile(const std::string& _path) {
+xtb::OBJFile::OBJFile(const std::string& _path) {
     if (!File::Exists(_path)) {
         Debug::Print("Import OBJ error: Couldn't import file \"" + _path + "\"");
         return;
@@ -17,10 +17,10 @@ ETB::OBJFile::OBJFile(const std::string& _path) {
     path = _path;
 }
 
-ETB::OBJFile::~OBJFile() {
+xtb::OBJFile::~OBJFile() {
 }
 
-ETB::Mesh ETB::OBJFile::GetMesh() {
+xtb::Mesh xtb::OBJFile::GetMesh() {
     Mesh tmp;
     Mesh mesh;
 

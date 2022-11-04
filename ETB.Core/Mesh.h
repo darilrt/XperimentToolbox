@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-namespace ETB {
+namespace xtb {
 	
 	class Mesh {
 	public:

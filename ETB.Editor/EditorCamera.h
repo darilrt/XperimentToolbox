@@ -2,7 +2,7 @@
 
 #include "etb.h"
 
-class EditorCamera : public ETB::Actor {
+class EditorCamera : public xtb::Actor {
 public:
 	enum {
 		None,
@@ -12,8 +12,8 @@ public:
 
 	glm::vec2 screenCenter;
 
-	ETB::Transform target;
-	ETB::Camera cam;
+	xtb::Transform target;
+	xtb::Camera cam;
 	bool isMoving;
 	bool startMoving;
 

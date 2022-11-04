@@ -3,7 +3,7 @@
 #include "etbdefs.h"
 #include "Texture.h"
 
-namespace ETB {
+namespace xtb {
 	
 	class DECLSPEC RenderTexture {
 	public:

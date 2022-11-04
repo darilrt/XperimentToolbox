@@ -6,7 +6,7 @@
 
 REGISTER_EDITOR(HierarchyEditor);
 
-ETB::Actor* HierarchyEditor::selectedActor = NULL;
+xtb::Actor* HierarchyEditor::selectedActor = NULL;
 
 HierarchyEditor::HierarchyEditor() {
 	title = "Hierarchy";
@@ -18,7 +18,7 @@ void HierarchyEditor::Start() {
 void HierarchyEditor::GUI() {
 	if (EditorApp::GetScene() == NULL) return;
 
-	ETB::Scene* scene = EditorApp::GetScene();
+	xtb::Scene* scene = EditorApp::GetScene();
 
 	if (ImGui::BeginPopupContextWindow()) {
 		if (ImGui::MenuItem("New Cube")) {
@@ -39,7 +39,7 @@ void HierarchyEditor::GUI() {
 
 	static int selected = -1;
 
-	for (ETB::Actor* actor : scene->GetActors()) {
+	for (xtb::Actor* actor : scene->GetActors()) {
 		
 		ImGui::TreeNodeEx(actor->name.c_str(), nodeFlags | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
 		

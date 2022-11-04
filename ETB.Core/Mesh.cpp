@@ -1,13 +1,14 @@
 #include "Graphics.h"
 #include "Mesh.h"
+#include "Bounds.h"
 
-ETB::Mesh::Mesh() {
+xtb::Mesh::Mesh() {
 }
 
-ETB::Mesh::~Mesh() {
+xtb::Mesh::~Mesh() {
 }
 
-void ETB::Mesh::Setup() {
+void xtb::Mesh::Setup() {
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
@@ -48,12 +49,15 @@ void ETB::Mesh::Setup() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(glm::u32vec3), &elements[0], GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
+
+	// Calculate Bounds
+	Bounds bound;
 }
 
-void ETB::Mesh::Bind() {
+void xtb::Mesh::Bind() {
 	glBindVertexArray(vao);
 }
 
-void ETB::Mesh::Unbind() {
+void xtb::Mesh::Unbind() {
 	glBindVertexArray(NULL);
 }

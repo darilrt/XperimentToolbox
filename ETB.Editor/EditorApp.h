@@ -5,7 +5,7 @@
 #include "EditorCamera.h"
 #include "EditorWindow.h"
 
-class EditorApp : public ETB::Application {
+class EditorApp : public xtb::Application {
 public:
 	EditorApp();
 	~EditorApp();
@@ -16,14 +16,14 @@ public:
 	void GUI();
 
 	static inline void Focus(Editor::EditorWindow* window) { setFocus = window; }
-	static inline ETB::Scene* GetScene() { return EditorApp::currentScene; }
-	static inline void SetScene(ETB::Scene* scene) { EditorApp::currentScene = scene; }
+	static inline xtb::Scene* GetScene() { return EditorApp::currentScene; }
+	static inline void SetScene(xtb::Scene* scene) { EditorApp::currentScene = scene; }
 
 private:
-	static ETB::Scene* currentScene;
+	static xtb::Scene* currentScene;
 	static std::vector<Editor::EditorWindow*> editors;
 	static Editor::EditorWindow* setFocus;
 
-	ETB::Transform transform;
+	xtb::Transform transform;
 };
 

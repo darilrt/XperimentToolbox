@@ -18,5 +18,5 @@ public:
 
 private:
 	CubeActor* cubeActor;
-	ETB::Scene scene;
+	xtb::Scene scene;
 };

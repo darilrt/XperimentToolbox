@@ -10,7 +10,7 @@
 
 class MaterialAssetInspector : public AssetInspector {
 public:
-	ETB::Scene scene;
+	xtb::Scene scene;
 	EditorCamera* cam;
 
 	MaterialAssetInspector();

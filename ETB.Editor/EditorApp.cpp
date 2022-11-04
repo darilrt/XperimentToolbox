@@ -3,7 +3,7 @@
 #include "imgui_internal.h"
 #include "vendor/ImGuizmo.h"
 
-using namespace ETB;
+using namespace xtb;
 
 Scene* EditorApp::currentScene;
 

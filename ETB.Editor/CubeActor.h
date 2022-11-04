@@ -2,9 +2,9 @@
 
 #include <etb.h>
 
-class CubeActor : public ETB::Actor {
+class CubeActor : public xtb::Actor {
 public:
-	ETB::Material material;
+	xtb::Material material;
 
 	void Start();
 

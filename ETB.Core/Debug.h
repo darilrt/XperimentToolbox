@@ -5,7 +5,7 @@
 #include "etbdefs.h"
 #include "Transform.h"
 
-namespace ETB {
+namespace xtb {
 	namespace Debug {
 		
 		void DECLSPEC Print(const std::string& message);

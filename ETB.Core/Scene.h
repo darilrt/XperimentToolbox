@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace ETB {
+namespace xtb {
 
 	class Scene {
 	public:

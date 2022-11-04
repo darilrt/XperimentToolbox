@@ -1,44 +1,44 @@
 #include "Scene.h"
 #include "Graphics.h"
 
-ETB::Scene::Scene() {
+xtb::Scene::Scene() {
 }
 
-ETB::Scene::~Scene() {
+xtb::Scene::~Scene() {
 }
 
-void ETB::Scene::Destroy(Actor* a) {
+void xtb::Scene::Destroy(Actor* a) {
 	// TODO: remove from list
 	a->OnDestroy();
 	delete a;
 }
 
-void ETB::Scene::Start() {
+void xtb::Scene::Start() {
 	for (Actor* a : actors) {
 		a->Start();
 	}
 }
 
-void ETB::Scene::Update() {
+void xtb::Scene::Update() {
 	for (Actor* a : actors) {
 		a->Update();
 	}
 }
 
-void ETB::Scene::Render(Camera& camera) {
+void xtb::Scene::Render(Camera& camera) {
 	camera.Use();
 	camera.renderTexture.BindFramebuffer();
 
-	ETB::Graphics::Clear();
+	xtb::Graphics::Clear();
 	
-	for (ETB::Actor* a : actors) {
+	for (xtb::Actor* a : actors) {
 		a->Render();
 	}
 
 	camera.renderTexture.UnbindFramebuffer();
 }
 
-void ETB::Scene::GUI() {
+void xtb::Scene::GUI() {
 	for (Actor* a : actors) {
 		a->GUI();
 	}

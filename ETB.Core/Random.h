@@ -1,10 +1,10 @@
 #pragma once
 
-#include "etbdefs.h"
-
 #include <random>
 
-namespace ETB {
+#include "etbdefs.h"
+
+namespace xtb {
 
 	class Random {
 	public:
@@ -14,6 +14,8 @@ namespace ETB {
 		static std::random_device dev;
 		static std::mt19937 rng;
 	};
+
+	DECLSPEC std::string GetUUID();
 
 }
 

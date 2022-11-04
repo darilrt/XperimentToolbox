@@ -5,11 +5,11 @@
 #include <iostream>
 #include <string>
 
-void DECLSPEC ETB::Debug::Print(const std::string& message) {
+void DECLSPEC xtb::Debug::Print(const std::string& message) {
 	std::cout << message << "\n";
 }
 
-void ETB::Debug::TransformEditor(Transform& transform) {
+void xtb::Debug::TransformEditor(Transform& transform) {
 	ImGui::Begin("Transform Editor");
 
 	ImGui::InputFloat3("Position", &transform.position[0]);
@@ -24,7 +24,7 @@ void ETB::Debug::TransformEditor(Transform& transform) {
 	ImGui::End();
 }
 
-void ETB::Debug::ShowStatus() {
+void xtb::Debug::ShowStatus() {
 	ImGui::Begin("Status");
 
 	int32_t fps = (int32_t)(1.0f / Time::deltaTime);

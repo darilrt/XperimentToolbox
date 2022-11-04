@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-namespace ETB {
+namespace xtb {
 	
 	class DECLSPEC Input {
 	public:

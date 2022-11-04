@@ -3,29 +3,29 @@
 
 #include <sstream>
 
-ETB::File::File(const std::string& _path) {
+xtb::File::File(const std::string& _path) {
     std::ifstream file(_path, std::ios::in);
 }
 
-ETB::File::~File() {
+xtb::File::~File() {
 }
 
-std::string ETB::File::ReadLine() {
+std::string xtb::File::ReadLine() {
     std::string line;
     std::getline(file, line);
     return line;
 }
 
-void ETB::File::Close() {
+void xtb::File::Close() {
     file.close();
 }
 
-bool ETB::File::Exists(const std::string& path) {
+bool xtb::File::Exists(const std::string& path) {
     std::ifstream file(path);
     return file.good();
 }
 
-std::string ETB::File::ReadAll(const std::string& path) {
+std::string xtb::File::ReadAll(const std::string& path) {
     std::stringstream buffer;
     std::ifstream file(path, std::ios::in);
 

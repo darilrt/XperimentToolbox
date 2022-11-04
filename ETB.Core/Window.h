@@ -8,7 +8,7 @@
 #include <string>
 #include <SDL.h>
 
-namespace ETB {
+namespace xtb {
 	namespace Core {
 
 		enum class VSyncMode {

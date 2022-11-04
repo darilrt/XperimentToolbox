@@ -1,9 +1,9 @@
 #include "ShaderLoader.h"
 #include "Debug.h"
 
-std::map<std::string, ETB::Shader> ETB::ShaderLoader::shaders;
+std::map<std::string, xtb::Shader> xtb::ShaderLoader::shaders;
 
-void ETB::ShaderLoader::Add(const std::string& path, bool hotLoad) {
+void xtb::ShaderLoader::Add(const std::string& path, bool hotLoad) {
 	if (ShaderLoader::shaders.count(path) != 0) {
 		return;
 	}
@@ -17,7 +17,7 @@ void ETB::ShaderLoader::Add(const std::string& path, bool hotLoad) {
 	if (hotLoad) ShaderLoader::shaders[path].HotReload();
 }
 
-ETB::Shader& ETB::ShaderLoader::Get(const std::string& path) {
+xtb::Shader& xtb::ShaderLoader::Get(const std::string& path) {
 	if (ShaderLoader::shaders.count(path) == 0) {
 		Add(path);
 	}

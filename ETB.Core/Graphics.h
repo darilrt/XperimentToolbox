@@ -13,7 +13,7 @@
 #include "Mesh.h"
 #include "Material.h"
 
-namespace ETB {
+namespace xtb {
 	namespace Graphics {
 		void Init();
 

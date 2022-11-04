@@ -2,7 +2,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace ETB {
+namespace xtb {
 
 	class JsonUtilities {
 	public:

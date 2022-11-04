@@ -2,26 +2,26 @@
 #include "Graphics.h"
 #include "RenderTexture.h"
 
-ETB::Camera* ETB::Camera::activeCamera = nullptr;
+xtb::Camera* xtb::Camera::activeCamera = nullptr;
 
-void ETB::Camera::SetActive(Camera* camera) {
+void xtb::Camera::SetActive(Camera* camera) {
 	Camera::activeCamera = camera;
 }
 
-ETB::Camera::Camera() : transform(), renderTexture(800, 600) {
+xtb::Camera::Camera() : transform(), renderTexture(800, 600) {
 }
 
-ETB::Camera::Camera(int32_t width, int32_t height) : transform(), renderTexture(width, height) {
+xtb::Camera::Camera(int32_t width, int32_t height) : transform(), renderTexture(width, height) {
 }
 
-ETB::Camera::~Camera() {
+xtb::Camera::~Camera() {
 }
 
-void ETB::Camera::SetPerspective(float fovy, float aspect, float zNear, float zFar) {
+void xtb::Camera::SetPerspective(float fovy, float aspect, float zNear, float zFar) {
 	projectionMatrix = glm::perspective(fovy, aspect, zNear, zFar);
 }
 
-void ETB::Camera::Use() {
+void xtb::Camera::Use() {
 	Camera::activeCamera = this;
 
 	Graphics::Clear();
@@ -31,11 +31,11 @@ void ETB::Camera::Use() {
 	viewMatrix = glm::scale(viewMatrix, transform.scale);
 }
 
-glm::mat4 ETB::Camera::GetMatrix() {
+glm::mat4 xtb::Camera::GetMatrix() {
 	return projectionMatrix * viewMatrix;
 }
 
-void ETB::Camera::SetViewport(int32_t x, int32_t y, int32_t width, int32_t height) {
+void xtb::Camera::SetViewport(int32_t x, int32_t y, int32_t width, int32_t height) {
 	glViewport(x, y, width, height);
 	renderTexture.SetSize(width, height);
 }

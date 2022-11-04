@@ -9,7 +9,7 @@
 #include "Texture.h"
 #include "Uniform.h"
 
-namespace ETB {
+namespace xtb {
 
 	class Shader {
 	public:
@@ -26,7 +26,7 @@ namespace ETB {
 
 		DECLSPEC void Bind();
 
-		DECLSPEC std::vector<ETB::Uniform> GetUniforms();
+		DECLSPEC std::vector<xtb::Uniform> GetUniforms();
 		
 		inline void Unbind() { glUseProgram(NULL); }
 

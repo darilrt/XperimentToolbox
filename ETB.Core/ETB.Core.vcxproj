@@ -134,8 +134,10 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AssetDatabase.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="JsonUtilities.h" />
@@ -176,8 +178,10 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AssetDatabase.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="JsonUtilities.cpp" />

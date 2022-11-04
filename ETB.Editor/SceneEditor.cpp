@@ -11,7 +11,7 @@
 
 REGISTER_EDITOR(SceneEditor);
 
-using namespace ETB;
+using namespace xtb;
 
 SceneEditor::SceneEditor() {
 	title = "Scene";
@@ -46,19 +46,19 @@ void SceneEditor::GUI() {
 	const float buttonSize = 30;
 	const float buttonPadding = 8;
 	const float headerWidth = buttonCount * buttonSize + buttonCount * buttonPadding + buttonPadding;
-
-	ImRect header(p, ImVec2(p.x + headerWidth, p.y + buttonSize + buttonPadding + buttonPadding));
 	
+	bool ignoreGui = false;
+
 	// Scene preview
 	{
 		editorCamera->Update();
 		editorCamera->SetSize((int32_t)size.x, (int32_t)size.y);
 		
-		EventSystem::ignoreGui = ImGui::IsWindowHovered() && !header.Contains(ImGui::GetMousePos());
+		ignoreGui = ImGui::IsWindowHovered();
 		
 		scene.Render(editorCamera->cam);
 
-		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetId(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	static ImGuizmo::MODE gizmoMode(ImGuizmo::LOCAL);
@@ -77,7 +77,7 @@ void SceneEditor::GUI() {
 
 		const bool res = ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
 
-		EventSystem::ignoreGui = EventSystem::ignoreGui && !ImGuizmo::IsOver();
+		ignoreGui &= !ImGuizmo::IsOver();
 
 		glm::vec3 matrixRotation;
 		ImGuizmo::DecomposeMatrixToComponents(
@@ -102,14 +102,17 @@ void SceneEditor::GUI() {
 		if (Input::KeyDown(KeyCode::C)) gizmoMode = gizmoMode == ImGuizmo::WORLD ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
 
 		if (ImGui::Button("T", ImVec2(30, 30)) || Input::KeyDown(KeyCode::Q)) gizmoOperation = ImGuizmo::TRANSLATE;
+		ignoreGui &= !ImGui::IsItemHovered();
 
 		ImGui::SameLine();
-		if (ImGui::Button("R", ImVec2(30, 30)) || Input::KeyDown(KeyCode::W)) gizmoOperation = ImGuizmo::ROTATE;
-
+ 		if (ImGui::Button("R", ImVec2(30, 30)) || Input::KeyDown(KeyCode::W)) gizmoOperation = ImGuizmo::ROTATE;
+		
 		ImGui::SameLine();
 		if (ImGui::Button("S", ImVec2(30, 30)) || Input::KeyDown(KeyCode::E)) gizmoOperation = ImGuizmo::SCALE;
 
 		ImGui::SameLine();
 		if (ImGui::Button("G", ImVec2(30, 30))) showGrid = !showGrid;
 	}
+
+	EventSystem::IgnoreGui(ignoreGui);
 }
