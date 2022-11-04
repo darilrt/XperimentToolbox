@@ -181,7 +181,7 @@
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="AssetDatabase.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +291,7 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="AssetDatabase.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

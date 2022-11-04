@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "RenderTexture.h"
+#include "AssetDatabase.h"
 
 #include "mathf.h"
 #include "Debug.h"

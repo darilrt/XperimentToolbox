@@ -1,4 +1,4 @@
 #include <etb.h>
 #include "EditorApp.h"
 
-ETB_ENTRY(EditorApp);
+XTB_ENTRY(EditorApp);
