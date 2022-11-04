@@ -32,6 +32,7 @@ namespace ETB{
 		MouseButtonDown,
 		MouseButtonUp,
 		MouseMotion,
+		MouseWheel,
 	};
 
 	class Event {
@@ -47,7 +48,9 @@ namespace ETB{
 			uint8_t button;
 			glm::vec2 rel;
 			glm::vec2 position;
+			glm::vec2 wheel;
 		} mouse;
+
 	};
 
 	class EventSystem {

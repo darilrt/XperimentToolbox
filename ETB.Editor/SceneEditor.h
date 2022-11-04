@@ -8,15 +8,15 @@
 
 class SceneEditor : public Editor::EditorWindow {
 public:
+	EditorCamera* editorCamera;
+
 	SceneEditor();
 	~SceneEditor();
 
 	void Start();
-	void Style();
 	void GUI();
 
 private:
-	EditorCamera* editorCamera;
 	CubeActor* cubeActor;
 	ETB::Scene scene;
 };

@@ -24,37 +24,38 @@ SceneEditor::~SceneEditor() {
 void SceneEditor::Start() {
 	EditorApp::SetScene(&scene);
 
-	editorCamera = scene.Instance<EditorCamera>();
+	editorCamera = new EditorCamera();
 	editorCamera->cam.transform.position = glm::vec3(5.0f, 5.0f, 5.0f);
 	editorCamera->cam.transform.LookAt(editorCamera->target.position);
 
-	// editorCamera->Start();
+	editorCamera->Start();
 	scene.Start();
-}
-
-void SceneEditor::Style() {
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 }
 
 void SceneEditor::GUI() {
 	ImGuizmo::SetDrawlist();
-	
+
+	ImVec2 windowPos = ImGui::GetWindowPos();
 	ImVec2 offset = ImGui::GetWindowContentRegionMin();
 	ImVec2 size = ImGui::GetContentRegionAvail();
+	ImVec2 p = ImGui::GetCursorScreenPos();
+
+	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+	const float buttonCount = 4;
+	const float buttonSize = 30;
+	const float buttonPadding = 8;
+	const float headerWidth = buttonCount * buttonSize + buttonCount * buttonPadding + buttonPadding;
+
+	ImRect header(p, ImVec2(p.x + headerWidth, p.y + buttonSize + buttonPadding + buttonPadding));
 	
 	// Scene preview
 	{
 		editorCamera->Update();
-
-		EventSystem::ignoreGui = ImGui::IsWindowHovered();
-
 		editorCamera->SetSize((int32_t)size.x, (int32_t)size.y);
-
-		const ImVec2 p = ImGui::GetCursorScreenPos();
-		editorCamera->screenCenter = glm::vec2(p.x, p.y) + glm::vec2(size.x, size.y) / 2.0f;
-
-		ImDrawList* draw_list = ImGui::GetWindowDrawList();
-
+		
+		EventSystem::ignoreGui = ImGui::IsWindowHovered() && !header.Contains(ImGui::GetMousePos());
+		
 		scene.Render(editorCamera->cam);
 
 		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetTextureId(), size, ImVec2(0, 1), ImVec2(1, 0));
@@ -66,8 +67,7 @@ void SceneEditor::GUI() {
 	float* view = (float*)glm::value_ptr(editorCamera->cam.GetViewMatrix());
 	float* projection = (float*)glm::value_ptr(editorCamera->cam.GetProjectionMatrix());
 	
-	ImVec2 windowPos = ImGui::GetWindowPos();
-	ImGuizmo::SetRect(windowPos.x, windowPos.y + offset.y, size.x, size.y);
+	ImGuizmo::SetRect(p.x, p.y, size.x, size.y);
 
 	// Selection Gizmos
 	if (HierarchyEditor::selectedActor != NULL) {
@@ -75,7 +75,9 @@ void SceneEditor::GUI() {
 
 		float* matrix = (float*)glm::value_ptr(actor.transform.GetMatrix());
 
-		ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
+		const bool res = ImGuizmo::Manipulate(view, projection, gizmoOperation, gizmoMode, matrix);
+
+		EventSystem::ignoreGui = EventSystem::ignoreGui && !ImGuizmo::IsOver();
 
 		glm::vec3 matrixRotation;
 		ImGuizmo::DecomposeMatrixToComponents(

@@ -2,6 +2,7 @@
 #include "EditorApp.h"
 
 #include "CubeActor.h"
+#include "SceneEditor.h"
 
 REGISTER_EDITOR(HierarchyEditor);
 
@@ -42,6 +43,11 @@ void HierarchyEditor::GUI() {
 		
 		ImGui::TreeNodeEx(actor->name.c_str(), nodeFlags | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
 		
+		if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) && ImGui::IsItemHovered()) {
+			SceneEditor* sceneEditor = Editor::EditorWindow::GetEditor<SceneEditor>();
+			sceneEditor->editorCamera->CenterCamera(actor->transform.position);
+		}
+
 		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsItemHovered()) {
 			HierarchyEditor::selectedActor = actor;
 		}

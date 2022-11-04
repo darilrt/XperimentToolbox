@@ -79,14 +79,20 @@ void ETB::EventSystem::DispatchEvents() {
 
 			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
 			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
-
-			if (GUI::UseMouse() && !ignoreGui) continue;
 			break;
 
 		case SDL_MOUSEMOTION:
 			type = EventType::MouseMotion;
 			EventSystem::event.mouse.position = { sdlEvent.motion.x, sdlEvent.motion.y };
 			EventSystem::event.mouse.rel = { sdlEvent.motion.xrel, sdlEvent.motion.yrel };
+
+			if (GUI::UseMouse() && !ignoreGui) continue;
+			break;
+
+		case SDL_MOUSEWHEEL:
+			type = EventType::MouseWheel;
+
+			EventSystem::event.mouse.wheel = { sdlEvent.wheel.x, sdlEvent.wheel.y };
 
 			if (GUI::UseMouse() && !ignoreGui) continue;
 			break;

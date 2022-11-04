@@ -5,13 +5,11 @@ EditorCamera::EditorCamera() : isMoving(false), startMoving(false), mouseMode(No
 	name = "Editor Camera";
 
 	EventSystem::AddEventListener(EventType::MouseButtonDown, [&](Event& e) {
-		if (e.mouse.button == 3) {
+		if (e.mouse.button == 3 || e.mouse.button == 1) {
+			isMoving = false;
 			startMoving = true;
-			mouseMode = Fly;
-		}
-		if (e.mouse.button == 1) {
-			startMoving = true;
-			mouseMode = Orbit;
+			mouseMode = e.mouse.button == 3 ? Fly : Orbit;
+			screenCenter = Input::GetMousePosition();
 		}
 	});
 
@@ -31,6 +29,13 @@ EditorCamera::EditorCamera() : isMoving(false), startMoving(false), mouseMode(No
 			Cursor::Grab(true);
 		}
 	});
+
+	EventSystem::AddEventListener(EventType::MouseWheel, [&](Event& e) {
+		targetDistance = glm::distance(target.position, cam.transform.position);
+		SetDistance(targetDistance * (1.0f - (Time::deltaTime * e.mouse.wheel.y * wheelSpeed)));
+	});
+
+	wheelSpeed = 10;
 }
 
 void EditorCamera::Start() {
@@ -55,21 +60,7 @@ void EditorCamera::Start() {
 
 void EditorCamera::Update() {
 	using namespace ETB;
-
-	if (Input::KeyPressed(KeyCode::G)) { // Wheel up
-		targetDistance = glm::distance(target.position, cam.transform.position);
-		SetDistance(targetDistance * (1.0f - Time::deltaTime));
-	}
-
-	if (Input::KeyPressed(KeyCode::F)) { // Wheel down
-		targetDistance = glm::distance(target.position, cam.transform.position);
-		SetDistance(targetDistance * (1.0f + Time::deltaTime));
-	}
-
-	if (Input::KeyDown(KeyCode::H)) {
-		CenterCamera({ 0, 0, 0 });
-	}
-
+	
 	glm::vec2 rel = Input::GetMousePosition() - oldMousePos; // This should be Input::GetMouseRel()
 
 	if (isMoving && mouseMode & Fly) {
@@ -121,12 +112,6 @@ void EditorCamera::Update() {
 	}
 
 	oldMousePos = Input::GetMousePosition();
-}
-
-void EditorCamera::Render() {
-	using namespace ETB;
-	static Material mat;
-	Graphics::DrawMesh(Primitives::sphere, target.GetMatrix(), mat);
 }
 
 void EditorCamera::SetSize(int32_t width, int32_t height) {

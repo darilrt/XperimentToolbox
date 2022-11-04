@@ -27,7 +27,6 @@ namespace Editor {
 
 		virtual void Start();
 		virtual void GUI();
-		virtual void Style();
 
 		template<class T>
 		static void RegistEditor() {

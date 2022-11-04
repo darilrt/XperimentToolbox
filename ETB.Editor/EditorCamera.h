@@ -21,7 +21,6 @@ public:
 
 	void Start();
 	void Update();
-	void Render();
 
 	void SetSize(int32_t width, int32_t height);
 
@@ -29,6 +28,7 @@ public:
 	void SetDistance(float newDistance);
 
 private:
+	float wheelSpeed;
 	float targetDistance;
 	glm::vec2 oldMousePos;
 };
