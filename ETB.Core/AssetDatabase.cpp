@@ -3,9 +3,11 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <ostream>
 
 #include "etb.h"
 #include "AssetDatabase.h"
+#include "Asset.h"
 
 using namespace std::filesystem;
 
@@ -30,37 +32,76 @@ void xtb::AssetDatabase::LoadAssets() {
 	ListRecursiveAssets(assetPath, assetList);
 
 	for (directory_entry& entry : assetList) {
-		// AssetDatabase::LoadAsset(entry);
-		xtb::Debug::Print(entry.path().string());
+		AssetDatabase::LoadAsset(entry);
 	}
+}
+
+xtb::Asset* xtb::AssetDatabase::GetAssetByUUID(const std::string& uuid) {
+	if (assets.count(uuid) != 0) {
+		return assets[uuid];
+	}
+
+	return NULL;
+}
+
+std::string xtb::AssetDatabase::GetUUIDByPath(const std::string& path) {
+	std::filesystem::path p(path);
+
+	for (auto e : assets) {
+		if (std::filesystem::equivalent(e.second->path, p)) {
+			return e.second->uuid;
+		}
+	}
+	
+	return "";
 }
 
 void xtb::AssetDatabase::LoadAsset(const directory_entry& entry) {
+	const std::string ext = entry.path().extension().string();
+
+	if (ext == ".meta") return;
+
 	const std::string metaPath = entry.path().string() + ".meta";
 
-	if (File::Exists(metaPath)) {
-		LoadMeta(entry);
-	}
-	else {
+	Asset* asset = xtb::AssetFactory::CreateAssetByExtension(ext);
+
+	if (asset != NULL) {
+		asset->path = entry.path();
 		
+		if (File::Exists(metaPath)) {
+			LoadMeta(asset, entry);
+		}
+		else {
+			asset->uuid = xtb::GetUUID();
+			SaveMeta(asset, entry);
+		}
+		
+		assets[asset->uuid] = asset;
+
+		asset->LoadAsset(); // TODO: Async load?
 	}
 }
 
-void xtb::AssetDatabase::LoadMeta(const directory_entry& entry) {
+void xtb::AssetDatabase::LoadMeta(Asset* asset, const directory_entry& entry) {
 	using json = nlohmann::json;
 	const std::string metaPath = entry.path().string() + ".meta";
 
 	std::ifstream f(metaPath);
 	json data = json::parse(f);
 
-	Asset asset;
-
 	if (data.contains("uuid")) {
-		asset.uuid = data["uuid"].get<std::string>();
-
-		xtb::Debug::Print(data["uuid"].get<std::string>());
+		asset->uuid = data["uuid"].get<std::string>();
 	}
 	else {
-		data["uuid"] = xtb::GetUUID();
+		asset->uuid = xtb::GetUUID();
 	}
+}
+
+void xtb::AssetDatabase::SaveMeta(Asset* asset, const std::filesystem::directory_entry& entry) {
+	nlohmann::json data = asset->Serialize();
+
+	const std::string path = entry.path().string() + ".meta";
+	
+	std::ofstream file(path);
+	file << std::setw(4) << data << std::endl;
 }

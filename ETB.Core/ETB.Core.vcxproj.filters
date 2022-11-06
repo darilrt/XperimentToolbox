@@ -55,6 +55,12 @@
     <Filter Include="Header Files\GUI">
       <UniqueIdentifier>{bd8ef28f-cb78-404a-a769-8b5d40aefb71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Assets">
+      <UniqueIdentifier>{b0e9eed1-42de-48d0-b6b7-71878aa45ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Assets">
+      <UniqueIdentifier>{756fd6d7-1f84-4322-9ebc-010e9c8c2535}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -95,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="etb.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderLoader.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Primitives.h">
       <Filter>Header Files\Graphics</Filter>
@@ -180,8 +183,17 @@
     <ClInclude Include="Component.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderLoader.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="AssetDatabase.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>Header Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAsset.h">
+      <Filter>Header Files\Assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +303,13 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="AssetDatabase.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAsset.cpp">
+      <Filter>Source Files\Assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

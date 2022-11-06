@@ -19,8 +19,13 @@ void listFiles_impl(const std::string& path) {
 		ImGuiTreeNodeFlags_SpanFullWidth;
 
 	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path)) {
-		std::string filename = entry.path().filename().string();
+		const std::filesystem::path _path = entry.path();
+		const std::string filename = _path.filename().string();
 		
+		if (_path.extension().string() == ".meta") {
+			continue;
+		}
+
 		if (entry.is_directory()) {
 			if (!ImGui::TreeNodeEx(filename.c_str(), dirFlags)) continue;
 

@@ -18,6 +18,7 @@ EditorApp::~EditorApp() {
 }
 
 void EditorApp::Start() {
+	xtb::AssetDatabase::assetPath = "Built-In/";
 	xtb::AssetDatabase::LoadAssets();
 	
 	for (auto editor : Editor::EditorWindow::GetEditors()) {

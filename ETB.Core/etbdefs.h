@@ -16,7 +16,8 @@
 	#define DECLSPEC
 #endif
 
-#define XTB_ENTRY(A) int main(int c, char* v[]) { return (new A())->Run(); }
+#define ENTRY_POINT(A) \
+	int main(int c, char* v[]) { return (new A())->Run(); }
 
 #include <glm/glm.hpp>
 
