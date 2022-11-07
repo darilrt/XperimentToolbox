@@ -58,7 +58,7 @@ void SceneEditor::GUI() {
 		
 		scene.Render(editorCamera->cam);
 
-		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetId(), size, ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image((void*)(intptr_t)editorCamera->cam.renderTexture.color.GetID(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	static ImGuizmo::MODE gizmoMode(ImGuizmo::LOCAL);

@@ -51,7 +51,7 @@ namespace xtb {
 		inline int32_t GetWidth() { return width; }
 		inline int32_t GetHeight() { return height; }
 		
-		inline uint32_t GetId() { return texture; }
+		inline uint32_t GetID() { return texture; }
 
 	private:
 		void GenTextureBuffer();

@@ -6,8 +6,6 @@ namespace xtb {
 	REGISTER_ASSET(TextureAsset, ".png", ".jpg");
 
 	void TextureAsset::LoadAsset() {
-		Debug::Print(path.string() + " " + GetUUID());
-
 		if (texture != NULL) {
 			delete texture;
 		}
