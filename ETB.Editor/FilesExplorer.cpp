@@ -38,6 +38,8 @@ void listFiles_impl(const std::string& path) {
 			if (ImGui::IsMouseDoubleClicked(ImGuiPopupFlags_MouseButtonLeft) && ImGui::IsItemHovered()) {
 				FilesExplorer::OpenFile(entry);
 			}
+
+			// TODO: Add Drag and drop
 		}
 	}
 }
