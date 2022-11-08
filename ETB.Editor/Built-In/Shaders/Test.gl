@@ -1,7 +1,7 @@
 uniform mat4 ETB_MATRIX_VP; // View * Projection Matrix
 uniform mat4 ETB_MATRIX_M;  // Model View Matrix
 
-uniform float albedo;
+uniform sampler2D albedo;
 
 varying vec2 uvMainTex;
 varying vec4 vertexPosition;
@@ -30,9 +30,7 @@ vec3 lightPos = vec3(-3, 2.5f, 2);
 vec3 lightColor = vec3(1, 1, 1);
 
 void main() {
-	vec3 objectColor = vec3(0, 1, 1);
-	
-	float a = albedo;
+	vec3 objectColor = texture(albedo, uvMainTex).rgb;
 	
 	// ambient
     float ambientstrength = 0.1;
@@ -47,7 +45,7 @@ void main() {
 	
     vec3 result = (ambient + diffuse) * objectColor;
 	
-	_fragColor = vec4(result, 1.0);
+	_fragColor = vec4(objectColor, 1.0);
 }
 
 #endif

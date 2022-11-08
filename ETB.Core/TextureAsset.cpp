@@ -13,4 +13,8 @@ namespace xtb {
 		texture = new Texture(path.string());
 	}
 
+	std::string TextureAsset::GetTypeName() {
+		return std::string(typeid(xtb::TextureAsset).raw_name());
+	}
+
 }

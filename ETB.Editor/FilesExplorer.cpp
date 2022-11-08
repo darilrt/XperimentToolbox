@@ -39,7 +39,19 @@ void listFiles_impl(const std::string& path) {
 				FilesExplorer::OpenFile(entry);
 			}
 
-			// TODO: Add Drag and drop
+			const std::string uuid = xtb::AssetDatabase::GetUUIDByPath(_path.string());
+			
+			if (uuid != "" && ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+				xtb::Asset* asset = xtb::AssetDatabase::GetAssetByUUID(uuid);
+				const std::string typeName(asset->GetTypeName());
+				const std::string payloadID = ("XTBASSET" + typeName);
+				
+				ImGui::SetDragDropPayload(payloadID.c_str(), asset, sizeof(xtb::Asset), ImGuiCond_Once);
+				
+				ImGui::Text(filename.c_str());
+				
+				ImGui::EndDragDropSource();
+			}
 		}
 	}
 }

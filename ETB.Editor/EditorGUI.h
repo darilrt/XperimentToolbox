@@ -57,9 +57,9 @@ namespace EditorGUI {
 
 		if (uuid != "") {
 			xtb::Asset* asset = xtb::AssetDatabase::GetAssetByUUID(uuid);
-
+			
 			if (asset != NULL) {
-				const std::string& assetName = asset->path.stem().string();
+				const std::string& assetName = asset->path.filename().string();
 				draw_window->DrawList->AddText(g.Font, g.FontSize, draw_pos, ImGui::GetColorU32(ImGuiCol_Text), assetName.c_str(), NULL, 0.0f, &clip_rect);
 
 				// const bool hovered = ImGui::ItemHoverable(frame_bb, id);

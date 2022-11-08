@@ -53,11 +53,30 @@ void MaterialAssetInspector::GUI() {
         sh.Reload();
         
         if (sh.GetId() != 0) {
+            static std::string uuid;
             for (xtb::Uniform& m : sh.GetUniforms()) {
                 static float n = 0;
                 switch (m.type)
                 {
                 case xtb::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
+                
+                case xtb::Uniform::Sampler2D: {
+                    xtb::Material::TextureUniformInfo* info = dynamic_cast<xtb::Material::TextureUniformInfo*>(a->material.Get(m.name));
+
+                    std::string newUuid = "";
+
+                    if (info) {
+                        newUuid = info->texture->GetUUID();
+                    }
+                    
+                    if (EditorGUI::InputAsset<xtb::TextureAsset>(m.name.c_str(), newUuid)) {
+                        xtb::TextureAsset* asset = xtb::AssetDatabase::GetAssetByUUID<xtb::TextureAsset>(newUuid);
+                        if (asset) a->material.SetTexture(m.name, asset);
+                    }
+
+                    break;
+                }
+
                 default: break;
                 }
             }

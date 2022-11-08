@@ -13,6 +13,8 @@ namespace xtb {
 		
 		void LoadAsset();
 
+		DECLSPEC std::string GetTypeName();
+
 		DECLSPEC static Asset* Create() {
 			return new TextureAsset();
 		}

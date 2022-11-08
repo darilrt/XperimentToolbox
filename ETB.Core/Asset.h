@@ -22,13 +22,9 @@ namespace xtb {
 
 		inline std::string GetUUID() { return uuid; }
 
-		virtual nlohmann::json Serialize() {
-			nlohmann::json obj;
-
-			obj["uuid"] = uuid;
-
-			return obj;
-		}
+		DECLSPEC virtual nlohmann::json Serialize();
+		
+		DECLSPEC virtual std::string GetTypeName();
 
 		virtual void LoadAsset() = 0;
 

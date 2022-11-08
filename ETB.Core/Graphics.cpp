@@ -26,6 +26,8 @@ void xtb::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 	shader->SetMatrix("ETB_MATRIX_M", matrix);
 	shader->SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
 
+	material.Use();
+
 	DrawMesh(mesh);
 	shader->Unbind();
 }

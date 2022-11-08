@@ -132,7 +132,7 @@ void xtb::Shader::HotReload() {
 
 void xtb::Shader::SetSampler2D(const char* name, Texture& texture) {
 	glActiveTexture(GL_TEXTURE0 + samplerCount);
-
+	
 	texture.Bind();
 
 	glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
