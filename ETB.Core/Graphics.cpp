@@ -23,8 +23,8 @@ void xtb::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 
 	shader->Bind();
 	
-	shader->SetMatrix("ETB_MATRIX_M", matrix);
-	shader->SetMatrix("ETB_MATRIX_VP", Camera::GetActive()->GetMatrix());
+	shader->SetMatrix("XTB_MATRIX_M", matrix);
+	shader->SetMatrix("XTB_MATRIX_VP", Camera::GetActive()->GetMatrix());
 
 	material.Use();
 

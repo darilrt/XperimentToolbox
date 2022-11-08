@@ -13,6 +13,7 @@ namespace xtb {
 	public:
 		enum Type {
 			Unknow,
+			Bool,
 			Int,		// int
 			Float,		// float
 			Vector2,	// vec2

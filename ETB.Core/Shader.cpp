@@ -53,6 +53,7 @@ std::vector<xtb::Uniform> xtb::Shader::GetUniforms() {
 		glGetActiveUniform(shaderId, (GLuint)i, bufSize, &length, &size, &type, name);
 		
 		switch (type) {
+		case GL_BOOL: ctype = Uniform::Bool; break;
 		case GL_INT: ctype = Uniform::Int; break;
 		case GL_FLOAT: ctype = Uniform::Float; break;
 		case GL_FLOAT_VEC2: ctype = Uniform::Vector2; break;
@@ -137,6 +138,9 @@ void xtb::Shader::SetSampler2D(const char* name, Texture& texture) {
 
 	glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
 	glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
+
+	std::string isSetName = "xtb_" + std::string(name) + "_isSet";
+	glUniform1i(glGetUniformLocation(shaderId, isSetName.c_str()), true);
 
 	samplerCount++;
 }

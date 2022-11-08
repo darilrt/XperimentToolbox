@@ -27,7 +27,28 @@ void listFiles_impl(const std::string& path) {
 		}
 
 		if (entry.is_directory()) {
-			if (!ImGui::TreeNodeEx(filename.c_str(), dirFlags)) continue;
+			const bool open = ImGui::TreeNodeEx(filename.c_str(), dirFlags);
+
+			if (ImGui::BeginPopupContextItem()) {
+				if (ImGui::BeginMenu("New")) {
+					if (ImGui::MenuItem("Folder")) {
+						std::filesystem::create_directories(_path.string() + "/New Folder");
+					}
+
+					ImGui::EndMenu();
+				}
+				
+				if (ImGui::MenuItem("Open Folder In Explorer")) {
+					const std::string folderPath = std::filesystem::current_path().string() + "/" + _path.string();
+					const std::filesystem::path c = std::filesystem::weakly_canonical(std::filesystem::path(folderPath));
+
+					system(("explorer /separate /select,\"" + c.string() + "\"").c_str());
+				}
+
+				ImGui::EndPopup();
+			}
+
+			if (!open) continue;
 
 			listFiles_impl(path + filename + "/");
 			ImGui::TreePop();

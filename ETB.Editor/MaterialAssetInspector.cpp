@@ -55,9 +55,16 @@ void MaterialAssetInspector::GUI() {
         if (sh.GetId() != 0) {
             static std::string uuid;
             for (xtb::Uniform& m : sh.GetUniforms()) {
+                if (m.name.find("XTB_", 0) == 0 || m.name.find("xtb_", 0) == 0) {
+                    continue;
+                }
+
                 static float n = 0;
+                static bool v = false;
                 switch (m.type)
                 {
+                case xtb::Uniform::Bool: ImGui::Checkbox(m.name.c_str(), &v); break;
+
                 case xtb::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
                 
                 case xtb::Uniform::Sampler2D: {

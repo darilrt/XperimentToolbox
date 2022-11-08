@@ -1,7 +1,13 @@
-uniform mat4 ETB_MATRIX_VP; // View * Projection Matrix
-uniform mat4 ETB_MATRIX_M;  // Model View Matrix
+uniform mat4 XTB_MATRIX_VP; // View * Projection Matrix
+uniform mat4 XTB_MATRIX_M;  // Model View Matrix
 
-uniform sampler2D albedo;
+#define UNIFORM(T, A) \
+	uniform T A; \
+	uniform bool xtb_##A##_isSet = false;
+
+#define ISSET(A) xtb_##A##_isSet
+
+UNIFORM(sampler2D, albedo);
 
 varying vec2 uvMainTex;
 varying vec4 vertexPosition;
@@ -15,10 +21,10 @@ layout (location = 2) in vec3 _vertexNormal;
 
 void main() {
 	uvMainTex = _uvMainTex;
-	worldNormal = (ETB_MATRIX_M * vec4(normalize(_vertexNormal), 1.0)).xyz;
-	vertexPosition = ETB_MATRIX_M * vec4(_vertexPosition, 1);
+	worldNormal = (XTB_MATRIX_M * vec4(normalize(_vertexNormal), 1.0)).xyz;
+	vertexPosition = XTB_MATRIX_M * vec4(_vertexPosition, 1);
 	
-	gl_Position = ETB_MATRIX_VP * vertexPosition;
+	gl_Position = XTB_MATRIX_VP * vertexPosition;
 }
 
 #endif
@@ -30,7 +36,14 @@ vec3 lightPos = vec3(-3, 2.5f, 2);
 vec3 lightColor = vec3(1, 1, 1);
 
 void main() {
-	vec3 objectColor = texture(albedo, uvMainTex).rgb;
+	vec3 objectColor;
+	
+	if (ISSET(albedo)) {
+		objectColor = texture(albedo, uvMainTex).rgb;
+	}
+	else {
+		objectColor = vec3(1.0, 1.0, 1.0);
+	}
 	
 	// ambient
     float ambientstrength = 0.1;
