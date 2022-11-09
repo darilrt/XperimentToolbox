@@ -67,7 +67,7 @@ void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 		size.y -= 4;
 
 		scene->Update();
-		edCam->SetSize(size.x, size.y);
+		edCam->SetSize((int32_t)size.x, (int32_t)size.y);
 		scene->Render(edCam->cam);
 
 		EditorGUI::Image(edCam->cam.renderTexture.color, size, { 0, 1 }, { 1, 0 });

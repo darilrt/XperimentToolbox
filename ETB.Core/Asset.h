@@ -67,14 +67,3 @@ namespace xtb {
 	};
 
 }
-
-class MaterialAsset : public xtb::Asset {
-public:
-	DECLSPEC static Asset* Create() {
-		return new MaterialAsset();
-	}
-
-	void LoadAsset() {
-
-	}
-};

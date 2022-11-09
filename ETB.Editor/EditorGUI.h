@@ -55,22 +55,19 @@ namespace EditorGUI {
 
 		bool changed_value = false;
 
-		if (uuid != "") {
-			xtb::Asset* asset = xtb::AssetDatabase::GetAssetByUUID(uuid);
-			
-			if (asset != NULL) {
-				const std::string& assetName = asset->path.filename().string();
-				draw_window->DrawList->AddText(g.Font, g.FontSize, draw_pos, ImGui::GetColorU32(ImGuiCol_Text), assetName.c_str(), NULL, 0.0f, &clip_rect);
+		xtb::Asset* asset;
+		if (uuid != "" && (asset = xtb::AssetDatabase::GetAssetByUUID(uuid)) != NULL) {
+			const std::string& assetName = asset->path.filename().string();
+			draw_window->DrawList->AddText(g.Font, g.FontSize, draw_pos, ImGui::GetColorU32(ImGuiCol_Text), assetName.c_str(), NULL, 0.0f, &clip_rect);
 
-				// const bool hovered = ImGui::ItemHoverable(frame_bb, id);
-				// if (hovered) g.MouseCursor = ImGuiMouseCursor_Hand;
+			// const bool hovered = ImGui::ItemHoverable(frame_bb, id);
+			// if (hovered) g.MouseCursor = ImGuiMouseCursor_Hand;
 
-				if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-					ImGui::SetDragDropPayload(payloadID.c_str(), asset, sizeof(xtb::Asset), ImGuiCond_Once);
-					ImGui::Text("%s", assetName.c_str());
-
-					ImGui::EndDragDropSource();
-				}
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+				ImGui::SetDragDropPayload(payloadID.c_str(), asset, sizeof(xtb::Asset), ImGuiCond_Once);
+				ImGui::Text("%s", assetName.c_str());
+				
+				ImGui::EndDragDropSource();
 			}
 		}
 		else {
