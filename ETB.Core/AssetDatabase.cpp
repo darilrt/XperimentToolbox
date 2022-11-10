@@ -44,9 +44,7 @@ xtb::Asset* xtb::AssetDatabase::GetAssetByUUID(const std::string& uuid) {
 	return NULL;
 }
 
-std::string xtb::AssetDatabase::GetUUIDByPath(const std::string& path) {
-	std::filesystem::path p(path);
-
+std::string xtb::AssetDatabase::GetUUIDByPath(std::filesystem::path p) {
 	for (auto e : assets) {
 		if (std::filesystem::equivalent(e.second->path, p)) {
 			return e.second->uuid;
@@ -104,4 +102,26 @@ void xtb::AssetDatabase::SaveMeta(Asset* asset, const std::filesystem::directory
 	
 	std::ofstream file(path);
 	file << std::setw(4) << data << std::endl;
+}
+
+void xtb::AssetDatabase::Rename(std::filesystem::path oldPath, std::filesystem::path newPath) {
+	if (std::filesystem::is_directory(oldPath)) {
+		for (auto e : assets) {
+			if (e.second->path.string().find(oldPath.string()) != std::string::npos) {
+				std::string newPathStr = e.second->path.string();
+				newPathStr.replace(0, oldPath.string().length(), newPath.string());
+				e.second->path = newPathStr;
+			}
+		}
+
+		std::filesystem::rename(oldPath, newPath);
+	}
+	else {
+		std::filesystem::rename(oldPath, newPath);
+	
+		xtb::Asset* asset = xtb::AssetDatabase::GetAssetByUUID(xtb::AssetDatabase::GetUUIDByPath(oldPath.string()));
+		if (asset != NULL) {
+			asset->path = newPath;
+		}
+	}
 }
