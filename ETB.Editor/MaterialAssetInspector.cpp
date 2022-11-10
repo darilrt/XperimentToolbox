@@ -47,7 +47,7 @@ void MaterialAssetInspector::GUI() {
         xtb::Shader& sh = *a->material.shader;
         
         if (ImGui::Button("Edit Shader")) {
-            system(("start \"C:/Program Files/Notepad++/notepad++.exe\" " + sh.GetPath()).c_str());
+            system(("start \"C:\\Program Files (x86)\\Notepad++\\notepad++.exe\" " + sh.GetPath()).c_str());
         }
 
         sh.Reload();

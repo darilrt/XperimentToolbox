@@ -143,6 +143,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="JsonUtilities.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="JsonUtilities.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialAsset.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />

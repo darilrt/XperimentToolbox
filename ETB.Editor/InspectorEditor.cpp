@@ -27,7 +27,7 @@ void InspectorEditor::GUI() {
 	EditorGUI::InputAsset<xtb::TextureAsset>("Texture 1", uuid);
 	EditorGUI::InputAsset<xtb::TextureAsset>("Texture 2", uuid2);
 	EditorGUI::InputAsset<xtb::TextureAsset>("Texture 3", uuid3);
-	EditorGUI::InputAsset<MaterialAsset>("Material", uuid4);
+	EditorGUI::InputAsset<xtb::MaterialAsset>("Material", uuid4);
 	
 	auto ta = xtb::AssetDatabase::GetAssetByUUID<xtb::TextureAsset>(uuid);
 
