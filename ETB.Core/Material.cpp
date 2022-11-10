@@ -14,7 +14,7 @@ void xtb::Material::LoadFromFile(const std::string& path) {
 	nlohmann::json data = nlohmann::json::parse(f);
 
 	if (data.contains("shader")) {
-		shader = &ShaderLoader::Get(data["shader"]);
+		shader = &ShaderLoader::Get(data["shader"].get<std::string>());
 	}
 }
 
@@ -38,7 +38,7 @@ void xtb::Material::SetTexture(const std::string& name, xtb::TextureAsset* textu
 }
 
 void xtb::Material::Use() {
-	for (auto u : uniforms) {
+	for (auto u : uniforms) { 
 		if (u.second != NULL) u.second->Set(u.first, shader);
 	}
 }

@@ -9,29 +9,51 @@
 
 namespace xtb {
 
+	// class Actor with components system
+
 	class Actor {
 	public:
 		Transform transform;
 		std::string name;
-
+		
 		DECLSPEC virtual void Start();
 		DECLSPEC virtual void Update();
 		DECLSPEC virtual void Render();
 		DECLSPEC virtual void GUI();
+		
+		DECLSPEC virtual void InspectorRender();
 
 		DECLSPEC virtual void OnDestroy();
 
-		template<class T>
+		DECLSPEC void AddComponent(Component* component);
+		DECLSPEC void RemoveComponent(Component* component);
+		
+		template<typename T>
 		T* GetComponent() {
-			return dynamic_cast<T>(std::find(
-				std::begin(components),
-				std::end(components),
-				[](Component c) {return dynamic_cast<T>(c) != NULL; }
-			));
+			for (int i = 0; i < components.size(); i++) {
+				T* component = dynamic_cast<T*>(components[i]);
+				if (component != NULL) {
+					return component;
+				}
+			}
+			return NULL;
+		}
+		
+		template<typename T>
+		std::vector<T*> GetComponents() {
+			std::vector<T*> result;
+			for (int i = 0; i < components.size(); i++) {
+				T* component = dynamic_cast<T*>(components[i]);
+				if (component != NULL) {
+					result.push_back(component);
+				}
+			}
+			return result;
 		}
 
+		DECLSPEC std::vector<Component*> GetComponents();
+		
 	private:
-		std::vector<Component> components;
+		std::vector<Component*> components;
 	};
-
 }

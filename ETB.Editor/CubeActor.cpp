@@ -4,6 +4,10 @@
 
 using namespace xtb;
 
+CubeActor::CubeActor() {
+	name = "CubeActor";
+}
+
 void CubeActor::Start() {
 	material.LoadFromFile("Built-In/Materials/test.mat");
 }

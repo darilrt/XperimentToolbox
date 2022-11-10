@@ -9,7 +9,7 @@ void xtb::Component::Update() {
 void xtb::Component::Render() {
 }
 
-void xtb::Component::GUI() {
+void xtb::Component::InspectorRender() {
 }
 
 void xtb::Component::OnDestroy() {

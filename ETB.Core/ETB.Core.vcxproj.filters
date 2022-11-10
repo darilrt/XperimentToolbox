@@ -61,6 +61,12 @@
     <Filter Include="Header Files\Assets">
       <UniqueIdentifier>{756fd6d7-1f84-4322-9ebc-010e9c8c2535}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{5e7c62e1-e517-4db4-9116-4cf332b48c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{914550c4-6159-4938-b69b-2f7919ebe85b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -168,14 +174,8 @@
     <ClInclude Include="RenderTexture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Uniform.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonUtilities.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Graphics</Filter>
@@ -197,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="MaterialAsset.h">
       <Filter>Header Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +298,6 @@
     </ClCompile>
     <ClCompile Include="Uniform.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonUtilities.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Graphics</Filter>

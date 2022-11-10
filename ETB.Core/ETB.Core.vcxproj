@@ -141,7 +141,6 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="JsonUtilities.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="RenderTexture.h" />
@@ -188,7 +187,6 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="JsonUtilities.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialAsset.cpp" />
     <ClCompile Include="RenderTexture.cpp" />

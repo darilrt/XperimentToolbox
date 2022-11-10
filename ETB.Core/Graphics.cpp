@@ -25,6 +25,7 @@ void xtb::Graphics::DrawMesh(Mesh& mesh, glm::mat4 matrix, Material& material) {
 	
 	shader->SetMatrix("XTB_MATRIX_M", matrix);
 	shader->SetMatrix("XTB_MATRIX_VP", Camera::GetActive()->GetMatrix());
+	shader->SetVector3("XTB_CAMERA_POS", Camera::GetActive()->transform.position);
 
 	material.Use();
 
