@@ -27,6 +27,8 @@ namespace xtb {
 		DECLSPEC virtual std::string GetTypeName();
 
 		virtual void LoadAsset() = 0;
+		
+		virtual void SaveAsset();
 
 	private:
 		std::string uuid;

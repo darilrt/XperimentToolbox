@@ -6,6 +6,7 @@
 #include "EditorCamera.h"
 #include "CubeActor.h"
 #include "EditorGUI.h"
+#include "ShaderAsset.h"
 
 class PreviewObject : public xtb::Actor {
 public:
@@ -41,14 +42,20 @@ void MaterialAssetInspector::GUI() {
         EditorGUI::InteractivePreview(NULL, a->material);
 
         ImGui::TableNextColumn();
-        ImGui::Text(resourcePath.filename().string().c_str());
+        ImGui::Text(resourcePath.stem().string().c_str());
+
+		static std::string uuid = "";
+        EditorGUI::InputAsset<xtb::ShaderAsset>("Shader", uuid);
+		
         ImGui::Separator();
 
         xtb::Shader& sh = *a->material.shader;
         
+        /*
         if (ImGui::Button("Edit Shader")) {
             system(("start \"C:\\Program Files (x86)\\Notepad++\\notepad++.exe\" " + sh.GetPath()).c_str());
         }
+        */
 
         sh.Reload();
         

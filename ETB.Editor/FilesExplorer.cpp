@@ -19,7 +19,12 @@ void contextMenu_helper(std::filesystem::path path) {
 	if (ImGui::BeginPopupContextItem()) {
 		if (ImGui::BeginMenu("New")) {
 			if (ImGui::MenuItem("Folder")) {
-				std::filesystem::create_directories(path.string() + "/New Folder");
+				if (std::filesystem::is_regular_file(path)) {
+					path = path.parent_path();
+				}
+
+				std::filesystem::create_directory(path / "New Folder");
+				renamePath = path / "New Folder";
 			}
 
 			ImGui::EndMenu();
@@ -33,8 +38,6 @@ void contextMenu_helper(std::filesystem::path path) {
 
 		if (ImGui::MenuItem("Delete")) {
 			std::filesystem::remove(path);
-			ImGui::EndPopup();
-			return;
 		}
 
 		if (ImGui::MenuItem("Open Folder In Explorer")) {
@@ -87,38 +90,41 @@ void renameFileOrFolder_impl(std::filesystem::path path) {
 		ImGui::SetActiveID(NULL, ImGui::GetCurrentWindow());
 		ImGui::SetKeyboardFocusHere(-1);
 		renamePath = "";
-		xtb::AssetDatabase::Rename(path, path.parent_path().string() + "/" + buffer + ext);
+
+		if (!std::filesystem::exists(path.parent_path() / (std::string(buffer) + ext))) {
+			xtb::AssetDatabase::Rename(path, path.parent_path().string() + "/" + buffer + ext);
+		}
 	}
 }
 
-void listFiles_impl(const std::string& path) {
+void listFiles_impl(const std::string& path, bool onlyAssetFolder=false) {
 	static ImGuiTreeNodeFlags dirFlags = ImGuiTreeNodeFlags_OpenOnArrow |
 		ImGuiTreeNodeFlags_OpenOnDoubleClick | 
 		ImGuiTreeNodeFlags_SpanFullWidth;
 	
 	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path)) {
 		const std::filesystem::path _path = entry.path();
-
 		const std::string filename = _path.filename().string();
-		
+
+		if (onlyAssetFolder && filename != "Built-In" && filename != "Assets") {
+			continue;
+		}
+
 		if (_path.extension().string() == ".meta") {
 			continue;
 		}
 
-		if (entry.is_directory()) {
-			if (_path.compare(renamePath) == 0) {
-				renameFileOrFolder_impl(_path);
-			}
-			else {
-				const bool open = ImGui::TreeNodeEx(filename.c_str(), dirFlags);
+		if (!entry.exists()) {
+			continue;
+		}
 
-				contextMenu_helper(_path);
+		bool open = false;
 
-				if (open) {
-					listFiles_impl(path + filename + "/");
-					ImGui::TreePop();
-				}
-			}
+		if (_path.compare(renamePath) == 0) {
+			renameFileOrFolder_impl(_path);
+		}
+		else if (entry.is_directory()) {
+			open = ImGui::TreeNodeEx(filename.c_str(), dirFlags);
 		}
 		else {
 			ImGui::TreeNodeEx(filename.c_str(), dirFlags | ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
@@ -141,13 +147,20 @@ void listFiles_impl(const std::string& path) {
 				ImGui::EndDragDropSource();
 			}
 		}
+		
+		contextMenu_helper(_path);
+
+		if (entry.is_directory() && open) {
+			listFiles_impl(path + filename + "/");
+			ImGui::TreePop();
+		}
 	}
 }
 
 void FilesExplorer::GUI() {
 	std::string assetsPath = "Built-In/";
 	
-	listFiles_impl(assetsPath);
+	listFiles_impl("./", true);
 }
 
 void FilesExplorer::OpenFile(const std::filesystem::directory_entry& entry) {

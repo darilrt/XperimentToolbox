@@ -160,6 +160,7 @@
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderAsset.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureAsset.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderAsset.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureAsset.cpp" />

@@ -16,3 +16,6 @@ nlohmann::json xtb::Asset::Serialize() {
 std::string xtb::Asset::GetTypeName() {
 	return std::string(typeid(xtb::Asset).raw_name());
 }
+
+void xtb::Asset::SaveAsset() {
+}

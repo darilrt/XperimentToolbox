@@ -117,11 +117,12 @@ void xtb::AssetDatabase::Rename(std::filesystem::path oldPath, std::filesystem::
 		std::filesystem::rename(oldPath, newPath);
 	}
 	else {
-		std::filesystem::rename(oldPath, newPath);
-	
 		xtb::Asset* asset = xtb::AssetDatabase::GetAssetByUUID(xtb::AssetDatabase::GetUUIDByPath(oldPath.string()));
+		
 		if (asset != NULL) {
 			asset->path = newPath;
 		}
+
+		std::filesystem::rename(oldPath, newPath);
 	}
 }
