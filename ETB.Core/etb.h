@@ -9,8 +9,6 @@
 #include "AssetDatabase.h"
 
 #include "Asset.h"
-#include "TextureAsset.h"
-#include "MaterialAsset.h"
 
 #include "mathf.h"
 #include "Debug.h"

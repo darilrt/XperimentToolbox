@@ -4,7 +4,7 @@
 
 class CubeActor : public xtb::Actor {
 public:
-	xtb::Material material;
+	xtb::Material* material;
 
 	CubeActor();
 

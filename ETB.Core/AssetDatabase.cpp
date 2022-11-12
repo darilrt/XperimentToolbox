@@ -34,6 +34,10 @@ void xtb::AssetDatabase::LoadAssets() {
 	for (directory_entry& entry : assetList) {
 		AssetDatabase::LoadAsset(entry);
 	}
+
+	for (auto& asset : assets) {
+		asset.second->LoadAsset();
+	}
 }
 
 xtb::Asset* xtb::AssetDatabase::GetAssetByUUID(const std::string& uuid) {
@@ -75,23 +79,22 @@ void xtb::AssetDatabase::LoadAsset(const directory_entry& entry) {
 		}
 		
 		assets[asset->uuid] = asset;
-
-		asset->LoadAsset(); // TODO: Async load?
 	}
 }
 
 void xtb::AssetDatabase::LoadMeta(Asset* asset, const directory_entry& entry) {
-	using json = nlohmann::json;
 	const std::string metaPath = entry.path().string() + ".meta";
 
-	std::ifstream f(metaPath);
-	json data = json::parse(f);
+	std::ifstream file(metaPath);
+	nlohmann::json data;
+	file >> data;
 
-	if (data.contains("uuid")) {
+	if (!data.is_null() && data.contains("uuid")) {
 		asset->uuid = data["uuid"].get<std::string>();
 	}
 	else {
 		asset->uuid = xtb::GetUUID();
+		SaveMeta(asset, entry);
 	}
 }
 

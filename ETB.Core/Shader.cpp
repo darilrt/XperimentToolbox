@@ -8,6 +8,10 @@
 #include "Camera.h"
 #include "EventSystem.h"
 
+namespace xtb {
+	REGISTER_ASSET(Shader, ".gl");
+}
+
 xtb::Shader::Shader() {
 	shaderId = NULL;
 }
@@ -29,11 +33,11 @@ void xtb::Shader::Bind() {
 	samplerCount = 0;
 }
 
-std::vector<xtb::Uniform> xtb::Shader::GetUniforms() {
-	std::vector<Uniform> uniforms;
+std::vector<xtb::Uniform> GetUniforms_impl(uint32_t shaderId) {
+	std::vector<xtb::Uniform> uniforms;
 	
 	if (shaderId == NULL) {
-		Debug::Print("Trying to get uniforms on an uncompiled shader");
+		xtb::Debug::Print("Trying to get uniforms on an uncompiled shader");
 		return uniforms;
 	}
 
@@ -47,36 +51,36 @@ std::vector<xtb::Uniform> xtb::Shader::GetUniforms() {
 	const GLsizei bufSize = 32; // maximum name length
 	GLchar name[bufSize]; // variable name in GLSL
 	GLsizei length; // name length
-	Uniform::Type ctype = Uniform::Unknow;
+	xtb::Uniform::Type ctype = xtb::Uniform::Unknow;
 
 	for (int32_t i = 0; i < count; i++) {
 		glGetActiveUniform(shaderId, (GLuint)i, bufSize, &length, &size, &type, name);
 		
 		switch (type) {
-		case GL_BOOL: ctype = Uniform::Bool; break;
-		case GL_INT: ctype = Uniform::Int; break;
-		case GL_FLOAT: ctype = Uniform::Float; break;
-		case GL_FLOAT_VEC2: ctype = Uniform::Vector2; break;
-		case GL_FLOAT_VEC3: ctype = Uniform::Vector3; break;
-		case GL_FLOAT_VEC4: ctype = Uniform::Vector4; break;
-		case GL_FLOAT_MAT4: ctype = Uniform::Matrix4; break;
-		case GL_SAMPLER_2D: ctype = Uniform::Sampler2D; break;
+		case GL_BOOL: ctype = xtb::Uniform::Bool; break;
+		case GL_INT: ctype = xtb::Uniform::Int; break;
+		case GL_FLOAT: ctype = xtb::Uniform::Float; break;
+		case GL_FLOAT_VEC2: ctype = xtb::Uniform::Vector2; break;
+		case GL_FLOAT_VEC3: ctype = xtb::Uniform::Vector3; break;
+		case GL_FLOAT_VEC4: ctype = xtb::Uniform::Vector4; break;
+		case GL_FLOAT_MAT4: ctype = xtb::Uniform::Matrix4; break;
+		case GL_SAMPLER_2D: ctype = xtb::Uniform::Sampler2D; break;
 		default: break;
 		}
 
-		uniforms.push_back(Uniform(std::string(name), ctype));
+		uniforms.push_back(xtb::Uniform(std::string(name), ctype));
 	}
 
 	return uniforms;
 }
 
 void xtb::Shader::LoadSources() {
-	if (!File::Exists(path)) {
-		Debug::Print("Shader \"" + path + "\" does not exists");
+	if (!File::Exists(path.string())) {
+		Debug::Print("Shader \"" + path.string() + "\" does not exists");
 		return;
 	}
 	
-	source = File::ReadAll(path);
+	source = File::ReadAll(path.string());
 }
 
 bool xtb::Shader::Compile() {
@@ -89,13 +93,13 @@ bool xtb::Shader::Compile() {
 
 void xtb::Shader::Reload() {
 	struct stat fileInfo;
-	stat(path.c_str(), &fileInfo);
+	stat(path.string().c_str(), &fileInfo);
 
 	if (srcMTime != fileInfo.st_mtime) {
 		srcMTime = fileInfo.st_mtime;
 
 		Debug::Print("--------------------------------------");
-		Debug::Print("Shader hot reload \"" + path + "\"");
+		Debug::Print("Shader hot reload \"" + path.string() + "\"");
 
 		Debug::Print("Loading sources");
 		LoadSources();
@@ -104,6 +108,8 @@ void xtb::Shader::Reload() {
 
 		if (Compile()) {
 			Debug::Print("Shader successful reloaded");
+
+			uniforms = GetUniforms_impl(shaderId);
 		}
 	}
 }
@@ -111,13 +117,13 @@ void xtb::Shader::Reload() {
 void xtb::Shader::HotReload() {
 	EventSystem::AddEventListener(EventType::Tick, [&](Event& e) {
 		struct stat fileInfo;
-		stat(path.c_str(), &fileInfo);
+		stat(path.string().c_str(), &fileInfo);
 
 		if (srcMTime != fileInfo.st_mtime) {
 			srcMTime = fileInfo.st_mtime;
 
 			Debug::Print("--------------------------------------");
-			Debug::Print("Shader hot reload \"" + path + "\"");
+			Debug::Print("Shader hot reload \"" + path.string() + "\"");
 
 			Debug::Print("Loading sources");
 			LoadSources();
@@ -143,6 +149,19 @@ void xtb::Shader::SetSampler2D(const char* name, Texture& texture) {
 	glUniform1i(glGetUniformLocation(shaderId, isSetName.c_str()), true);
 
 	samplerCount++;
+}
+
+std::string xtb::Shader::GetTypeName() {
+	return "Shader";
+}
+
+void xtb::Shader::LoadAsset() {
+	LoadSources();
+	Compile();
+}
+
+xtb::Asset* xtb::Shader::Create() {
+	return new Shader();
 }
 
 void PrintShaderLog_impl(int32_t shader) {

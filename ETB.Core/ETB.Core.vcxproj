@@ -142,7 +142,6 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
@@ -160,10 +159,8 @@
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderAsset.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Uniform.h" />
@@ -189,7 +186,6 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialAsset.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -203,10 +199,8 @@
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderAsset.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureAsset.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Uniform.cpp" />

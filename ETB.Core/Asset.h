@@ -9,7 +9,7 @@
 #include "etbdefs.h"
 
 #define REGISTER_ASSET(T, ...) \
-	static bool xtbIsRegistered_##T = xtb::AssetFactory::GetInstance()->Register({ ##__VA_ARGS__ }, T::Create)
+	static bool xtb_IsRegistered_##T = xtb::AssetFactory::GetInstance()->Register({ ##__VA_ARGS__ }, T::Create)
 
 namespace xtb {
 
@@ -26,9 +26,9 @@ namespace xtb {
 		
 		DECLSPEC virtual std::string GetTypeName();
 
-		virtual void LoadAsset() = 0;
+		DECLSPEC virtual void LoadAsset() = 0;
 		
-		virtual void SaveAsset();
+		DECLSPEC virtual void SaveAsset();
 
 	private:
 		std::string uuid;

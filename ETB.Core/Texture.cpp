@@ -10,6 +10,14 @@
 
 #include "Debug.h"
 #include "File.h"
+#include "Asset.h"
+
+namespace xtb {
+	REGISTER_ASSET(Texture, ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".gif", ".hdr", ".pic", ".pnm");
+}
+
+xtb::Texture::Texture() : texture(0), width(0), height(0), type(TextureType::RGBA) {
+}
 
 xtb::Texture::Texture(int32_t width, int32_t height, TextureType t) {
 	type = t;
@@ -19,12 +27,12 @@ xtb::Texture::Texture(int32_t width, int32_t height, TextureType t) {
 	SetSize(width, height);
 }
 
-xtb::Texture::Texture(const std::string& path) {
-	if (!File::Exists(path)) {
-		Debug::Print("Image \"" + path + "\" does not exists");
+xtb::Texture::Texture(const std::string& p) {
+	if (!File::Exists(p)) {
+		Debug::Print("Image \"" + p + "\" does not exists");
 	}
 
-	LoadImage(path);
+	LoadImage(p);
 }
 
 xtb::Texture::~Texture() {
@@ -95,6 +103,22 @@ void xtb::Texture::SetFilterMode(TextureFilterMode filterMode) {
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLfloat)filterMode);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLfloat)filterMode);
 	Unbind();
+}
+
+std::string xtb::Texture::GetTypeName() {
+	return "Texture";
+}
+
+void xtb::Texture::LoadAsset() {
+	LoadImage(path.string());
+}
+
+void xtb::Texture::SaveAsset() {
+	// TODO: Implement this method (Texture::SaveAsset) in Texture.cpp file (ETB.Core)
+}
+
+xtb::Asset* xtb::Texture::Create() {
+	return new Texture();
 }
 
 void xtb::Texture::GenTextureBuffer() {

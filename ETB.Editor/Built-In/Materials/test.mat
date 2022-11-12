@@ -1,3 +1,15 @@
 {
-	"shader": "Built-In/Shaders/Test.gl"
+    "shader": "57ad1235-5ba2-4866-a655-918f0b8378f6",
+    "uniforms": [
+        {
+            "name": "albedo",
+            "type": "texture",
+            "value": "aa9825aa-1410-4a6c-99b6-d516fea538f4"
+        },
+        {
+            "name": "normalMap",
+            "type": "texture",
+            "value": "31d546aa-364f-490c-92ec-966d1c8f8e96"
+        }
+    ]
 }

@@ -17,10 +17,6 @@ namespace xtb {
 
 		DECLSPEC static std::string GetUUIDByPath(std::filesystem::path path);
 		
-		inline static std::string GetUUIDByPath(const std::string& path) {
-			return GetUUIDByPath(std::filesystem::path(path));
-		}
-
 		template<class T>
 		static inline T* GetAssetByUUID(const std::string& uuid) {
 			return dynamic_cast<T*>(GetAssetByUUID(uuid));

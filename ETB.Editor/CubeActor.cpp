@@ -9,9 +9,10 @@ CubeActor::CubeActor() {
 }
 
 void CubeActor::Start() {
-	material.LoadFromFile("Built-In/Materials/test.mat");
+	const std::string uuid = xtb::AssetDatabase::GetUUIDByPath("Built-In/Materials/test.mat");
+	material = xtb::AssetDatabase::GetAssetByUUID<xtb::Material>(uuid);
 }
 
 void CubeActor::Render() {
-	Graphics::DrawMesh(Primitives::cube, transform.GetMatrix(), material);
+	Graphics::DrawMesh(Primitives::cube, transform.GetMatrix(), *material);
 }

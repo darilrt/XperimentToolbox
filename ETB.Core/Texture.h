@@ -1,10 +1,11 @@
 #pragma once
 
-#include "etbdefs.h"
-
 #include <GL/glew.h>
 #include <GL/GL.h>
 #include <string>
+
+#include "etbdefs.h"
+#include "Asset.h"
 
 namespace xtb {
 
@@ -31,33 +32,54 @@ namespace xtb {
 		Depth32 = GL_DEPTH_COMPONENT32,
 	};
 
-	class DECLSPEC Texture {
+	class Texture : public Asset {
 		friend class RenderTexture;
 
 	public:
-		Texture(int32_t width, int32_t height, TextureType type);
-		Texture(const std::string& path);
-		~Texture();
+		DECLSPEC Texture();
+		DECLSPEC Texture(int32_t width, int32_t height, TextureType type);
+		DECLSPEC Texture(const std::string& path);
+		DECLSPEC ~Texture();
 
-		void LoadImage(const std::string& path);
+		DECLSPEC void LoadImage(const std::string& path);
 
-		void SetSize(int32_t width, int32_t height);
-		void SetWrapMode(TextureWrapMode wrapMode);
-		void SetFilterMode(TextureFilterMode filterMode);
+		DECLSPEC void SetSize(int32_t width, int32_t height);
+		
+		DECLSPEC void SetWrapMode(TextureWrapMode wrapMode);
+		
+		DECLSPEC void SetFilterMode(TextureFilterMode filterMode);
 		
 		inline void Bind() { glBindTexture(GL_TEXTURE_2D, texture); }
+		
 		inline void Unbind() { glBindTexture(GL_TEXTURE_2D, NULL); }
 
 		inline int32_t GetWidth() { return width; }
+		
 		inline int32_t GetHeight() { return height; }
 		
 		inline uint32_t GetID() { return texture; }
 
-	private:
-		void GenTextureBuffer();
+		inline TextureType GetType() { return type; }
 
-		TextureType type;
+		// inline TextureWrapMode GetWrapMode() { return wrapMode; }
+
+		// inline TextureFilterMode GetFilterMode() { return filterMode; }
+
+		// Asset overrides
+		
+		DECLSPEC std::string GetTypeName();
+
+		DECLSPEC void LoadAsset();
+
+		DECLSPEC void SaveAsset();
+
+		DECLSPEC static Asset* Create();
+
+	private:
+		DECLSPEC void GenTextureBuffer();
+
 		uint32_t texture = 0;
+		TextureType type;
 		int32_t width;
 		int32_t height;
 	};

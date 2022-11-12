@@ -6,14 +6,13 @@
 #include "EditorCamera.h"
 #include "CubeActor.h"
 #include "EditorGUI.h"
-#include "ShaderAsset.h"
 
 class PreviewObject : public xtb::Actor {
 public:
-    xtb::Material material;
+    xtb::Material* material;
 
     void Render() {
-        xtb::Graphics::DrawMesh(xtb::Primitives::sphere, transform.GetMatrix(), material);
+        xtb::Graphics::DrawMesh(xtb::Primitives::sphere, transform.GetMatrix(), *material);
     }
 } *a;
 
@@ -26,7 +25,9 @@ void MaterialAssetInspector::Start() {
     
     if (a == NULL) a = scene.Instance<PreviewObject>();
     a->name = "Qbito";
-    a->material.LoadFromFile(resourcePath.string());
+	
+	std::string uuid = xtb::AssetDatabase::GetUUIDByPath(resourcePath);
+    a->material = xtb::AssetDatabase::GetAssetByUUID<xtb::Material>(uuid);
 
     scene.Start();
 }
@@ -39,24 +40,33 @@ void MaterialAssetInspector::GUI() {
     {
         ImGui::TableNextColumn();
 
-        EditorGUI::InteractivePreview(NULL, a->material);
+        EditorGUI::InteractivePreview(NULL, (*a->material));
 
         ImGui::TableNextColumn();
         ImGui::Text(resourcePath.stem().string().c_str());
 
-		static std::string uuid = "";
-        EditorGUI::InputAsset<xtb::ShaderAsset>("Shader", uuid);
+		std::string uuid = "";
+
+        if (a->material->shader) {
+            uuid = a->material->shader->GetUUID();
+        }
+
+		bool changed = EditorGUI::InputAsset<xtb::Shader>("Shader", uuid);
+		
+        if (changed) {
+			a->material->shader = xtb::AssetDatabase::GetAssetByUUID<xtb::Shader>(uuid);
+            a->material->SaveAsset();
+        }
 		
         ImGui::Separator();
 
-        xtb::Shader& sh = *a->material.shader;
-        
-        /*
-        if (ImGui::Button("Edit Shader")) {
-            system(("start \"C:\\Program Files (x86)\\Notepad++\\notepad++.exe\" " + sh.GetPath()).c_str());
+        if (a->material->shader == NULL) {
+			ImGui::EndTable();
+			return;
         }
-        */
 
+        xtb::Shader& sh = *a->material->shader;
+		
         sh.Reload();
         
         if (sh.GetId() != 0) {
@@ -75,17 +85,19 @@ void MaterialAssetInspector::GUI() {
                 case xtb::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
                 
                 case xtb::Uniform::Sampler2D: {
-                    xtb::Material::TextureUniformInfo* info = dynamic_cast<xtb::Material::TextureUniformInfo*>(a->material.Get(m.name));
+                    xtb::TextureUniformInfo* info = dynamic_cast<xtb::TextureUniformInfo*>(a->material->Get(m.name));
 
                     std::string newUuid = "";
 
                     if (info) {
                         newUuid = info->texture->GetUUID();
                     }
+					
+					changed |= EditorGUI::InputAsset<xtb::Texture>(m.name.c_str(), newUuid);
                     
-                    if (EditorGUI::InputAsset<xtb::TextureAsset>(m.name.c_str(), newUuid)) {
-                        xtb::TextureAsset* asset = xtb::AssetDatabase::GetAssetByUUID<xtb::TextureAsset>(newUuid);
-                        if (asset) a->material.SetTexture(m.name, asset);
+                    if (changed) {
+                        xtb::Texture* asset = xtb::AssetDatabase::GetAssetByUUID<xtb::Texture>(newUuid);
+                        if (asset) a->material->SetTexture(m.name, asset);
                     }
 
                     break;
@@ -96,6 +108,10 @@ void MaterialAssetInspector::GUI() {
             }
         }
         
+		if (changed) {
+			a->material->SaveAsset();
+		}
+
         ImGui::EndTable();
     }
 }
