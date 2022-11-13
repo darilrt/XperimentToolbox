@@ -1,18 +1,18 @@
-#include "CubeActor.h"
-
 #include <etb.h>
+
+#include "CubeActor.h"
+#include "MeshRenderer.h"
 
 using namespace xtb;
 
 CubeActor::CubeActor() {
 	name = "CubeActor";
+
+	meshRenderer = AddComponent<xtb::MeshRenderer>();
 }
 
 void CubeActor::Start() {
-	const std::string uuid = xtb::AssetDatabase::GetUUIDByPath("Built-In/Materials/test.mat");
-	material = xtb::AssetDatabase::GetAssetByUUID<xtb::Material>(uuid);
 }
 
 void CubeActor::Render() {
-	Graphics::DrawMesh(Primitives::cube, transform.GetMatrix(), *material);
 }

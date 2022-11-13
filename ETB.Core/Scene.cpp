@@ -16,12 +16,20 @@ void xtb::Scene::Destroy(Actor* a) {
 void xtb::Scene::Start() {
 	for (Actor* a : actors) {
 		a->Start();
+		
+		for (xtb::Component* c : a->GetComponents()) {
+			c->Start();
+		}
 	}
 }
 
 void xtb::Scene::Update() {
 	for (Actor* a : actors) {
 		a->Update();
+
+		for (xtb::Component* c : a->GetComponents()) {
+			c->Update();
+		}
 	}
 }
 
@@ -33,6 +41,10 @@ void xtb::Scene::Render(Camera& camera) {
 	
 	for (xtb::Actor* a : actors) {
 		a->Render();
+
+		for (xtb::Component* c : a->GetComponents()) {
+			c->Render();
+		}
 	}
 
 	camera.renderTexture.UnbindFramebuffer();

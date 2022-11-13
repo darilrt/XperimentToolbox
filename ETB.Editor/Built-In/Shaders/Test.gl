@@ -49,19 +49,15 @@ vec3 CalcNormal() {
 	return normalize(TBN * normal);
 }
 
-// calculate normal from map
-vec3 CalcNormalMap() {
-	vec3 normal = texture(normalMap, uvMainTex).xyz;
-	normal = normalize(normal * 2.0 - 1.0);
-	return normal;
-}
-
 void main() {
 	vec3 objectColor = vec3(1.0, 1.0, 1.0);
 	
 	if (ISSET(albedo)) {
 		objectColor = texture(albedo, uvMainTex).rgb;
 	}
+    else {objectColor = vec3(1.0, 1.0, 1.0);
+        
+    }
 	
 	vec3 N = normalize(worldNormal);
 	

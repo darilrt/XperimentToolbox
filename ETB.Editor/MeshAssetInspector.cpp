@@ -14,5 +14,5 @@ void MeshAssetInspector::Start() {
 }
 
 void MeshAssetInspector::GUI() {
-	EditorGUI::InteractivePreview(&mesh, mat);
+	EditorGUI::InteractivePreview(&mesh, &mat);
 }

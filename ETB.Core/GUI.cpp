@@ -59,7 +59,7 @@ void xtb::GUI::ProcesssEvent(SDL_Event* event) {
 
 void xtb::GUI::SetTheme() {
 	auto& io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("Built-In/Fonts/Roboto-Medium.ttf", 18.0f);
+	io.Fonts->AddFontFromFileTTF("Built-In/Fonts/JetBrainsMono-SemiBold.ttf", 20.0f);
 
 	ImGuiStyle* style = &ImGui::GetStyle();
 	style->WindowRounding = 4.0f;

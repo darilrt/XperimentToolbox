@@ -8,14 +8,14 @@ xtb::Uniform::Uniform(std::string _name, Type _type) : name(_name), type(_type) 
 // Texture Uniform Methods
 
 void xtb::TextureUniformInfo::Set(const std::string& name, Shader* shader) {
-	shader->SetSampler2D(name.c_str(), *texture);
+	shader->SetSampler2D(name.c_str(), texture);
 }
 
 nlohmann::json xtb::TextureUniformInfo::Serialize() {
 	nlohmann::json obj;
 	
 	obj["type"] = GetTypeName();
-	obj["value"] = texture->GetUUID();
+	obj["value"] = texture ? texture->GetUUID() : "";
 	
 	return obj;
 }

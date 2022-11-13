@@ -7,13 +7,12 @@
 #include <nlohmann/json.hpp>
 
 #include "etbdefs.h"
+#include "AssetDatabase.h"
 
 #define REGISTER_ASSET(T, ...) \
 	static bool xtb_IsRegistered_##T = xtb::AssetFactory::GetInstance()->Register({ ##__VA_ARGS__ }, T::Create)
 
 namespace xtb {
-
-	class AssetDatabase;
 
 	class Asset {
 		friend class AssetDatabase;
@@ -29,6 +28,11 @@ namespace xtb {
 		DECLSPEC virtual void LoadAsset() = 0;
 		
 		DECLSPEC virtual void SaveAsset();
+
+		template<class T>
+		inline static T* GetAsset(std::string uuid) {
+			return xtb::AssetDatabase::GetAssetByUUID<T>(uuid);
+		}
 
 	private:
 		std::string uuid;

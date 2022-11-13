@@ -26,6 +26,14 @@ namespace xtb {
 		DECLSPEC virtual void OnDestroy();
 
 		DECLSPEC void AddComponent(Component* component);
+		
+		template<typename T>
+		T* AddComponent() {
+			T* component = new T();
+			AddComponent(component);
+			return component;
+		}
+
 		DECLSPEC void RemoveComponent(Component* component);
 		
 		template<typename T>
@@ -51,7 +59,7 @@ namespace xtb {
 			return result;
 		}
 
-		DECLSPEC std::vector<Component*> GetComponents();
+		inline std::vector<Component*> GetComponents() { return components; }
 		
 	private:
 		std::vector<Component*> components;

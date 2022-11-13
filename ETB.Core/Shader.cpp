@@ -137,18 +137,21 @@ void xtb::Shader::HotReload() {
 	});
 }
 
-void xtb::Shader::SetSampler2D(const char* name, Texture& texture) {
-	glActiveTexture(GL_TEXTURE0 + samplerCount);
+void xtb::Shader::SetSampler2D(const char* name, Texture* texture) {
 	
-	texture.Bind();
+	if (texture) {
+		glActiveTexture(GL_TEXTURE0 + samplerCount);
 
-	glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
-	glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
+		texture->Bind();
+		
+		glBindSampler(samplerCount, glGetUniformLocation(shaderId, name));
+		glUniform1i(glGetUniformLocation(shaderId, name), samplerCount);
 
+		samplerCount++;
+	}
+	
 	std::string isSetName = "xtb_" + std::string(name) + "_isSet";
-	glUniform1i(glGetUniformLocation(shaderId, isSetName.c_str()), true);
-
-	samplerCount++;
+	glUniform1i(glGetUniformLocation(shaderId, isSetName.c_str()), texture != NULL);
 }
 
 std::string xtb::Shader::GetTypeName() {

@@ -3,9 +3,9 @@
 #include <iostream>
 
 #include "etbdefs.h"
+#include "Transform.h"
 
 namespace xtb {
-
 	class Actor;
 	
 	class Component {
@@ -19,16 +19,16 @@ namespace xtb {
 		DECLSPEC virtual void OnDestroy();
 		
 		inline Actor* GetActor() { return actor; }
-		
 		inline void SetActor(Actor* a) { actor = a; }
 		
 		inline Actor* GetParent() { return actor; }
-		
 		inline std::string GetName() { return name; }
+
+	protected:
+		std::string name;
 		
 	private:
 		Actor* actor;
-		std::string name;
 	};
 
 }

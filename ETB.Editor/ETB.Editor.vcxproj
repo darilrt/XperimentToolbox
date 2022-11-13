@@ -151,6 +151,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaterialAssetInspector.cpp" />
     <ClCompile Include="MeshAssetInspector.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
     <ClCompile Include="vendor\ImGuizmo.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="InspectorEditor.h" />
     <ClInclude Include="MaterialAssetInspector.h" />
     <ClInclude Include="MeshAssetInspector.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="SceneEditor.h" />
     <ClInclude Include="vendor\ImGuizmo.h" />
   </ItemGroup>

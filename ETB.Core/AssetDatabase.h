@@ -4,10 +4,10 @@
 #include <filesystem>
 #include <unordered_map>
 
-#include "Asset.h"
-
 namespace xtb {
 	
+	class Asset;
+
 	class AssetDatabase {
 	public:
 		DECLSPEC static std::string assetPath;

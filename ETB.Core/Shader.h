@@ -67,7 +67,7 @@ namespace xtb {
 		
 		inline std::string GetPath() { return path.string(); }
 
-		DECLSPEC void SetSampler2D(const char* name, Texture& texture);
+		DECLSPEC void SetSampler2D(const char* name, Texture* texture);
 
 		// Inherited via Asset
 		

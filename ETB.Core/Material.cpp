@@ -52,9 +52,7 @@ void xtb::Material::LoadFromFile(const std::string& path) {
 				const std::string type = data["type"].get<std::string>();
 
 				if (type == "texture" && data.contains("value") && data["value"].is_string()) {
-					const std::string textureUUID = data["value"].get<std::string>();
-					Texture* texture = AssetDatabase::GetAssetByUUID<Texture>(textureUUID);
-
+					Texture* texture = Asset::GetAsset<Texture>(data["value"].get<std::string>());
 					SetTexture(name, texture);
 				}
 				else if (type == "float" && data.contains("value") && data["value"].is_number()) {
@@ -103,6 +101,21 @@ void xtb::Material::LoadFromFile(const std::string& path) {
 
 void xtb::Material::SetTexture(const std::string& name, xtb::Texture* texture) {
 	TextureUniformInfo* info = NULL;
+
+	if (texture == NULL) {
+		info = dynamic_cast<TextureUniformInfo*>(uniforms[name]);
+		
+		if (info != NULL) {
+			info->texture = NULL;
+		}
+		else {
+			info = new TextureUniformInfo();
+			info->texture = NULL;
+			uniforms[name] = info;
+		}
+		
+		return;
+	}
 
 	if (uniforms.count(name) != 0) {
 		info = dynamic_cast<TextureUniformInfo*>(uniforms[name]);
@@ -255,7 +268,7 @@ void xtb::Material::SetMatrix4(const std::string& name, const glm::mat4& value) 
 
 void xtb::Material::Use() {
 	for (auto& u : uniforms) { 
-		if (u.second != NULL) u.second->Set(u.first, shader);
+		if (u.second) u.second->Set(u.first, shader);
 	}
 }
 

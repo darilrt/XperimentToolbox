@@ -40,7 +40,7 @@ void MaterialAssetInspector::GUI() {
     {
         ImGui::TableNextColumn();
 
-        EditorGUI::InteractivePreview(NULL, (*a->material));
+        EditorGUI::InteractivePreview(NULL, a->material);
 
         ImGui::TableNextColumn();
         ImGui::Text(resourcePath.stem().string().c_str());
@@ -54,7 +54,7 @@ void MaterialAssetInspector::GUI() {
 		bool changed = EditorGUI::InputAsset<xtb::Shader>("Shader", uuid);
 		
         if (changed) {
-			a->material->shader = xtb::AssetDatabase::GetAssetByUUID<xtb::Shader>(uuid);
+			a->material->shader = xtb::Asset::GetAsset<xtb::Shader>(uuid);
             a->material->SaveAsset();
         }
 		
@@ -78,8 +78,9 @@ void MaterialAssetInspector::GUI() {
 
                 static float n = 0;
                 static bool v = false;
-                switch (m.type)
-                {
+				
+                switch (m.type) {
+					
                 case xtb::Uniform::Bool: ImGui::Checkbox(m.name.c_str(), &v); break;
 
                 case xtb::Uniform::Float: ImGui::DragFloat(m.name.c_str(), &n, 0.01f); break;
@@ -89,21 +90,23 @@ void MaterialAssetInspector::GUI() {
 
                     std::string newUuid = "";
 
-                    if (info) {
+                    if (info && info->texture) {
                         newUuid = info->texture->GetUUID();
                     }
 					
 					changed |= EditorGUI::InputAsset<xtb::Texture>(m.name.c_str(), newUuid);
                     
                     if (changed) {
-                        xtb::Texture* asset = xtb::AssetDatabase::GetAssetByUUID<xtb::Texture>(newUuid);
-                        if (asset) a->material->SetTexture(m.name, asset);
+                        xtb::Texture* asset = xtb::Asset::GetAsset<xtb::Texture>(newUuid);
+                        a->material->SetTexture(m.name, asset);
                     }
 
                     break;
                 }
-
-                default: break;
+				
+                default:
+                    break;
+				
                 }
             }
         }

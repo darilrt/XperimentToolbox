@@ -23,7 +23,7 @@ public:
 	}
 } *modelViewActor;
 
-void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
+void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material* material) {
 	using namespace xtb;
 
 	static uint8_t model = 0;
@@ -55,7 +55,7 @@ void EditorGUI::InteractivePreview(xtb::Mesh* pMesh, xtb::Material& material) {
 		}
 	}
 
-	modelViewActor->material = &material;
+	modelViewActor->material = material;
 
 	bool ignoreGui = false;
 	glm::vec2 cursorScreenPos = ImGui::GetCursorScreenPos();
@@ -130,23 +130,30 @@ bool EditorGUI::InputAssetEx(const char* label, std::string& uuid, const char* a
 	bool hovered, held;
 	bool pressed = ImGui::ButtonBehavior(frame_bb, id, &hovered, &held);
 
-	ImGui::RenderFrame(frame_bb.Min, frame_bb.Max, ImGui::GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+	const ImU32 frame_col = ImGui::GetColorU32(hovered ? ImGuiCol_FrameBgHovered : ImGuiCol_FrameBg);
+	ImGui::RenderFrame(frame_bb.Min, frame_bb.Max, frame_col, true, style.FrameRounding);
 
 	bool changed_value = false;
 
 	xtb::Asset* asset;
+
 	if (uuid != "" && (asset = xtb::AssetDatabase::GetAssetByUUID(uuid)) != NULL) {
 		const std::string& assetName = asset->path.filename().string();
 		draw_window->DrawList->AddText(g.Font, g.FontSize, draw_pos, ImGui::GetColorU32(ImGuiCol_Text), assetName.c_str(), NULL, 0.0f, &clip_rect);
 
-		// const bool hovered = ImGui::ItemHoverable(frame_bb, id);
-		// if (hovered) g.MouseCursor = ImGuiMouseCursor_Hand;
-
 		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
 			ImGui::SetDragDropPayload(payloadID.c_str(), asset, sizeof(xtb::Asset), ImGuiCond_Once);
-			ImGui::Text("%s", assetName.c_str());
-
+			ImGui::Text(assetName.c_str());
 			ImGui::EndDragDropSource();
+		}
+
+		if (ImGui::BeginPopupContextItem()) {
+			if (ImGui::MenuItem("Remove")) {
+				uuid = "";
+				changed_value = true;
+			}
+
+			ImGui::EndPopup();
 		}
 	}
 	else {
